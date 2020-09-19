@@ -20,13 +20,21 @@ a initializeShop.
 Menu >> initializeButtons [ 
 |close login create|
 
-close := Button create:'close'. self addMorphCentered: close.
-login := Button create:'login '. self addMorphCentered: login.
-create := Button create:'create shop'. self addMorphCentered: create.
+close := Button create:'close'. 
+login := Button create:'login '. 
+create := Button create:'create shop'. 
+create extent: (130@40).
+login extent:(40@30). 
+
+self addMorphCentered: close.
+self addMorphCentered: login.
+self addMorphCentered: create.
+
 "Posiciono los botones en la ventana."
 "I position the buttons of the entrance"
-login bottom:400.
-close bottom:450.
+close bottom:25.
+close right: 360.
+login bottom:480.
 
 
 
@@ -39,8 +47,28 @@ close bottom:450.
 { #category : #'as yet unclassified' }
 Menu >> initializeShop [
 super initialize.
-self  extent:320@480.
+self  extent:(360@640).
+"Traer recursos Https de repostorio "
+"self addMorphCentered:(ZnEasy getPng:'https://raw.githubusercontent.com/danteGiuliano/amazing_shop/master/src/resourses/login.png')asMorph ."
 self initializeButtons.
+self initializeTextBoxs.
 self openInHand.
 
+]
+
+{ #category : #initialization }
+Menu >> initializeTextBoxs [
+|user password|
+user := TextBox new.
+password := TextBox new.
+
+user extent: 200@30.
+password extent: 200@30.
+
+"Centrado de textos."
+self addMorphCentered: user.
+self addMorphCentered: password.
+
+user bottom:400.
+password bottom:430.
 ]
