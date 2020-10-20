@@ -1,74 +1,73 @@
+"
+para crear una tienda.
+|a|
+a := Menu create:'tienda'.
+
+"
 Class {
 	#name : #Menu,
-	#superclass : #BorderedMorph,
+	#superclass : #FullscreenMorph,
 	#instVars : [
-		'name',
-		'resources'
+		'name'
 	],
 	#category : #TiendaOnline
 }
 
-{ #category : #initialization }
+{ #category : #'as yet unclassified' }
 Menu class >> create [
-| a |
-a := self new.
-a initializeShop.
-^a
-]
-
-{ #category : #'as yet unclassified' }
-Menu >> initializeButtons [ 
-|close login create|
-
-close := Button create:'close'. 
-login := Button create:'login '. 
-create := Button create:'create shop'. 
-create extent: (130@40).
-login extent:(40@30). 
-
-self addMorphCentered: close.
-self addMorphCentered: login.
-self addMorphCentered: create.
-
-"Posiciono los botones en la ventana."
-"I position the buttons of the entrance"
-close bottom:25.
-close right: 360.
-login bottom:480.
-
-
-
-
+|temp|.
+temp := self new.
+^temp addLeftMorphic:(Helper createPanel).
 
 
 
 ]
 
 { #category : #'as yet unclassified' }
-Menu >> initializeShop [
-super initialize.
-self  extent:(360@640).
-"Traer recursos Https de repostorio "
-"self addMorphCentered:(ZnEasy getPng:'https://raw.githubusercontent.com/danteGiuliano/amazing_shop/master/src/resourses/login.png')asMorph ."
-self initializeButtons.
-self initializeTextBoxs.
-self openInHand.
+Menu class >> create:title [
+|temp|.
+temp := self new.
+temp initialize:title.
+^temp addLeftMorphic:(Helper createPanel).
+
+
+
+]
+
+{ #category : #adding }
+Menu >> addLeftMorphic:aContent [
+"Posiciona el panel en el origen del menu."
+self addMorphCentered:aContent.
+aContent position:(self innerBounds origin).
 
 ]
 
 { #category : #initialization }
-Menu >> initializeTextBoxs [
-|user password|
-user := TextBox new.
-password := TextBox new.
+Menu >> initialize:title [
+super initialize.
+self initializeButtons.
+self openInWorld.
 
-user extent: 200@30.
-password extent: 200@30.
 
-"Centrado de textos."
-self addMorphCentered: user.
-self addMorphCentered: password.
+]
 
-user bottom:400.
-password bottom:430.
+{ #category : #initialization }
+Menu >> initializeButtons [
+|shops subscriptions clients contents|.
+"Inicializo el panel de opciones."
+"initialize this panel of options."
+
+shops := Button create:'Tiendas'.
+subscriptions := Button create:'Suscripciones'.
+clients := Button create:'Clientes'.
+contents := Button create:'Contenidos'.
+
+shops extent: 400@500.
+contents  extent: 400@500.
+subscriptions  extent: 400@500.
+clients  extent: 400@500.
+
+self addMorphCentered: shops.
+self addMorphCentered: clients.
+self addMorphCentered: contents.
 ]
