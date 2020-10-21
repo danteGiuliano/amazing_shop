@@ -24,7 +24,7 @@ PanelController >> getNameOptions [
 
 { #category : #initialization }
 PanelController >> initializePanelController [
-colNameOptions :=(#(Clientes Suscripciones Promociones) asOrderedCollection).
+colNameOptions :=(#(Clientes Suscripciones Promociones Contenidos) asOrderedCollection).
 
 
 
