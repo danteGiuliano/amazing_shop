@@ -7,3 +7,4 @@
 - protocolos http.
 - manejo de imagenes.
 - manejos de morph.
+- manejo de sistema CRUD
