@@ -1,6 +1,9 @@
 Class {
 	#name : #Button,
 	#superclass : #SimpleButtonMorph,
+	#instVars : [
+		'aBlock'
+	],
 	#category : #TiendaOnline
 }
 
@@ -23,4 +26,15 @@ temp extent:aSize.
 { #category : #initialization }
 Button >> initializeButton:aName [
 self label:aName.
+]
+
+{ #category : #initialization }
+Button >> mouseAction:aEvent [
+aBlock :=aEvent
+]
+
+{ #category : #initialization }
+Button >> mouseUp:aEvent [
+super mouseUp:aEvent.
+aBlock value.
 ]

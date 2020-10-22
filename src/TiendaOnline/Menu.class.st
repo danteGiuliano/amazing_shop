@@ -19,8 +19,8 @@ Menu class >> create [
 "El menu principal solo se encarga de posicionar las ventanas."
 temp := self new.
 temp addLeftMorphic:(Helper createPanel).
-^temp addSubMenuView:(Helper createSubMenu:(temp extent) and:(temp width)).
-
+temp addSubMenuView:(Helper createSubMenu:(temp extent) and:(temp width)).
+^temp openInWorld.
 
 ]
 

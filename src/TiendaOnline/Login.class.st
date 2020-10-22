@@ -17,14 +17,38 @@ a initializeShop.
 ]
 
 { #category : #'as yet unclassified' }
+Login >> cerrar [ 
+self collapse.
+
+
+
+
+
+
+
+]
+
+{ #category : #'as yet unclassified' }
+Login >> createShop [
+"Acciones para crear un shop. logica y demas"
+
+(Menu create)openInWorld.
+
+
+
+
+
+
+
+]
+
+{ #category : #'as yet unclassified' }
 Login >> initializeButtons [ 
 |close login create|
 
 close := Button create:'close'. 
-login := Button create:'login '. 
-create := Button create:'create shop'. 
-create extent: (130@40).
-login extent:(40@30). 
+login := Button create:'login ' size:(40@30). 
+create := Button create:'create shop' size:(130@40). 
 
 self addMorphCentered: close.
 self addMorphCentered: login.
@@ -35,6 +59,10 @@ self addMorphCentered: create.
 close bottom:25.
 close right: 360.
 login bottom:480.
+
+"Añado funciones a los bottones."
+close mouseAction: [self cerrar].
+create mouseAction: [Menu create].
 
 
 
