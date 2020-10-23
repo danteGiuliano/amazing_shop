@@ -24,6 +24,11 @@ temp extent:aSize.
 ]
 
 { #category : #initialization }
+Button >> close:aContent [
+aContent delete.
+]
+
+{ #category : #initialization }
 Button >> initializeButton:aName [
 self label:aName.
 ]

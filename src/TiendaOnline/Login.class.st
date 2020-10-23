@@ -17,18 +17,6 @@ a initializeShop.
 ]
 
 { #category : #'as yet unclassified' }
-Login >> cerrar [ 
-self collapse.
-
-
-
-
-
-
-
-]
-
-{ #category : #'as yet unclassified' }
 Login >> createShop [
 "Acciones para crear un shop. logica y demas"
 
@@ -61,7 +49,7 @@ close right: 360.
 login bottom:480.
 
 "Añado funciones a los bottones."
-close mouseAction: [self cerrar].
+close mouseAction: [close close:self].
 create mouseAction: [Menu create].
 
 
