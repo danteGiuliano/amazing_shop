@@ -8,7 +8,9 @@ Class {
 	#name : #Menu,
 	#superclass : #FullscreenMorph,
 	#instVars : [
-		'name'
+		'contenido',
+		'suscripcion',
+		'subMenu'
 	],
 	#category : #TiendaOnline
 }
@@ -35,25 +37,34 @@ Helper positionLeftBotton:exit and:self.
 Helper positionRigthMorp: logout  and:exit. 
 ]
 
-{ #category : #adding }
-Menu >> addLeftMorphic:aContent [
-"Posiciona el panel en el origen del menu."
-self addMorphCentered:aContent.
-aContent position:(self innerBounds origin).
-
+{ #category : #initialization }
+Menu >> addPanelOptions [
+|colNameOptions|
+colNameOptions := #(Clientes Subscripciones Contenido Promociones).
+Helper addLeftTopMorphic:(Helper createPanel:colNameOptions)in:self.
 ]
 
 { #category : #initialization }
-Menu >> addSubMenuView:aContent [
-self addMorphCentered:aContent.
-aContent left:210.
+Menu >> addSubMenu [
+subMenu := (Helper createSubMenu:(self extent) and:(self width)).
+self addMorphCentered:subMenu .
+subMenu left:210.
+
 
 ]
 
 { #category : #initialization }
 Menu >> initialize [ 
 super initialize.
-self addLeftMorphic:(Helper createPanel).
-self addSubMenuView:(Helper createSubMenu:(self extent) and:(self width)).
+self addPanelOptions.
+self addSubMenu.
 self addBotons.
+
+
+"Inicializar las opciones."
+contenido :=MenuContenido createMenuContenido.
+suscripcion :=MenuSuscripcion createMenuSuscripcion.
+Helper addLeftTopMorphic: suscripcion  in:subMenu. 
+contenido visible: false.
+Helper addLeftTopMorphic:contenido in:subMenu. 
 ]

@@ -2,7 +2,7 @@ Class {
 	#name : #PanelController,
 	#superclass : #Object,
 	#instVars : [
-		'colNameOptions'
+		'panelView'
 	],
 	#category : #TiendaOnline
 }
@@ -14,18 +14,9 @@ temp := self new.
 ^temp initializePanelController.
 ]
 
-{ #category : #initialization }
-PanelController >> getNameOptions [
-^colNameOptions.
-
-
-
-]
-
-{ #category : #initialization }
-PanelController >> initializePanelController [
-colNameOptions :=(#(Clientes Suscripciones Promociones Contenidos) asOrderedCollection).
-
-
-
+{ #category : #operations }
+PanelController class >> create:aCollect [
+|temp|
+temp := self new. 
+^temp initializePanelController:aCollect.
 ]

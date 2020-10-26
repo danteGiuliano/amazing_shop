@@ -2,7 +2,7 @@ Class {
 	#name : #PanelView,
 	#superclass : #MenuMorph,
 	#instVars : [
-		'panelController'
+		'colComponentes'
 	],
 	#category : #TiendaOnline
 }
@@ -16,12 +16,11 @@ temp initialize:aNameColeccion.
 ]
 
 { #category : #initialization }
-PanelView >> initialize:aPanelController [
-|aNameOptions|.
-"Pido que se me de la clase PanelController donde va  estar toda la logica del panel"
-aNameOptions :=aPanelController getNameOptions.
-panelController :=aPanelController.
-aNameOptions  do:[ :aName|
-	self addMenuItem:(Button create:aName size:(200@100))
+PanelView >> initialize:aNameColection [
+|temp|
+colComponentes := OrderedCollection new.
+aNameColection   do:[ :aName|temp:=(Button create:aName size:(200@100)).
+	colComponentes add: temp.
+	self addMenuItem:temp
 	].
 ]
