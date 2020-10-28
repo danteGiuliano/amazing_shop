@@ -5,8 +5,15 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-Helper class >> createPanel [
-^PanelView create:(PanelController create).
+Helper class >> addLeftTopMorphic:aContent in:other [
+"Posiciona el panel en el origen del menu."
+other addMorphCentered:aContent.
+aContent position:(other innerBounds origin).
+]
+
+{ #category : #'as yet unclassified' }
+Helper class >> createPanel:aCollection aLogic:aBlock [
+^PanelView create: aCollection  aControl:aBlock. 
 
 ]
 

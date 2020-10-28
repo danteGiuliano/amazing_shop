@@ -2,7 +2,8 @@ Class {
 	#name : #Button,
 	#superclass : #SimpleButtonMorph,
 	#instVars : [
-		'aBlock'
+		'aBlock',
+		'id'
 	],
 	#category : #TiendaOnline
 }
@@ -29,8 +30,14 @@ aContent delete.
 ]
 
 { #category : #initialization }
-Button >> initializeButton:aName [
+Button >> getID [
+^id.
+]
+
+{ #category : #initialization }
+Button >> initializeButton:aName [ 
 self label:aName.
+id:=aName.
 ]
 
 { #category : #initialization }

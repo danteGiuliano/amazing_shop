@@ -8,7 +8,9 @@ Class {
 	#name : #Menu,
 	#superclass : #FullscreenMorph,
 	#instVars : [
-		'name'
+		'contenido',
+		'suscripcion',
+		'subMenu'
 	],
 	#category : #TiendaOnline
 }
@@ -35,25 +37,44 @@ Helper positionLeftBotton:exit and:self.
 Helper positionRigthMorp: logout  and:exit. 
 ]
 
-{ #category : #adding }
-Menu >> addLeftMorphic:aContent [
-"Posiciona el panel en el origen del menu."
-self addMorphCentered:aContent.
-aContent position:(self innerBounds origin).
-
+{ #category : #initialization }
+Menu >> addPanelOptions [
+|colNameOptions|
+colNameOptions := #(Clientes Subscripciones Contenido Promociones).
+Helper addLeftTopMorphic:(Helper createPanel:colNameOptions aLogic:self routes)in:self.
 ]
 
 { #category : #initialization }
-Menu >> addSubMenuView:aContent [
-self addMorphCentered:aContent.
-aContent left:210.
+Menu >> addSubMenu [
+subMenu := (Helper createSubMenu:(self extent) and:(self width)).
+self addMorphCentered:subMenu .
+subMenu left:210.
+
 
 ]
 
 { #category : #initialization }
 Menu >> initialize [ 
 super initialize.
-self addLeftMorphic:(Helper createPanel).
-self addSubMenuView:(Helper createSubMenu:(self extent) and:(self width)).
+self addPanelOptions.
+self addSubMenu.
 self addBotons.
+
+
+"Inicializar las opciones."
+contenido :=MenuContenido createMenuContenido.
+Helper addLeftTopMorphic:contenido in:subMenu. 
+]
+
+{ #category : #initialization }
+Menu >> routes [
+	"Inspirate in concept IONIC Framework"
+	^ [ :id | 
+	  | logicReturn |
+	logicReturn :=3.
+	id = 'Juegos' ifTrue: [ logicReturn:=[|a|.a:=Button create:'Funco'.a openInHand] ].
+	id = 'Juegos' ifTrue: [ logicReturn := [|a|.a:=Button create:'OMG'.a openInHand] ].
+	id = 'Juegos' ifTrue: [ logicReturn := [|a|.a:=Button create:'Amazing'.a openInHand] ].
+	id = 'Juegos' ifTrue: [ logicReturn := [|a|.a:=Button create:'beautiful'.a openInHand] ].
+	].
 ]

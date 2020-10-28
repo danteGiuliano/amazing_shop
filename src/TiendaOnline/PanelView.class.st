@@ -1,27 +1,29 @@
 Class {
 	#name : #PanelView,
 	#superclass : #MenuMorph,
-	#instVars : [
-		'panelController'
-	],
 	#category : #TiendaOnline
 }
 
 { #category : #'as yet unclassified' }
-PanelView class >> create:aNameColeccion [
+PanelView class >> create:aNameColeccion aControl:aBlock [
 |temp|.
 temp := self new.
-temp initialize:aNameColeccion.
+temp initialize:aNameColeccion aControl:aBlock.
 ^temp.
 ]
 
 { #category : #initialization }
-PanelView >> initialize:aPanelController [
-|aNameOptions|.
-"Pido que se me de la clase PanelController donde va  estar toda la logica del panel"
-aNameOptions :=aPanelController getNameOptions.
-panelController :=aPanelController.
-aNameOptions  do:[ :aName|
-	self addMenuItem:(Button create:aName size:(200@100))
+PanelView >> initialize:aNameColection aControl:aBlock [
+|temp|
+aNameColection  do:[ :aName|temp:=(Button create:aName size:(200@100)).
+	temp mouseAction: ( self setLogicButton:aBlock idButton: temp getID).
+	self addMenuItem:temp
 	].
+
+]
+
+{ #category : #initialization }
+PanelView >> setLogicButton:aBlock idButton:aID [
+^aBlock value:aID.
+
 ]
