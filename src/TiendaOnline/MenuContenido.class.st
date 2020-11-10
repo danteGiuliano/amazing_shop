@@ -1,7 +1,10 @@
 Class {
 	#name : #MenuContenido,
 	#superclass : #SubMenuView,
-	#category : #TiendaOnline
+	#instVars : [
+		'panel'
+	],
+	#category : #'TiendaOnline-View'
 }
 
 { #category : #'as yet unclassified' }
@@ -13,8 +16,8 @@ temp := self new.
 
 { #category : #initialization }
 MenuContenido >> initialize [
-|temp panel|
-temp := #(Peliculas Aplicaciones Juegos Libros)asOrderedCollection .
+|temp |
+temp := #(Peliculas Aplicaciones Juegos Libros Softwares )asOrderedCollection .
 super initialize. 
 panel := (Helper createPanel: temp aLogic:self routes).
 self addMorphCentered: panel.

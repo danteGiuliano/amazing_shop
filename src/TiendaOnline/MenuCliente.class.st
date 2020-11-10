@@ -1,29 +1,26 @@
 Class {
-	#name : #MenuSuscripcion,
+	#name : #MenuCliente,
 	#superclass : #SubMenuView,
-	#instVars : [
-		'menu'
-	],
 	#category : #'TiendaOnline-View'
 }
 
 { #category : #'as yet unclassified' }
-MenuSuscripcion class >> createMenuSuscripcion [
+MenuCliente class >> createMenuCliente [
 |temp|
 temp := self new.
 ^temp initialize.
 ]
 
 { #category : #initialization }
-MenuSuscripcion >> initialize [
-|temp|
-temp :=#(Nueva Borrar Buscar)asOrderedCollection .
-super initialize.
-self addMorphCentered:(Helper createPanel: temp aLogic:self routes). 
+MenuCliente >> initialize [
+|temp |
+temp := #(Buscar cliente Crear Comprar)asOrderedCollection .
+super initialize. 
+self addMorphCentered:(Helper createPanel: temp aLogic:self routes).
 ]
 
 { #category : #initialization }
-MenuSuscripcion >> routes [
+MenuCliente >> routes [
 	"Inspirate in concept IONIC Framework"
 	^ [ :id | 
 	  | logicReturn |

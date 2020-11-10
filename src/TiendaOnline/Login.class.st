@@ -1,3 +1,6 @@
+"
+Class interface pre-aplation.
+"
 Class {
 	#name : #Login,
 	#superclass : #BorderedMorph,
@@ -5,7 +8,7 @@ Class {
 		'name',
 		'resources'
 	],
-	#category : #TiendaOnline
+	#category : #'TiendaOnline-View'
 }
 
 { #category : #initialization }

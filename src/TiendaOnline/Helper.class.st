@@ -1,7 +1,7 @@
 Class {
 	#name : #Helper,
 	#superclass : #Object,
-	#category : #TiendaOnline
+	#category : #'TiendaOnline-Components'
 }
 
 { #category : #'as yet unclassified' }

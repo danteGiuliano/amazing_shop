@@ -12,7 +12,7 @@ Class {
 		'suscripcion',
 		'subMenu'
 	],
-	#category : #TiendaOnline
+	#category : #'TiendaOnline-View'
 }
 
 { #category : #'as yet unclassified' }
@@ -60,10 +60,28 @@ self addPanelOptions.
 self addSubMenu.
 self addBotons.
 
-
 "Inicializar las opciones."
-contenido :=MenuContenido createMenuContenido.
-Helper addLeftTopMorphic:contenido in:subMenu. 
+
+]
+
+{ #category : #initialization }
+Menu >> loadCliennte [
+Helper addLeftTopMorphic:(MenuCliente createMenuCliente) in:subMenu. 
+]
+
+{ #category : #initialization }
+Menu >> loadContenido [
+Helper addLeftTopMorphic:(MenuContenido createMenuContenido)in:subMenu. 
+]
+
+{ #category : #initialization }
+Menu >> loadPromocion [
+Helper addLeftTopMorphic:(MenuPromocion createMenuPromocion) in:subMenu.  
+]
+
+{ #category : #initialization }
+Menu >> loadSuscripcion [
+Helper addLeftTopMorphic:(MenuSuscripcion  createMenuSuscripcion) in:subMenu. 
 ]
 
 { #category : #initialization }
@@ -72,9 +90,16 @@ Menu >> routes [
 	^ [ :id | 
 	  | logicReturn |
 	logicReturn :=3.
-	id = 'Juegos' ifTrue: [ logicReturn:=[|a|.a:=Button create:'Funco'.a openInHand] ].
-	id = 'Juegos' ifTrue: [ logicReturn := [|a|.a:=Button create:'OMG'.a openInHand] ].
-	id = 'Juegos' ifTrue: [ logicReturn := [|a|.a:=Button create:'Amazing'.a openInHand] ].
-	id = 'Juegos' ifTrue: [ logicReturn := [|a|.a:=Button create:'beautiful'.a openInHand] ].
+	id = 'Clientes' ifTrue: [ logicReturn:=[self update;loadCliennte ] ].
+	id = 'Subscripciones' ifTrue: [ logicReturn := [self update ;loadSuscripcion ] ].
+	id = 'Contenido' ifTrue: [ logicReturn :=[self update; loadContenido]].
+	id = 'Promociones' ifTrue: [ logicReturn := [self update;loadPromocion ]].
+	logicReturn
 	].
+]
+
+{ #category : #initialization }
+Menu >> update [
+subMenu update.
+self addSubMenu.
 ]

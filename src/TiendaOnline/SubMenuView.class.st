@@ -1,7 +1,7 @@
 Class {
 	#name : #SubMenuView,
 	#superclass : #BorderedMorph,
-	#category : #TiendaOnline
+	#category : #'TiendaOnline-View'
 }
 
 { #category : #'as yet unclassified' }
@@ -15,5 +15,11 @@ temp := self new.
 SubMenuView >> initialize:aSize and:aWigth [
 self extent:(aSize-(60@15)). "Para establecer un padding"
 self width: aWigth*0.84. "Establecer el ancho de la view."
+
+]
+
+{ #category : #initialization }
+SubMenuView >> update [
+self delete.
 
 ]
