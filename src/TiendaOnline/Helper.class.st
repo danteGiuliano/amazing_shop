@@ -12,6 +12,20 @@ aContent position:(other innerBounds origin).
 ]
 
 { #category : #'as yet unclassified' }
+Helper class >> addRightTopMorphic:aContent in:otherContent [
+otherContent addMorphFront: aContent.
+aContent topRight: (otherContent topRight).
+
+]
+
+{ #category : #'as yet unclassified' }
+Helper class >> addTopCenterMorph:aContent in:otherContent [
+otherContent addMorphCentered: aContent.
+aContent top:(otherContent top).
+
+]
+
+{ #category : #'as yet unclassified' }
 Helper class >> createPanel:aCollection aLogic:aBlock [
 ^PanelView create: aCollection  aControl:aBlock. 
 
@@ -25,11 +39,17 @@ Helper class >> createSubMenu:aSize and:aWitdh [
 { #category : #'as yet unclassified' }
 Helper class >> positionLeftBotton:aContent and:otherContent [
 "aContent is a element to positionate in otherContent"
-aContent position:(otherContent  bottomLeft+(aContent extent *0.15)*0.92).
+aContent bottomLeft: (otherContent bottomLeft).
 ]
 
 { #category : #'as yet unclassified' }
 Helper class >> positionRigthMorp:aContent and:otherContent [
 "a position aContent a right of the otherContent "
-aContent position: otherContent bottomCenter +(otherContent extent)*0.9123
+aContent bottomLeft: (otherContent bottomRight).
+]
+
+{ #category : #'as yet unclassified' }
+Helper class >> positionTop2Content:aContent in:otherContent [
+aContent bottom: (otherContent top).
+ 
 ]

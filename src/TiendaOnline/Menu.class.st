@@ -8,9 +8,10 @@ Class {
 	#name : #Menu,
 	#superclass : #FullscreenMorph,
 	#instVars : [
-		'contenido',
-		'suscripcion',
-		'subMenu'
+		'subMenu',
+		'calendar',
+		'exit',
+		'logout'
 	],
 	#category : #'TiendaOnline-View'
 }
@@ -26,7 +27,6 @@ temp := self new.
 
 { #category : #initialization }
 Menu >> addBotons [
-|logout exit|
 logout := Button create:'Logout' size:60@30.
 exit := Button create:'exit' size:60@30.
 
@@ -34,7 +34,22 @@ self addMorphCentered:logout.
 self addMorphCentered: exit.
 exit mouseAction:[exit close:self].
 Helper positionLeftBotton:exit and:self.
+exit left:4.
+exit top:620.
 Helper positionRigthMorp: logout  and:exit. 
+logout left:100.
+
+
+]
+
+{ #category : #initialization }
+Menu >> addCalendar [
+calendar := CalendarMorph openOn: (Date today).
+self addMorphFront: calendar.
+Helper positionTop2Content: calendar in:exit. 
+calendar left:5.
+calendar top:450
+
 ]
 
 { #category : #initialization }
@@ -59,14 +74,15 @@ super initialize.
 self addPanelOptions.
 self addSubMenu.
 self addBotons.
+self addCalendar.
 
 "Inicializar las opciones."
 
 ]
 
 { #category : #initialization }
-Menu >> loadCliennte [
-Helper addLeftTopMorphic:(MenuCliente createMenuCliente) in:subMenu. 
+Menu >> loadCliente [
+Helper addTopCenterMorph:(MenuCliente createMenuCliente) in:subMenu. 
 ]
 
 { #category : #initialization }
@@ -90,7 +106,7 @@ Menu >> routes [
 	^ [ :id | 
 	  | logicReturn |
 	logicReturn :=3.
-	id = 'Clientes' ifTrue: [ logicReturn:=[self update;loadCliennte ] ].
+	id = 'Clientes' ifTrue: [ logicReturn:=[self update;loadCliente ] ].
 	id = 'Subscripciones' ifTrue: [ logicReturn := [self update ;loadSuscripcion ] ].
 	id = 'Contenido' ifTrue: [ logicReturn :=[self update; loadContenido]].
 	id = 'Promociones' ifTrue: [ logicReturn := [self update;loadPromocion ]].
