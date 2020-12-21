@@ -5,18 +5,24 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-MenuCliente class >> createMenuCliente [
+MenuCliente class >> createMenuClienteIn:aContent [
 |temp|
 temp := self new.
-^temp initialize.
+^temp initialize:aContent.
 ]
 
 { #category : #initialization }
-MenuCliente >> initialize [
-|temp |
-temp := #(Buscar cliente Crear Comprar)asOrderedCollection .
-super initialize. 
-self addMorphCentered:(Helper createPanel: temp aLogic:self routes).
+MenuCliente >> initialize:aContent [
+|options aTable aNamesColumnTable temp|
+super initialize.
+temp :=Persona new. "CLase TEST"
+options := #(Buscar Eliminar Crear Comprar Modificar)asOrderedCollection .
+aNamesColumnTable:= #('#' 'Nombre' 'Edad')asOrderedCollection.
+aTable := Table create:(Persona elements:(temp testPersonas)) aCollums: aNamesColumnTable  aSize:(900@600). 
+Helper addRightTopMorphic:((Helper createPanel: options aLogic:self routes)) in:aContent.
+Helper addLeftTopMorphic: aTable in:aContent. 
+aTable left:220.
+aTable bottom:630.
 ]
 
 { #category : #initialization }

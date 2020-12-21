@@ -82,7 +82,7 @@ self addCalendar.
 
 { #category : #initialization }
 Menu >> loadCliente [
-Helper addTopCenterMorph:(MenuCliente createMenuCliente) in:subMenu. 
+MenuCliente createMenuClienteIn: subMenu. 
 ]
 
 { #category : #initialization }

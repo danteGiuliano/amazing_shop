@@ -1,3 +1,6 @@
+"
+Clase especial para el posicionamiento de Morphic
+"
 Class {
 	#name : #Helper,
 	#superclass : #Object,
