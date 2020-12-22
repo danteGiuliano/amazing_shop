@@ -19,7 +19,7 @@ temp :=Persona new. "CLase TEST"
 options := #(Buscar Eliminar Crear Comprar Modificar)asOrderedCollection .
 aNamesColumnTable:= #('#' 'Nombre' 'Edad')asOrderedCollection.
 aTable := Table create:(Persona elements:(temp testPersonas)) aCollums: aNamesColumnTable  aSize:(900@600). 
-Helper addRightTopMorphic:((Helper createPanel: options aLogic:self routes)) in:aContent.
+Helper addRightTopMorph:((Helper createPanel: options aLogic:self routes)) in:aContent.
 Helper addLeftTopMorphic: aTable in:aContent. 
 aTable left:220.
 aTable bottom:630.

@@ -33,10 +33,10 @@ exit := Button create:'exit' size:60@30.
 self addMorphCentered:logout.
 self addMorphCentered: exit.
 exit mouseAction:[exit close:self].
-Helper positionLeftBotton:exit and:self.
+Helper positionLeftBotton:exit in:self.
 exit left:4.
 exit top:620.
-Helper positionRigthMorp: logout  and:exit. 
+Helper positionOutsideRigthMorp: logout  in:exit. 
 logout left:100.
 
 
@@ -46,7 +46,7 @@ logout left:100.
 Menu >> addCalendar [
 calendar := CalendarMorph openOn: (Date today).
 self addMorphFront: calendar.
-Helper positionTop2Content: calendar in:exit. 
+Helper positionAboveContent: calendar in:exit. 
 calendar left:5.
 calendar top:450
 
