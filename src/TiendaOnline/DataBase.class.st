@@ -13,13 +13,14 @@ temp initializePaths.
 
 { #category : #initialization }
 DataBase >> aPathsRoutes [
-^#('/amazingShop' '/amazingShop/login' 'amazingShop/contenidos' ).
+^#('/amazingShop' '/amazingShop/user' '/amazingShop/contenidos' ).
 
 ]
 
 { #category : #initialization }
 DataBase >> createCredentials [
-"(File named:'@amazingShop/Example.txt' asFileName)writeStream."
+(File named:'C:/amazingShop/login.txt' asFileReference fullName)writeStream.
+		
 ]
 
 { #category : #initialization }
