@@ -1,5 +1,5 @@
 # Shop online.
-## Programing Pharo V9.
+## Programing Pharo V8.
 
 **Author: Dante R. Giuliano**.
 
