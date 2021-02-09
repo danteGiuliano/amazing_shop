@@ -5,5 +5,5 @@ Class {
 		'fechaInicio',
 		'fechaExpira'
 	],
-	#category : #'TiendaOnline-Controller'
+	#category : #'TiendaOnline-Model'
 }

@@ -1,7 +1,7 @@
 Class {
 	#name : #PanelView,
 	#superclass : #MenuMorph,
-	#category : #'TiendaOnline-Components'
+	#category : #'TiendaOnline-components'
 }
 
 { #category : #'as yet unclassified' }

@@ -8,5 +8,15 @@ Class {
 		'colectionClientes',
 		'colectionContenidos'
 	],
-	#category : #'TiendaOnline-Controller'
+	#category : #'TiendaOnline-Model'
 }
+
+{ #category : #updating }
+Tienda class >> changed:aBlock [
+^aBlock value.
+]
+
+{ #category : #'as yet unclassified' }
+Tienda >> getClients [
+^colectionClientes.
+]

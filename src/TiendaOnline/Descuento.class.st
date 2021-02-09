@@ -1,5 +1,5 @@
 Class {
 	#name : #Descuento,
 	#superclass : #Object,
-	#category : #'TiendaOnline-Controller'
+	#category : #'TiendaOnline-Model'
 }

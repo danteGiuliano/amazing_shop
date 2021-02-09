@@ -5,5 +5,5 @@ Class {
 		'precio',
 		'nombre'
 	],
-	#category : #'TiendaOnline-Controller'
+	#category : #'TiendaOnline-Model'
 }

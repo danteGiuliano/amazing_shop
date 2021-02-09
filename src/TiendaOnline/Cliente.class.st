@@ -7,20 +7,25 @@ Class {
 		'email',
 		'listaDeSuscripcion'
 	],
-	#category : #'TiendaOnline-Controller'
+	#category : #'TiendaOnline-Model'
 }
 
 { #category : #initialization }
-Cliente class >> createWithMap:arrayMap [.
-"
-arrayMap.
-1 - class
-2 - var:info
-3 - var:info
-.....
-orderd by class implemented.
-"
+Cliente class >> crearCLiente:unNombre unDni:unDni unEmail:unEmail [
+|temp|.
+temp :=self new.
+temp crearConNombre: unNombre yDni:unDni  Email:unEmail.
+temp crearLista.
+^temp. 
+]
 
+{ #category : #initialization }
+Cliente class >> createWithMap:arrayMap [
+|temp reader|
+reader :=Reader new.
+temp := self new.
+temp crearConNombre:( reader parserVar:(arrayMap at:2)) yDni:(reader parserVar:(arrayMap at:3))  Email:(reader parserVar:(arrayMap at:4)).
+^temp.
 
 ]
 
@@ -38,5 +43,5 @@ email:=unEmail
 
 { #category : #'as yet unclassified' }
 Cliente >> crearLista [
-listaDeSuscripcion :=OrderedCollection new.
+listaDeSuscripcion :=OrderedCollection  new.
 ]

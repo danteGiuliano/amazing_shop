@@ -11,7 +11,8 @@ Class {
 		'subMenu',
 		'calendar',
 		'exit',
-		'logout'
+		'logout',
+		'control'
 	],
 	#category : #'TiendaOnline-View'
 }
@@ -62,6 +63,7 @@ Helper addLeftTopMorphic:(Helper createPanel:colNameOptions aLogic:self routes)i
 { #category : #initialization }
 Menu >> addSubMenu [
 subMenu := (Helper createSubMenu:(self extent) and:(self width)).
+subMenu addDependent: self.
 self addMorphCentered:subMenu .
 subMenu left:210.
 
@@ -69,7 +71,7 @@ subMenu left:210.
 ]
 
 { #category : #initialization }
-Menu >> initialize [ 
+Menu >> initialize [
 super initialize.
 self addPanelOptions.
 self addSubMenu.

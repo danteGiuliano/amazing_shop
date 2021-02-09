@@ -1,5 +1,5 @@
 Class {
 	#name : #TextBox,
 	#superclass : #RubTextFieldMorph,
-	#category : #'TiendaOnline-Components'
+	#category : #'TiendaOnline-components'
 }

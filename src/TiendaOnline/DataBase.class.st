@@ -1,7 +1,7 @@
 Class {
 	#name : #DataBase,
 	#superclass : #File,
-	#category : #'TiendaOnline-Service'
+	#category : #'TiendaOnline-service'
 }
 
 { #category : #running }

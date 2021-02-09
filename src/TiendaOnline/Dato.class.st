@@ -6,7 +6,7 @@ Class {
 		'dni',
 		'email'
 	],
-	#category : #'TiendaOnline-Controller'
+	#category : #'TiendaOnline-Model'
 }
 
 { #category : #accessing }

@@ -1,7 +1,7 @@
 Class {
 	#name : #Table,
 	#superclass : #FTTableMorph,
-	#category : #'TiendaOnline-Components'
+	#category : #'TiendaOnline-components'
 }
 
 { #category : #'as yet unclassified' }
@@ -10,6 +10,7 @@ Table class >> create:aCollect aCollums:stringColecction aSize:aSize [
 temp := self new.
 temp extent:aSize.
 temp enableFilter.
+temp enableSearch.
 temp initializeCollums:stringColecction with:aCollect.
 ^temp. 
 ]

@@ -4,6 +4,9 @@ SubMenuView es un contenedor basico donde los subMenu se acomodan para sus funci
 Class {
 	#name : #SubMenuView,
 	#superclass : #BorderedMorph,
+	#instVars : [
+		'control'
+	],
 	#category : #'TiendaOnline-View'
 }
 

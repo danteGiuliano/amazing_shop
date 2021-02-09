@@ -7,5 +7,5 @@ Class {
 		'precio',
 		'item'
 	],
-	#category : #'TiendaOnline-Controller'
+	#category : #'TiendaOnline-Model'
 }

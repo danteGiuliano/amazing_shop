@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'temp'
 	],
-	#category : #'TiendaOnline-Service'
+	#category : #'TiendaOnline-service'
 }
 
 { #category : #writing }
@@ -30,9 +30,8 @@ temp writeStreamDo: [ :stream | stream <<aStringFormat].
 { #category : #writing }
 Write >> writeCreateSton:aStringFormat named:aNameArchive [
 "a nameArchive, incluide a path"
-|archive|
-archive :=(File named:aNameArchive asFileReference fullname).
-archive writeStreamDo: [ :stream | stream <<aStringFormat].
+(File named:aNameArchive asFileReference fullName)writeStreamDo:[ :stream | STON put:aStringFormat onStream:stream.].
+ 
 
 ]
 
@@ -40,7 +39,7 @@ archive writeStreamDo: [ :stream | stream <<aStringFormat].
 Write >> writeCreateTxt:aStringFormat named:aNameArchive [
 "a nameArchive, incluide a path"
 |archive|
-archive :=(File named:aNameArchive asFileReference fullname).
+archive :=(File named:aNameArchive asFileReference fullName).
 archive writeStreamDo: [ :stream | stream <<aStringFormat].
 
 ]

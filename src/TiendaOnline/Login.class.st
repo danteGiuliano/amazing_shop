@@ -6,7 +6,8 @@ Class {
 	#superclass : #BorderedMorph,
 	#instVars : [
 		'name',
-		'resources'
+		'resources',
+		'control'
 	],
 	#category : #'TiendaOnline-View'
 }
@@ -66,6 +67,7 @@ create mouseAction: [Menu create].
 { #category : #'as yet unclassified' }
 Login >> initializeShop [
 super initialize.
+Control new.
 self  extent:(360@640).
 "Traer recursos Https de repostorio "
 self addMorphCentered:(ZnEasy getPng:'https://raw.githubusercontent.com/danteGiuliano/amazing_shop/master/src/resourses/login.png')asMorph .

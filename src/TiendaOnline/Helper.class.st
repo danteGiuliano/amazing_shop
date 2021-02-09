@@ -4,7 +4,7 @@ Clase especial para el posicionamiento de Morphic
 Class {
 	#name : #Helper,
 	#superclass : #Object,
-	#category : #'TiendaOnline-Components'
+	#category : #'TiendaOnline-components'
 }
 
 { #category : #addPosition }

@@ -5,7 +5,7 @@ Class {
 		'aBlock',
 		'id'
 	],
-	#category : #'TiendaOnline-Components'
+	#category : #'TiendaOnline-components'
 }
 
 { #category : #'as yet unclassified' }
