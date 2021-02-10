@@ -12,7 +12,7 @@ Class {
 		'calendar',
 		'exit',
 		'logout',
-		'control'
+		'model'
 	],
 	#category : #'TiendaOnline-View'
 }
@@ -22,6 +22,17 @@ Menu class >> create [
 |temp|.
 "El menu principal solo se encarga de posicionar las ventanas."
 temp := self new.
+^temp openInWorld.
+
+]
+
+{ #category : #'as yet unclassified' }
+Menu class >> create:aModel [
+|temp|.
+"El menu principal solo se encarga de posicionar las ventanas."
+temp := self new.
+temp initialize.
+temp initializeModel:aModel.
 ^temp openInWorld.
 
 ]
@@ -79,6 +90,12 @@ self addBotons.
 self addCalendar.
 
 "Inicializar las opciones."
+
+]
+
+{ #category : #initialization }
+Menu >> initializeModel:aModel [
+model:=aModel.
 
 ]
 

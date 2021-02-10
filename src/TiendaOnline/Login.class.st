@@ -7,7 +7,7 @@ Class {
 	#instVars : [
 		'name',
 		'resources',
-		'control'
+		'model'
 	],
 	#category : #'TiendaOnline-View'
 }
@@ -23,8 +23,12 @@ a initializeShop.
 { #category : #'as yet unclassified' }
 Login >> createShop [
 "Acciones para crear un shop. logica y demas"
-
-(Menu create)openInWorld.
+|reader collection aModel|
+reader :=Reader new.
+collection :=reader readJson: 'C:/amazingShop/testCliente.json'.
+collection := reader convertToObject:collection.
+aModel:=Tienda createClients:collection.
+(Menu create:aModel)openInWorld.
 
 
 
@@ -36,8 +40,7 @@ Login >> createShop [
 
 { #category : #'as yet unclassified' }
 Login >> initializeButtons [ 
-|close login create|
-
+|close login create temp|
 close := Button create:'close'. 
 login := Button create:'login ' size:(40@30). 
 create := Button create:'create shop' size:(130@40). 
@@ -54,7 +57,7 @@ login bottom:480.
 
 "Añado funciones a los bottones."
 close mouseAction: [close close:self].
-create mouseAction: [Menu create].
+create mouseAction: [self createShop].
 
 
 

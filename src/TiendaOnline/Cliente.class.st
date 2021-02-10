@@ -1,6 +1,6 @@
 Class {
 	#name : #Cliente,
-	#superclass : #Object,
+	#superclass : #FTSimpleDataSource,
 	#instVars : [
 		'nombre',
 		'dni',
@@ -35,6 +35,14 @@ listaDeSuscripcion :=unaLista.
 ]
 
 { #category : #'as yet unclassified' }
+Cliente >> cellColumn: column row:rowIndex [
+column id = '#' ifTrue: [ ^ FTCellMorph new addMorph: rowIndex asMorph ].
+column id = 'Nombre' ifTrue: [ ^ self nameRow: rowIndex ].
+column id= 'Dni' ifTrue: [ ^self dniRow:rowIndex ].
+column id= 'EMAIL' ifTrue: [ ^self emailRow:rowIndex ].
+]
+
+{ #category : #'as yet unclassified' }
 Cliente >> crearConNombre:unNombre yDni:unDni Email:unEmail [
 nombre:=unNombre.
 dni:=unDni.
@@ -44,4 +52,38 @@ email:=unEmail
 { #category : #'as yet unclassified' }
 Cliente >> crearLista [
 listaDeSuscripcion :=OrderedCollection  new.
+]
+
+{ #category : #'as yet unclassified' }
+Cliente >> dniRow:rowIndex [
+	^ FTCellMorph new  
+		addMorphBack: (self elementAt: rowIndex) nombre asStringMorph;
+		yourself
+]
+
+{ #category : #'as yet unclassified' }
+Cliente >> emailRow: rowIndex [
+	^ FTCellMorph new  
+		addMorphBack: (self elementAt: rowIndex) nombre asStringMorph;
+		yourself
+]
+
+{ #category : #'as yet unclassified' }
+Cliente >> nameRow: rowIndex [
+	^ FTCellMorph new  
+		addMorphBack: (self elementAt: rowIndex) nombre asStringMorph;
+		yourself
+]
+
+{ #category : #'as yet unclassified' }
+Cliente >> newDataSourceMatching: aFTFilter [
+	| newElements |
+	newElements := Array withAll: (elements select: [ :each | 
+		aFTFilter matches: (self toString: each) ]).
+	^ self class new elements: newElements.
+]
+
+{ #category : #'as yet unclassified' }
+Cliente >> toString:aCliente [
+^aCliente dni.
 ]
