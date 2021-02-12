@@ -37,9 +37,9 @@ listaDeSuscripcion :=unaLista.
 { #category : #'as yet unclassified' }
 Cliente >> cellColumn: column row:rowIndex [
 column id = '#' ifTrue: [ ^ FTCellMorph new addMorph: rowIndex asMorph ].
-column id = 'Nombre' ifTrue: [ ^ self nameRow: rowIndex ].
-column id= 'Dni' ifTrue: [ ^self dniRow:rowIndex ].
-column id= 'EMAIL' ifTrue: [ ^self emailRow:rowIndex ].
+column id = 'nombre' ifTrue: [ ^ self nameRow: rowIndex ].
+column id= 'dni' ifTrue: [ ^self dniRow:rowIndex ].
+column id= 'email' ifTrue: [ ^self emailRow:rowIndex ].
 ]
 
 { #category : #'as yet unclassified' }
@@ -57,21 +57,36 @@ listaDeSuscripcion :=OrderedCollection  new.
 { #category : #'as yet unclassified' }
 Cliente >> dniRow:rowIndex [
 	^ FTCellMorph new  
-		addMorphBack: (self elementAt: rowIndex) nombre asStringMorph;
+		addMorphBack: (self elementAt: rowIndex) getDni asStringMorph;
 		yourself
 ]
 
 { #category : #'as yet unclassified' }
 Cliente >> emailRow: rowIndex [
 	^ FTCellMorph new  
-		addMorphBack: (self elementAt: rowIndex) nombre asStringMorph;
+		addMorphBack: (self elementAt: rowIndex) getEmail asStringMorph;
 		yourself
+]
+
+{ #category : #'as yet unclassified' }
+Cliente >> getDni [
+^dni.
+]
+
+{ #category : #'as yet unclassified' }
+Cliente >> getEmail [
+^email.
+]
+
+{ #category : #'as yet unclassified' }
+Cliente >> getNombre [
+^nombre.
 ]
 
 { #category : #'as yet unclassified' }
 Cliente >> nameRow: rowIndex [
 	^ FTCellMorph new  
-		addMorphBack: (self elementAt: rowIndex) nombre asStringMorph;
+		addMorphBack: (self elementAt: rowIndex) getNombre asStringMorph;
 		yourself
 ]
 
@@ -85,5 +100,5 @@ Cliente >> newDataSourceMatching: aFTFilter [
 
 { #category : #'as yet unclassified' }
 Cliente >> toString:aCliente [
-^aCliente dni.
+^aCliente getDni.
 ]

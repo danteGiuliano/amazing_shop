@@ -18,15 +18,6 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-Menu class >> create [
-|temp|.
-"El menu principal solo se encarga de posicionar las ventanas."
-temp := self new.
-^temp openInWorld.
-
-]
-
-{ #category : #'as yet unclassified' }
 Menu class >> create:aModel [
 |temp|.
 "El menu principal solo se encarga de posicionar las ventanas."
@@ -75,6 +66,7 @@ Helper addLeftTopMorphic:(Helper createPanel:colNameOptions aLogic:self routes)i
 Menu >> addSubMenu [
 subMenu := (Helper createSubMenu:(self extent) and:(self width)).
 subMenu addDependent: self.
+subMenu setModel:model.
 self addMorphCentered:subMenu .
 subMenu left:210.
 

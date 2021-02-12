@@ -2,7 +2,8 @@ Class {
 	#name : #MenuCliente,
 	#superclass : #SubMenuView,
 	#instVars : [
-		'model'
+		'table',
+		'subMenu'
 	],
 	#category : #'TiendaOnline-View'
 }
@@ -15,24 +16,39 @@ temp := self new.
 ]
 
 { #category : #initialization }
-MenuCliente >> initialize:aContent [
-super initialize.
-aContent addDependent: self.
-self loadTable:aContent.
+MenuCliente >> addOptions [
+|options|
+options := #(actualizar Eliminar Crear Comprar Modificar)asOrderedCollection .
+Helper addRightTopMorph:((Helper createPanel: options aLogic:self routes)) in:subMenu.
 ]
 
 { #category : #initialization }
-MenuCliente >> loadTable:aContent [
-|temp options aNamesColumnTable aTable|
-temp :=Persona new.
-model:=aContent.
-options := #(Buscar Eliminar Crear Comprar Modificar)asOrderedCollection .
-aNamesColumnTable:= #('#' 'Nombre' 'Edad')asOrderedCollection.
-aTable := Table create: (Persona elements:(temp testPersonas )) aCollums: aNamesColumnTable  aSize:(900@600).
+MenuCliente >> addOptions:aContent [
+|options|
+options := #(actualizar Eliminar Crear Comprar Modificar)asOrderedCollection .
 Helper addRightTopMorph:((Helper createPanel: options aLogic:self routes)) in:aContent.
-Helper addLeftTopMorphic: aTable in:aContent. 
-aTable left:220.
-aTable bottom:630.
+]
+
+{ #category : #initialization }
+MenuCliente >> initialize:aContent [
+super initialize.
+subMenu :=aContent.
+model:=aContent getModel.
+aContent addDependent: self.
+self loadTable.
+self addOptions.
+]
+
+{ #category : #initialization }
+MenuCliente >> loadTable [
+|temp aNamesColumnTable |
+temp :=model getClients.
+aNamesColumnTable:= #('#' 'nombre' 'dni' 'email')asOrderedCollection.
+table := Table create: (Cliente elements:(temp )) aCollums: aNamesColumnTable  aSize:(900@600).
+Helper addLeftTopMorphic: table in:subMenu. 
+table left:220.
+table bottom:630.
+
 ]
 
 { #category : #initialization }
@@ -40,8 +56,8 @@ MenuCliente >> routes [
 	"Inspirate in concept IONIC Framework"
 	^ [ :id | 
 	  | logicReturn |
-	id = 'Peliculas' ifTrue: [ logicReturn := [|a|.a:=Button create:'Funco'.a openInHand] ].
-	id = 'Aplicaciones' ifTrue: [ logicReturn := [|a|.a:=Button create:'OMG'.a openInHand] ].
+	id = 'Crear' ifTrue: [ logicReturn := [|a|a:=ModalCliente call:model] ].
+	id = 'actualizar' ifTrue: [ logicReturn := [table delete.self loadTable] ].
 	id = 'Juegos' ifTrue: [ logicReturn := [|a|.a:=Button create:'Amazing'.a openInHand] ].
 	id = 'Libros' ifTrue: [ logicReturn := [|a|.a:=Button create:'beautiful'.a openInHand] ].
 	logicReturn.

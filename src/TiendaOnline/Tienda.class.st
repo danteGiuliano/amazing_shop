@@ -17,11 +17,25 @@ Tienda class >> changed:aBlock [
 ]
 
 { #category : #updating }
+Tienda class >> crear [ 
+|temp|
+temp := self new.
+temp initializeCollection.
+^temp.
+
+]
+
+{ #category : #updating }
 Tienda class >> createClients:aCollection [
 |temp|
 temp :=self new.
 temp initializeClients:aCollection.
 ^temp.
+]
+
+{ #category : #'as yet unclassified' }
+Tienda >> addClient:aClient [ 
+colectionClientes add:aClient.
 ]
 
 { #category : #'as yet unclassified' }
@@ -32,4 +46,10 @@ Tienda >> getClients [
 { #category : #'as yet unclassified' }
 Tienda >> initializeClients:aClients [
 colectionClientes :=aClients.
+]
+
+{ #category : #'as yet unclassified' }
+Tienda >> initializeCollection [
+colectionClientes :=OrderedCollection new.
+colectionContenidos :=OrderedCollection new.
 ]
