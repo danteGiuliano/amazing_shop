@@ -5,16 +5,12 @@ Class {
 	#name : #Tienda,
 	#superclass : #Object,
 	#instVars : [
+		'idTienda',
 		'colectionClientes',
 		'colectionContenidos'
 	],
 	#category : #'TiendaOnline-Model'
 }
-
-{ #category : #updating }
-Tienda class >> changed:aBlock [
-^aBlock value.
-]
 
 { #category : #updating }
 Tienda class >> crear [ 
@@ -34,6 +30,14 @@ temp initializeClients:aCollection.
 ]
 
 { #category : #'as yet unclassified' }
+Tienda class >> createTienta:aIdTienda [
+|temp|
+temp :=self new.
+temp initialize:aIdTienda.
+^temp.
+]
+
+{ #category : #'as yet unclassified' }
 Tienda >> addClient:aClient [ 
 colectionClientes add:aClient.
 ]
@@ -41,6 +45,12 @@ colectionClientes add:aClient.
 { #category : #'as yet unclassified' }
 Tienda >> getClients [
 ^colectionClientes.
+]
+
+{ #category : #'as yet unclassified' }
+Tienda >> initialize:aIdTienda [
+idTienda :=aIdTienda. 
+self initializeCollection.
 ]
 
 { #category : #'as yet unclassified' }

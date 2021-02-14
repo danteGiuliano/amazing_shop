@@ -28,9 +28,9 @@ temp writeStreamDo: [ :stream | stream <<aStringFormat].
 ]
 
 { #category : #writing }
-Write >> writeCreateSton:aStringFormat named:aNameArchive [
+Write >> writeCreateSton:aObject named:aNameArchive [
 "a nameArchive, incluide a path"
-(File named:aNameArchive asFileReference fullName)writeStreamDo:[ :stream | STON put:aStringFormat onStream:stream.].
+(File named:aNameArchive asFileReference fullName)writeStreamDo:[ :stream | STON put:aObject onStream:stream.].
  
 
 ]

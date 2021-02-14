@@ -66,6 +66,7 @@ Reader >> readJson: aStringRoute [
 	temp := temp copyWithout: $[.
 	temp := temp copyWithout: $].
 	temp := temp copyWithout: $,.
+		temp := temp copyWithout: $'.
 	temp :=self separateObject: temp asString.
 	temp := temp copyWithout: ${.
 	temp :=temp substrings:'!'.	

@@ -3,7 +3,8 @@ Class {
 	#superclass : #SubMenuView,
 	#instVars : [
 		'table',
-		'subMenu'
+		'subMenu',
+		'temp'
 	],
 	#category : #'TiendaOnline-View'
 }
@@ -18,15 +19,8 @@ temp := self new.
 { #category : #initialization }
 MenuCliente >> addOptions [
 |options|
-options := #(actualizar Eliminar Crear Comprar Modificar)asOrderedCollection .
+options := #(actualizar  Crear Comprar )asOrderedCollection .
 Helper addRightTopMorph:((Helper createPanel: options aLogic:self routes)) in:subMenu.
-]
-
-{ #category : #initialization }
-MenuCliente >> addOptions:aContent [
-|options|
-options := #(actualizar Eliminar Crear Comprar Modificar)asOrderedCollection .
-Helper addRightTopMorph:((Helper createPanel: options aLogic:self routes)) in:aContent.
 ]
 
 { #category : #initialization }
@@ -58,7 +52,7 @@ MenuCliente >> routes [
 	  | logicReturn |
 	id = 'Crear' ifTrue: [ logicReturn := [|a|a:=ModalCliente call:model] ].
 	id = 'actualizar' ifTrue: [ logicReturn := [table delete.self loadTable] ].
-	id = 'Juegos' ifTrue: [ logicReturn := [|a|.a:=Button create:'Amazing'.a openInHand] ].
+	id = 'eliminar' ifTrue: [ logicReturn := [temp:=table focus] ].
 	id = 'Libros' ifTrue: [ logicReturn := [|a|.a:=Button create:'beautiful'.a openInHand] ].
 	logicReturn.
 	].

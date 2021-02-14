@@ -7,7 +7,10 @@ Class {
 	#instVars : [
 		'name',
 		'resources',
-		'model'
+		'model',
+		'inputUser',
+		'inputPassword',
+		'directory'
 	],
 	#category : #'TiendaOnline-View'
 }
@@ -20,12 +23,20 @@ a initializeShop.
 ^a
 ]
 
+{ #category : #initialization }
+Login >> autentication [
+directory:=(DataBase login:(inputUser text)asString password:(inputPassword text)asString).
+directory ifNil:[|temp|temp:=Button create:'ERROR DE LOGIN' size:100@30.temp color:Color red.temp mouseAction:[temp delete].
+	temp openInHand ]ifNotNil:[directory := directory getRoute.self createShop.].
+
+]
+
 { #category : #'as yet unclassified' }
 Login >> createShop [
 "Acciones para crear un shop. logica y demas"
 |reader collection aModel|
 reader :=Reader new.
-collection :=reader readJson: 'C:/amazingShop/testCliente.json'.
+collection :=reader readJson: directory,'clients.json'.
 collection := reader convertToObject:collection.
 aModel:=Tienda createClients:collection.
 (Menu create:aModel)openInWorld.
@@ -58,6 +69,7 @@ login bottom:480.
 "Añado funciones a los bottones."
 close mouseAction: [close close:self].
 create mouseAction: [self createShop].
+login mouseAction:[self autentication].
 
 
 
@@ -82,17 +94,16 @@ self openInHand.
 
 { #category : #initialization }
 Login >> initializeTextBoxs [
-|user password|
-user := TextBox new.
-password := TextBox new.
+inputUser  := TextBox new.
+inputPassword := TextBox new.
 
-user extent: 200@30.
-password extent: 200@30.
+inputUser extent: 200@30.
+inputPassword extent: 200@30.
 
 "Centrado de textos."
-self addMorphCentered: user.
-self addMorphCentered: password.
+self addMorphCentered: inputUser.
+self addMorphCentered: inputPassword.
 
-user bottom:400.
-password bottom:430.
+inputUser bottom:400.
+inputPassword bottom:430.
 ]

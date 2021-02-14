@@ -10,7 +10,7 @@ Table class >> create:aCollect aCollums:stringColecction aSize:aSize [
 temp := self new.
 temp extent:aSize.
 temp enableFilter.
-temp enableSearch.
+temp explicitFunction.
 temp initializeCollums:stringColecction with:aCollect.
 ^temp. 
 ]
