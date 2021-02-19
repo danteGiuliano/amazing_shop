@@ -29,6 +29,14 @@ temp initializeClients:aCollection.
 ^temp.
 ]
 
+{ #category : #updating }
+Tienda class >> createClients:aCollection aId:aIdirectoty [
+|temp|
+temp :=self new.
+temp initializeClients:aCollection aId:aIdirectoty.
+^temp.
+]
+
 { #category : #'as yet unclassified' }
 Tienda class >> createTienta:aIdTienda [
 |temp|
@@ -48,6 +56,11 @@ Tienda >> getClients [
 ]
 
 { #category : #'as yet unclassified' }
+Tienda >> getIDTienda [
+^idTienda.
+]
+
+{ #category : #'as yet unclassified' }
 Tienda >> initialize:aIdTienda [
 idTienda :=aIdTienda. 
 self initializeCollection.
@@ -56,6 +69,12 @@ self initializeCollection.
 { #category : #'as yet unclassified' }
 Tienda >> initializeClients:aClients [
 colectionClientes :=aClients.
+]
+
+{ #category : #'as yet unclassified' }
+Tienda >> initializeClients:aClients aId:aDirectory [
+colectionClientes :=aClients.
+idTienda :=aDirectory.
 ]
 
 { #category : #'as yet unclassified' }

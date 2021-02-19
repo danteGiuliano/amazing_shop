@@ -17,6 +17,17 @@ route:=temp compareUser: aUserText aPassword:aPasswordText.
 ]
 
 { #category : #running }
+DataBase class >> registerShop:aNameShop aNameUser:aUserAdmin aPassword:aPassword [
+|temp aUserTienda|
+temp := self new.
+File createDirectory:aNameShop.
+(File named:aNameShop,'clients.json') writeStream.
+temp initializeAutentication.
+aUserTienda :=UserTienda createUser: aUserAdmin  aPass:aPassword  aId:aNameShop.
+temp addNewTienda:aUserTienda.  
+]
+
+{ #category : #running }
 DataBase class >> run [ 
 |temp|
 temp := self new.
@@ -25,10 +36,27 @@ temp initializeAutentication.
 ^temp.
 ]
 
+{ #category : #'as yet unclassified' }
+DataBase class >> updateClients:aModel [
+|temp write|
+write:=Write new.
+temp :=aModel getIDTienda.
+(File named:temp,'clients.json' asFileReference fullName)delete.
+write writeCreateSton: (aModel getClients) asArray  named:temp,'clients.json'. 
+]
+
 { #category : #initialization }
 DataBase >> aPathsRoutes [
-^#('/amazingShop' '/amazingShop/user' '/amazingShop/contenidos' ).
+^#('amazingShop').
 
+]
+
+{ #category : #initialization }
+DataBase >> addNewTienda:aTienda [
+|write|
+collectionLogins add:aTienda.
+write :=Write new.
+write writeCreateSton:collectionLogins asArray named:'amazingShop/tiendas.json'
 ]
 
 { #category : #initialization }
@@ -47,7 +75,7 @@ DataBase >> createCredentials [
 DataBase >> initializeAutentication [
 |reader object|
 reader :=Reader new.
-object :=reader readJson:'C:/amazingShop/tiendas.json'.
+object :=reader readJson:'amazingShop/tiendas.json'.
 collectionLogins :=reader convertToObject:object.
 
 ]

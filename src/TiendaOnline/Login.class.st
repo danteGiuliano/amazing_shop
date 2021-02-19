@@ -38,7 +38,7 @@ Login >> createShop [
 reader :=Reader new.
 collection :=reader readJson: directory,'clients.json'.
 collection := reader convertToObject:collection.
-aModel:=Tienda createClients:collection.
+aModel:=Tienda createClients:collection aId:directory.
 (Menu create:aModel)openInWorld.
 
 
@@ -68,7 +68,7 @@ login bottom:480.
 
 "Añado funciones a los bottones."
 close mouseAction: [close close:self].
-create mouseAction: [self createShop].
+create mouseAction: [ModalTienda call:1].
 login mouseAction:[self autentication].
 
 

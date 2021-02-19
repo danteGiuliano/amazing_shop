@@ -87,6 +87,11 @@ t3 top:t2 bottom +15.
 ]
 
 { #category : #initialization }
+ModalCliente >> getModel [ 
+^model.
+]
+
+{ #category : #initialization }
 ModalCliente >> initialize [ 
 super initialize.
 self extent:300@200.
@@ -99,8 +104,12 @@ self addBox:self addTexts.
 { #category : #initialization }
 ModalCliente >> registerClient [
 |client|
-client:=Cliente crearCLiente: inputNombre text  unDni:inputDni text  unEmail:inputEMail text. 
+client:=Cliente crearCLiente: (inputNombre text)asString  unDni:(inputDni text)asString  unEmail:(inputEMail text)asString. 
 model addClient:client.
+inputNombre setText:''.
+inputDni setText:''.
+inputEMail setText:''.
+DataBase updateClients: model.
 
 ]
 

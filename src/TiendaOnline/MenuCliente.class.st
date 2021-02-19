@@ -35,10 +35,10 @@ self addOptions.
 
 { #category : #initialization }
 MenuCliente >> loadTable [
-|temp aNamesColumnTable |
+| aNamesColumnTable |
 temp :=model getClients.
 aNamesColumnTable:= #('#' 'nombre' 'dni' 'email')asOrderedCollection.
-table := Table create: (Cliente elements:(temp )) aCollums: aNamesColumnTable  aSize:(900@600).
+table := Table create: (Cliente elements:(temp)) aCollums: aNamesColumnTable  aSize:(900@600).
 Helper addLeftTopMorphic: table in:subMenu. 
 table left:220.
 table bottom:630.
@@ -50,10 +50,8 @@ MenuCliente >> routes [
 	"Inspirate in concept IONIC Framework"
 	^ [ :id | 
 	  | logicReturn |
-	id = 'Crear' ifTrue: [ logicReturn := [|a|a:=ModalCliente call:model] ].
-	id = 'actualizar' ifTrue: [ logicReturn := [table delete.self loadTable] ].
-	id = 'eliminar' ifTrue: [ logicReturn := [temp:=table focus] ].
-	id = 'Libros' ifTrue: [ logicReturn := [|a|.a:=Button create:'beautiful'.a openInHand] ].
+	id = 'Crear' ifTrue: [ logicReturn := [ModalCliente call:model].].
+	id = 'actualizar' ifTrue: [ logicReturn := [table delete.self loadTable]].
 	logicReturn.
-	].
+	]. 
 ]
