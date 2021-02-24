@@ -19,7 +19,7 @@ temp := self new.
 { #category : #initialization }
 MenuCliente >> addOptions [
 |options|
-options := #(actualizar  Crear Comprar )asOrderedCollection .
+options := #(actualizar  Crear Comprar Suscripciones)asOrderedCollection .
 Helper addRightTopMorph:((Helper createPanel: options aLogic:self routes)) in:subMenu.
 ]
 
@@ -52,6 +52,7 @@ MenuCliente >> routes [
 	  | logicReturn |
 	id = 'Crear' ifTrue: [ logicReturn := [ModalCliente call:model].].
 	id = 'actualizar' ifTrue: [ logicReturn := [table delete.self loadTable]].
+	id='Suscripciones' ifTrue:[logicReturn :=[ModalBuscarCliente call:model]].
 	logicReturn.
 	]. 
 ]

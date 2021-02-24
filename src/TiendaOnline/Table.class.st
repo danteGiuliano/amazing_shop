@@ -18,7 +18,7 @@ temp initializeCollums:stringColecction with:aCollect.
 { #category : #initialization }
 Table >> initializeCollums:aStringCollection with:aCollect [
 aStringCollection do:[ :aString|
-self addColumn:(FTColumn id:aString)].
+self addColumn:(FTColumn id:aString).].
 self dataSource:aCollect.
 
 
