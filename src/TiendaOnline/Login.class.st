@@ -33,13 +33,7 @@ directory ifNil:[|temp|temp:=Button create:'ERROR DE LOGIN' size:100@30.temp col
 
 { #category : #'as yet unclassified' }
 Login >> createShop [
-"Acciones para crear un shop. logica y demas"
-|reader collection aModel|
-reader :=Reader new.
-collection :=reader readJson: directory,'clients.json'.
-collection := reader convertToObject:collection.
-aModel:=Tienda createClients:collection aId:directory.
-(Menu create:aModel)openInWorld.
+DataBase  createShop: directory.
 
 
 

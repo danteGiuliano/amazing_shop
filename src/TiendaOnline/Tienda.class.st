@@ -7,7 +7,8 @@ Class {
 	#instVars : [
 		'idTienda',
 		'colectionClientes',
-		'colectionContenidos'
+		'colectionContenidos',
+		'coleccionSuscripciones'
 	],
 	#category : #'TiendaOnline-Model'
 }
@@ -37,6 +38,14 @@ temp initializeClients:aCollection aId:aIdirectoty.
 ^temp.
 ]
 
+{ #category : #updating }
+Tienda class >> createClients:aCollectionClients createSuscriptions:aCollectionSubs aId:aIdirectoty [
+|temp|
+temp :=self new.
+temp initializeClients:aCollectionClients initializeSuscriptions:aCollectionSubs  aId:aIdirectoty.
+^temp.
+]
+
 { #category : #'as yet unclassified' }
 Tienda class >> createTienta:aIdTienda [
 |temp|
@@ -51,6 +60,11 @@ colectionClientes add:aClient.
 ]
 
 { #category : #'as yet unclassified' }
+Tienda >> addSuscription:aSuscription [
+coleccionSuscripciones add:aSuscription.
+]
+
+{ #category : #'as yet unclassified' }
 Tienda >> getClients [
 ^colectionClientes.
 ]
@@ -61,19 +75,20 @@ Tienda >> getIDTienda [
 ]
 
 { #category : #'as yet unclassified' }
+Tienda >> getSuscripciones [
+^coleccionSuscripciones.
+]
+
+{ #category : #'as yet unclassified' }
 Tienda >> initialize:aIdTienda [
 idTienda :=aIdTienda. 
 self initializeCollection.
 ]
 
 { #category : #'as yet unclassified' }
-Tienda >> initializeClients:aClients [
+Tienda >> initializeClients:aClients initializeSuscriptions:aSubs aId:aDirectory [
 colectionClientes :=aClients.
-]
-
-{ #category : #'as yet unclassified' }
-Tienda >> initializeClients:aClients aId:aDirectory [
-colectionClientes :=aClients.
+coleccionSuscripciones :=aSubs.
 idTienda :=aDirectory.
 ]
 
@@ -81,4 +96,5 @@ idTienda :=aDirectory.
 Tienda >> initializeCollection [
 colectionClientes :=OrderedCollection new.
 colectionContenidos :=OrderedCollection new.
+coleccionSuscripciones :=OrderedCollection new.
 ]

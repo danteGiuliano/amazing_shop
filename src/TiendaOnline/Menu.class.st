@@ -108,7 +108,7 @@ Helper addLeftTopMorphic:(MenuPromocion createMenuPromocion) in:subMenu.
 
 { #category : #initialization }
 Menu >> loadSuscripcion [
-Helper addLeftTopMorphic:(MenuSuscripcion  createMenuSuscripcion) in:subMenu. 
+Helper addLeftTopMorphic:(MenuSuscripcion  createMenuSuscripcion:model) in:subMenu. 
 ]
 
 { #category : #initialization }
