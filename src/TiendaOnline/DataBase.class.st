@@ -65,7 +65,7 @@ DataBase class >> updateSuscriptions:aModel [
 write:=Write new.
 temp :=aModel getIDTienda.
 (File named:temp,'suscripcion.json' asFileReference fullName)delete.
-write writeCreateSton: (aModel getSuscripciones) asArray  named:temp,'suscripcion.json'. 
+write writeCreateSton: (aModel getSuscripciones) asArray  named:temp,'suscripcions.json'. 
 ]
 
 { #category : #initialization }
