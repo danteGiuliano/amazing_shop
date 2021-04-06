@@ -53,11 +53,14 @@ b1 :=Button create:'Registrar' size:60@20.
 b2 :=Button create:'Salir' size:40@20.
 Helper addLeftBottomMorph: b2 in:self.
 Helper addRightbottomMorph: b1 in:self.
+
 b1 right: self right -10.
 b2 left: self left +10.
 b1 bottom: self bottom -10.
 b2 bottom: self bottom -10.  
-
+"style"
+Helper border: b1 aColor:(Color r:0.40 g:0.80 b:0.60). 
+Helper border: b2 aColor:(Color r:0.40 g:0.80 b:0.60).
 "Logic"
 
 b2 mouseAction:[self delete].
@@ -94,8 +97,7 @@ ModalCliente >> getModel [
 { #category : #initialization }
 ModalCliente >> initialize [ 
 super initialize.
-self extent:300@200.
-self color:Color gray.
+self style.
 self addButtoms.
 self addBox:self addTexts.
 
@@ -116,4 +118,12 @@ DataBase updateClients: model.
 { #category : #initialization }
 ModalCliente >> setModel:aModel [.
 model:=aModel.
+]
+
+{ #category : #initialization }
+ModalCliente >> style [ 
+self extent:300@200.
+self color:(Color lightGray alpha:0.85).
+Helper border: self aColor:(Color gray alpha:0.85) 
+
 ]

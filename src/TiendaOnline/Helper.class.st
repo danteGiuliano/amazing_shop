@@ -68,10 +68,22 @@ aContent bottomRight: (otherContent bottomRight).
 
 ]
 
+{ #category : #PositionOut }
+Helper class >> border:aMorph aColor:aColor [
+aMorph borderStyle:(RoundedBorder new cornerRadius:5; width:5; color:aColor)
+]
+
+{ #category : #PositionOut }
+Helper class >> border:aMorph aColor:aColor rad:aRadio [
+aMorph borderStyle:(RoundedBorder new cornerRadius:aRadio; width:aRadio; color:aColor)
+]
+
 { #category : #'as yet unclassified' }
 Helper class >> createPanel:aCollection aLogic:aBlock [
-^PanelView create: aCollection  aControl:aBlock. 
-
+|temp|
+temp :=PanelView create: aCollection  aControl:aBlock . 
+temp color:(Color transparent ).
+^temp.
 ]
 
 { #category : #'as yet unclassified' }

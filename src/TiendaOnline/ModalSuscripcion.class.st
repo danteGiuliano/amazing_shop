@@ -21,7 +21,7 @@ ModalSuscripcion class >> call:aModel [
 temp :=self new.
 temp initialize:aModel.
 temp extent:300@200.
-temp color:(Color lightGray alpha:0.85).
+temp color:(Color lightGray alpha:0.50).
 temp openCenteredInWorld.
 ]
 
@@ -46,7 +46,7 @@ block :=[:val| (val text)asString].
 
 auxDiccionary :=Dictionary newFrom:{'Pelicula' ->(block value:inputDescuentoPelicula).'Aplicacion' ->(block value:inputDescuentoAplicacion). 'Libro' ->(block value:inputDescuentoLibro) }.
 
-aux :=Suscripcion conDescuentos:auxDiccionary fechaInicio:(block value:inputFechaInicio) fechaFinal: (block value:inputFechaExpira).
+aux :=Suscripcion conDescuentos:auxDiccionary fechaInicio:(block value:inputFechaInicio) fechaFinal: (block value:inputFechaExpira) deNombre:(block value:inputNombre).
 model addSuscription:aux.
 DataBase updateSuscriptions: model.
 self success.

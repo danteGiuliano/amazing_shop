@@ -3,8 +3,7 @@ Class {
 	#superclass : #SubMenuView,
 	#instVars : [
 		'table',
-		'subMenu',
-		'temp'
+		'subMenu'
 	],
 	#category : #'TiendaOnline-View'
 }
@@ -28,20 +27,21 @@ MenuCliente >> initialize:aContent [
 super initialize.
 subMenu :=aContent.
 model:=aContent getModel.
-aContent addDependent: self.
 self loadTable.
 self addOptions.
 ]
 
 { #category : #initialization }
 MenuCliente >> loadTable [
-| aNamesColumnTable |
+| aNamesColumnTable temp|
 temp :=model getClients.
 aNamesColumnTable:= #('#' 'nombre' 'dni' 'email')asOrderedCollection.
 table := Table create: (Cliente elements:(temp)) aCollums: aNamesColumnTable  aSize:(900@600).
 Helper addLeftTopMorphic: table in:subMenu. 
 table left:220.
 table bottom:630.
+table color:(table color alpha:0.85).
+Helper border: table aColor:(table color alpha:0.50) .
 
 ]
 
