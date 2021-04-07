@@ -37,7 +37,8 @@ super initialize.
 self extent:aContent extent.
 self width: aContent right-215.
 self height: aContent height-10. 
-self color:Color transparent
+self color:Color transparent.
+self borderColor:Color transparent.
 ]
 
 { #category : #initialization }

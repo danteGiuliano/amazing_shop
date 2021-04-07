@@ -83,6 +83,7 @@ Helper class >> createPanel:aCollection aLogic:aBlock [
 |temp|
 temp :=PanelView create: aCollection  aControl:aBlock . 
 temp color:(Color transparent ).
+temp borderColor: (Color transparent).
 ^temp.
 ]
 

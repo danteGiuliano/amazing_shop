@@ -18,6 +18,24 @@ temp iniciarConDescuentos:aDiccionary fechaInicio:fechaInicio fechaFinal:fechaFi
 ^temp.
 ]
 
+{ #category : #initialization }
+Suscripcion class >> createWithMap:arrayMap [
+|temp reader block|
+reader :=Reader new.
+temp := self new.
+block:=[:h| reader parserVar: (arrayMap at:h)].
+temp iniciarConDescuentos:(self parserDictionary:(reader parserVarDicionary: (arrayMap at:4)))fechaInicio:(block value:2)fechaFinal:(block value:3) deNombre:(block value:5). 
+^temp.
+
+]
+
+{ #category : #'as yet unclassified' }
+Suscripcion class >> parserDictionary:arrayDictiionary [
+|diccionary|
+diccionary :=Dictionary new.
+^arrayDictiionary.
+]
+
 { #category : #'as yet unclassified' }
 Suscripcion >> cellColumn: column row:rowIndex [
 column id = 'Nombre' ifTrue: [ ^ self nombreRow: rowIndex ].

@@ -54,6 +54,22 @@ Reader >> parserVar:aDiccionary [
 ^(aDiccionary substrings:':')at:2.
 ]
 
+{ #category : #'initialize-release' }
+Reader >> parserVarDicionary:aString [ 
+|temp diccionary pelicula libro aplicacion block|
+
+block:=[:h| (h at:1) -> (h at:2)].
+temp :=aString copyWithout:$}.
+temp :=aString substrings:'|'.
+pelicula:= (temp at:2) substrings:':'.
+libro:= (temp at:3) substrings:':'.
+aplicacion:= (temp at:4) substrings:':'.
+"aplicacion at:2 put:((aplicacion at:2) copyWithout:$})."
+
+diccionary :=Dictionary newFrom:{block value:libro. block value:aplicacion. block value:pelicula}.
+^diccionary .
+]
+
 { #category : #'as yet unclassified' }
 Reader >> readJson: aStringRoute [
 	"return a String format."

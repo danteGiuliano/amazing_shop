@@ -44,7 +44,7 @@ ModalSuscripcion >> addSuscription [
 
 block :=[:val| (val text)asString].
 
-auxDiccionary :=Dictionary newFrom:{'Pelicula' ->(block value:inputDescuentoPelicula).'Aplicacion' ->(block value:inputDescuentoAplicacion). 'Libro' ->(block value:inputDescuentoLibro) }.
+auxDiccionary :=Dictionary newFrom:{'|Pelicula' ->(block value:inputDescuentoPelicula).'|Aplicacion' ->(block value:inputDescuentoAplicacion). '|Libro' ->(block value:inputDescuentoLibro) }.
 
 aux :=Suscripcion conDescuentos:auxDiccionary fechaInicio:(block value:inputFechaInicio) fechaFinal: (block value:inputFechaExpira) deNombre:(block value:inputNombre).
 model addSuscription:aux.
