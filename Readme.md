@@ -11,8 +11,10 @@
 
 ### Sistema de login ###
 
-![1](https://github.com/danteGiuliano/amazing_shop/blob/master/imagenes%20de%20trabajo/login%20avance%2021-10.png)
+![1](https://github.com/danteGiuliano/amazing_shop/blob/stable/imagenes%20de%20trabajo/Screenshot_3.jpg)
 
 ### Menu fullScreen con menu-bar y subMenu ###.
 
-![2](https://github.com/danteGiuliano/amazing_shop/blob/master/imagenes%20de%20trabajo/menu%20avance%2021-10.png)
+![2](https://github.com/danteGiuliano/amazing_shop/blob/stable/imagenes%20de%20trabajo/Screenshot_1.jpg)
+
+![3](https://github.com/danteGiuliano/amazing_shop/blob/stable/imagenes%20de%20trabajo/Screenshot_2.jpg)
