@@ -5,6 +5,66 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
+Reader >> addSeparators:text [
+|i boolean refine block caracter|.
+i :=1.
+boolean :=false.
+refine:=''.
+	"Funtion ------------------------------------------------------"
+block :=[|temp|.
+			temp:=caracter.
+			[caracter :=(caracter asString)asNumber] on: Exception do:[caracter:=temp].
+			caracter isNumber ifFalse:[
+				refine:=refine,($! asString).
+				boolean :=false.
+			].].
+	"Algoritm ------------------------------------------------------"
+[i <= (text size)] whileTrue:[
+		caracter :=text at:i.
+		caracter =$: ifTrue:[
+				boolean :=true.
+			]ifFalse:[
+		boolean ifTrue:[
+			block value
+		 ]].
+	refine:=refine,caracter asString.
+	i=(text size) ifTrue:[refine:=refine,$! asString]."case final"
+	i:=i+1.
+	].
+^refine.
+]
+
+{ #category : #'as yet unclassified' }
+Reader >> borrateClassDiccionary:texto [
+"a Simple algoritm but borrate DiccionaryText."
+| cadena i boolean|
+boolean :=false.
+i:=1.
+cadena:=''.
+[i <=texto size] whileTrue:[
+	|caracter|
+	caracter :=texto at:i.
+	caracter=$:ifTrue:[
+		boolean :=true.
+		].
+			boolean ifTrue:[
+				cadena:=cadena,caracter asString.
+		
+		].
+	i:=i+1.
+	].
+^cadena.
+]
+
+{ #category : #'as yet unclassified' }
+Reader >> bugs:aArray [
+|parser|
+parser :=OrderedCollection new.
+aArray do:[:h|parser add:(h copyWithout:$})].
+^parser.
+]
+
+{ #category : #'as yet unclassified' }
 Reader >> convertToObject:aCollection [
 "Map a String usaged object and dictionary.."
 |collection i|
@@ -54,29 +114,41 @@ Reader >> parserVar:aDiccionary [
 ^(aDiccionary substrings:':')at:2.
 ]
 
+{ #category : #'initialize-release' }
+Reader >> parserVarDicionary:aString [ 
+|diccionary pelicula libro aplicacion block text collection|
+
+text:=self borrateClassDiccionary: aString.
+text :=self addSeparators:text.
+collection :=text substrings:'!'.
+block:=[:h| (h at:1) -> (h at:2)].
+pelicula:= (collection  at:2) substrings:':'.
+libro:= (collection  at:3) substrings:':'.
+aplicacion:= (collection  at:4) substrings:':'.
+aplicacion at:2 put:((aplicacion at:2) copyWithout:$}).
+
+diccionary :=Dictionary newFrom:{block value:libro. block value:aplicacion. block value:pelicula}.
+^diccionary. 
+]
+
 { #category : #'as yet unclassified' }
 Reader >> readJson: aStringRoute [
 	"return a String format."
 
-	| temp i colection aFile |
+	| temp  colection aFile |
 	aFile := File named: aStringRoute asFileReference fullName.
 	colection := OrderedCollection new.
-	i := 1.
 	temp := (aFile readStream next: aFile size) asString.
 	temp := temp copyWithout: $[.
 	temp := temp copyWithout: $].
 	temp := temp copyWithout: $,.
-		temp := temp copyWithout: $'.
+	temp := temp copyWithout: $'.
 	temp :=self separateObject: temp asString.
 	temp := temp copyWithout: ${.
 	temp :=temp substrings:'!'.	
 	temp:=self formater: temp.
-	"[ i <= temp size ]
-		whileTrue: [ | aux |
-			aux := temp at: i.
-			colection add: (aux substrings: '#').
-			i := i + 1 ].
-	^ colection"
+	temp do:[:h|	colection add: (self bugs:h)].
+	temp:=colection.
 	^temp.
 ]
 

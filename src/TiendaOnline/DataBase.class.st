@@ -7,6 +7,19 @@ Class {
 	#category : #'TiendaOnline-service'
 }
 
+{ #category : #'as yet unclassified' }
+DataBase class >> createShop:aDirectory [ 
+"Acciones para crear un shop. logica y demas"
+|reader collectionClients colecctionSuscription  aModel|
+reader :=Reader new.
+colecctionSuscription :=reader readJson:aDirectory,'suscriptions.json'.
+collectionClients :=reader readJson: aDirectory,'clients.json'.
+colecctionSuscription :=reader convertToObject: colecctionSuscription .
+collectionClients:= reader convertToObject:collectionClients.
+aModel:=Tienda createClients:collectionClients createSuscriptions:colecctionSuscription  aId:aDirectory.
+(Menu create:aModel)openInWorld.
+]
+
 { #category : #running }
 DataBase class >> login:aUserText password:aPasswordText [
 |temp route|
@@ -22,6 +35,7 @@ DataBase class >> registerShop:aNameShop aNameUser:aUserAdmin aPassword:aPasswor
 temp := self new.
 File createDirectory:aNameShop.
 (File named:aNameShop,'clients.json') writeStream.
+(File named:aNameShop,'suscriptions.json') writeStream.
 temp initializeAutentication.
 aUserTienda :=UserTienda createUser: aUserAdmin  aPass:aPassword  aId:aNameShop.
 temp addNewTienda:aUserTienda.  
@@ -43,6 +57,15 @@ write:=Write new.
 temp :=aModel getIDTienda.
 (File named:temp,'clients.json' asFileReference fullName)delete.
 write writeCreateSton: (aModel getClients) asArray  named:temp,'clients.json'. 
+]
+
+{ #category : #'as yet unclassified' }
+DataBase class >> updateSuscriptions:aModel [
+|temp write|
+write:=Write new.
+temp :=aModel getIDTienda.
+(File named:temp,'suscriptions.json' asFileReference fullName)delete.
+write writeCreateSton: (aModel getSuscripciones) asArray  named:temp,'suscriptions.json'. 
 ]
 
 { #category : #initialization }
@@ -73,10 +96,10 @@ DataBase >> createCredentials [
 
 { #category : #initialization }
 DataBase >> initializeAutentication [
-|reader object|
+|reader tiendas|
 reader :=Reader new.
-object :=reader readJson:'amazingShop/tiendas.json'.
-collectionLogins :=reader convertToObject:object.
+tiendas :=reader readJson:'amazingShop/tiendas.json'.
+collectionLogins :=reader convertToObject:tiendas.
 
 ]
 

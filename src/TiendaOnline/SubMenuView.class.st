@@ -11,6 +11,14 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
+SubMenuView class >> create:aContent [
+|temp|
+temp :=self new.
+temp initialize:aContent.
+^temp
+]
+
+{ #category : #'as yet unclassified' }
 SubMenuView class >> create:aSize and:aWitdh [
 |temp|
 temp := self new.
@@ -24,10 +32,25 @@ SubMenuView >> getModel [
 ]
 
 { #category : #initialization }
-SubMenuView >> initialize:aSize and:aWigth [
+SubMenuView >> initialize:aContent [
 super initialize.
-self extent:(aSize-(60@15)). "Para establecer un padding"
+self extent:aContent extent.
+self width: aContent right-215.
+self height: aContent height-10. 
+self color:Color transparent.
+self borderColor:Color transparent.
+]
+
+{ #category : #initialization }
+SubMenuView >> initialize:aSize and:aWigth [
+|image|
+super initialize.
+self extent:(aSize-(60@30)). "Para establecer un padding"
 self width: aWigth*0.84. "Establecer el ancho de la view."
+image:=(Form fromFileNamed: 'amazingShop/background.jpg') asMorph.
+image basicExtent:self extent.
+Helper addCenterMorph:image in:self .
+
 
 ]
 

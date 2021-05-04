@@ -49,8 +49,7 @@ Helper addCenterMorph: table in:self.
 { #category : #adding }
 ModalBuscarCliente >> addTextBox [
 
-inputDNI :=TextBox new.
-inputDNI extent:120@60.
+inputDNI :=TextBox create: 'Ingrese un DNI' size:120@60 .
 
 Helper addCenterTopMorph: inputDNI in:self. 
 ]

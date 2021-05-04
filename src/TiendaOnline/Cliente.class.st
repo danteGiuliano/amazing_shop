@@ -5,7 +5,8 @@ Class {
 		'nombre',
 		'dni',
 		'email',
-		'listaDeSuscripcion'
+		'listaDeSuscripcion',
+		'listaContenidos'
 	],
 	#category : #'TiendaOnline-Model'
 }
