@@ -6,7 +6,8 @@ Class {
 		'addSuscription',
 		'search',
 		'textBox',
-		'model'
+		'model',
+		'instanceClient'
 	],
 	#category : #'TiendaOnline-components'
 }
@@ -59,6 +60,7 @@ Helper border: textBox  aColor:textBox color.
 Helper addCenterMorph: textBox  in:self.
 
 "No write"
+textBox setText:'informacion de cliente'.
 textBox beReadOnly.
 ]
 
@@ -76,7 +78,14 @@ self addInputText.
 self addTextBox.
 self addBottoms.
 self style.
+self logic.
 
+]
+
+{ #category : #initialization }
+ModalAñadirSuscripcion >> logic [
+search mouseAction:[self updateTextBox:(model searchDNI:((inputDNI text )asString))].
+addSuscription mouseAction:[self updateAddSuscripcion.]
 ]
 
 { #category : #initialization }
@@ -90,4 +99,28 @@ inputDNI top:self top+30.
 textBox left: self top+10.
 "Boton add suscription"
 addSuscription top:textBox bottom+5.
+]
+
+{ #category : #initialization }
+ModalAñadirSuscripcion >> updateAddSuscripcion [
+instanceClient ifNotNil:[
+	|selection suscriptions names suscription|
+	suscriptions :=model getSuscripciones.
+	names :=suscriptions collect:[:aSuscription|aSuscription getNombre].
+	selection:=PopupChoiceDialogWindow chooseFrom:names lines:#(1 2) title:'Suscripciones'.
+	suscription:=suscriptions detect:[:aSuscription|aSuscription equals:selection].
+	suscription ifNil:[inputDNI setText:'Error, no existe la suscripcion']ifNotNil:[instanceClient addSuscription:suscription.
+		DataBase updateClients:model.].
+	]
+]
+
+{ #category : #initialization }
+ModalAñadirSuscripcion >> updateTextBox:aClient [
+aClient ifNil:[textBox setText:'Usuario no encontrado'.addSuscription textColor:(Color gray).
+	instanceClient :=nil.
+	]ifNotNil:[
+	textBox setText:aClient getData.
+	instanceClient :=aClient.
+	addSuscription textColor:(Color green).
+	].
 ]

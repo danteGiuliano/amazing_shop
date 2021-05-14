@@ -98,3 +98,15 @@ colectionClientes :=OrderedCollection new.
 colectionContenidos :=OrderedCollection new.
 coleccionSuscripciones :=OrderedCollection new.
 ]
+
+{ #category : #'as yet unclassified' }
+Tienda >> obtainSuscripcion:aSelection [
+^coleccionSuscripciones detect:[:suscription| suscription equals:aSelection]ifNone:[nil].
+
+]
+
+{ #category : #'as yet unclassified' }
+Tienda >> searchDNI:unDni [
+^colectionClientes detect:[:cliente|cliente equals:unDni]ifNone:[nil].
+
+]

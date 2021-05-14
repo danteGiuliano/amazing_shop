@@ -26,8 +26,14 @@ Cliente class >> createWithMap:arrayMap [
 reader :=Reader new.
 temp := self new.
 temp crearConNombre:( reader parserVar:(arrayMap at:2)) yDni:(reader parserVar:(arrayMap at:3))  Email:(reader parserVar:(arrayMap at:4)).
+(arrayMap size=5)ifTrue:[temp añadirLista:(reader parserVar:(arrayMap at:5)).].
 ^temp.
 
+]
+
+{ #category : #'as yet unclassified' }
+Cliente >> addSuscription:aSuscription [.
+listaDeSuscripcion add:aSuscription.
 ]
 
 { #category : #'as yet unclassified' }
@@ -67,6 +73,16 @@ Cliente >> emailRow: rowIndex [
 	^ FTCellMorph new  
 		addMorphBack: (self elementAt: rowIndex) getEmail asStringMorph;
 		yourself
+]
+
+{ #category : #'as yet unclassified' }
+Cliente >> equals:unDni [
+^dni=unDni.
+]
+
+{ #category : #'as yet unclassified' }
+Cliente >> getData [
+^('NOMBRE: ',nombre ,'\DNI:  ',dni,'\EMAIL:  ',email) withCRs.
 ]
 
 { #category : #'as yet unclassified' }

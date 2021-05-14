@@ -54,6 +54,11 @@ column id= 'Expira' ifTrue: [ ^self fechaFinalRow:rowIndex ].
 
 ]
 
+{ #category : #comparing }
+Suscripcion >> equals:aName [
+^nombre ==aName.
+]
+
 { #category : #'as yet unclassified' }
 Suscripcion >> fechaFinalRow:rowIndex [ 
 	^ FTCellMorph new  

@@ -30,6 +30,11 @@ aContent delete.
 ]
 
 { #category : #initialization }
+Button >> disable [ 
+self clearTarget.
+]
+
+{ #category : #initialization }
 Button >> getID [
 ^id.
 ]
@@ -49,4 +54,9 @@ aBlock :=aEvent
 Button >> mouseUp:aEvent [
 super mouseUp:aEvent.
 aBlock value.
+]
+
+{ #category : #initialization }
+Button >> textColor:aColor [
+label color:aColor.
 ]

@@ -153,6 +153,14 @@ Reader >> readJson: aStringRoute [
 ]
 
 { #category : #'as yet unclassified' }
+Reader >> readStream:aStringRoute [
+| temp aFile|
+	aFile := File named: aStringRoute asFileReference fullName.
+	temp := (aFile readStream next: aFile size) asString.
+	^temp.
+]
+
+{ #category : #'as yet unclassified' }
 Reader >> readTxt:aFile [
 ^((aFile readStream)next:aFile size) asString.
 
