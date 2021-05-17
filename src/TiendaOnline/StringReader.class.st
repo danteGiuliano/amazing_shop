@@ -8,6 +8,19 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
+StringReader >> formateValue:aCollection [
+|string|.
+string :='('.
+aCollection do:[
+	:text|
+	string:=string,'"',text,'",'
+	.].
+string:=self sliceChar:string pos:(self posRight:string char:$,).
+string:=string,')' .
+^string.
+]
+
+{ #category : #'as yet unclassified' }
 StringReader >> posLeft:aString char:char [
 |count flag|
 count:=1.flag:=true.

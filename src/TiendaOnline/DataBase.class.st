@@ -4,8 +4,28 @@ Class {
 	#instVars : [
 		'collectionLogins'
 	],
+	#classVars : [
+		'credentials',
+		'database'
+	],
 	#category : #'TiendaOnline-service'
 }
+
+{ #category : #'as yet unclassified' }
+DataBase class >> añadirUsuario:aCollection [
+|usuario password nameShop|
+usuario :=aCollection at:1.
+password :=aCollection at:2.
+nameShop :=aCollection at:3.
+database query:'SELECT * FROM Usuario INSERT INTO Usuario (usuario,password,nombre_shop) VALUES(',usuario,',"',password,',',nameShop,')'
+
+
+
+]
+
+{ #category : #'as yet unclassified' }
+DataBase class >> consultas:aKeyString [
+]
 
 { #category : #'as yet unclassified' }
 DataBase class >> createShop:aDirectory [ 
@@ -20,6 +40,25 @@ aModel:=Tienda createClients:collectionClients createSuscriptions:colecctionSusc
 (Menu create:aModel)openInWorld.
 ]
 
+{ #category : #'as yet unclassified' }
+DataBase class >> getDataBase [
+^database.
+
+
+]
+
+{ #category : #'as yet unclassified' }
+DataBase class >> initializeCredentials [
+credentials :=MySQLDriverSpec new 
+				database:'bqjjyahm2odbtd2jyer3';
+				host:'bqjjyahm2odbtd2jyer3-mysql.services.clever-cloud.com';
+				user:'ucgufhmstam0yv5o';
+				password:'I990vhwVaWn9Pcv9vtIF';
+				port:3306.
+
+
+]
+
 { #category : #running }
 DataBase class >> login:aUserText password:aPasswordText [
 |temp route|
@@ -27,6 +66,23 @@ temp := self new.
 temp initializeAutentication.
 route:=temp compareUser: aUserText aPassword:aPasswordText.
 ^route.
+]
+
+{ #category : #'as yet unclassified' }
+DataBase class >> querys:aStringKey aData:aCollection [
+
+
+
+
+]
+
+{ #category : #'as yet unclassified' }
+DataBase class >> registerShop:aCollection [
+|values|.
+values :=StringReader new formateValue:aCollection.
+self runDataBase.
+database query:'INSERT INTO Usuario (usuario,password,name_shop) VALUES',values.
+
 ]
 
 { #category : #running }
@@ -48,6 +104,14 @@ temp := self new.
 temp initializePaths.
 temp initializeAutentication.
 ^temp.
+]
+
+{ #category : #'as yet unclassified' }
+DataBase class >> runDataBase [
+self initializeCredentials.
+database  :=MySQLDriver new.
+database  connect:credentials.
+
 ]
 
 { #category : #'as yet unclassified' }
@@ -89,9 +153,25 @@ DataBase >> compareUser:aUser aPassword:aPassword [
 ]
 
 { #category : #initialization }
+DataBase >> connect [ 
+database  :=MySQLDriver new.
+database  connect:credentials.
+]
+
+{ #category : #initialization }
 DataBase >> createCredentials [
 (File named:'C:/amazingShop/login.txt' asFileReference fullName)writeStream.
 		
+]
+
+{ #category : #initialization }
+DataBase >> data [ 
+credentials:=MySQLDriverSpec new 
+				database:'bqjjyahm2odbtd2jyer3';
+				host:'bqjjyahm2odbtd2jyer3-mysql.services.clever-cloud.com';
+				user:'ucgufhmstam0yv5o';
+				password:'I990vhwVaWn9Pcv9vtIF';
+				port:3306.
 ]
 
 { #category : #initialization }

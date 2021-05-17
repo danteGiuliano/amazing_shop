@@ -48,15 +48,21 @@ inputName  top: textName top.
 ModalTienda >> addButtons [
 |exit createShop|
 createShop:=Button create: 'Create SHOP' size:80@30.
-exit :=Button create:'EXIT' size:60@30.
+exit :=Button create:'X' size:30@30.
 
 Helper addCenterMorph: createShop  in:self. 
 Helper addCenterMorph: exit in:self.
 
-createShop  top:inputName bottom+10.
-exit top:createShop bottom+10.
+exit top:self top+5.
+exit left:self left+5.
+createShop  bottom:self bottom-15.
 
-exit color:Color red.
+exit borderColor:(Color transparent).
+exit color:(Color transparent).
+
+createShop color:(Color transparent).
+createShop borderColor:(Color transparent).
+createShop textColor:(Color green).
 
 "Logic"
 exit mouseAction:[self delete.].
@@ -76,29 +82,38 @@ Helper addRightTopMorph: textName  in:self.
 textUser  left:self left+10.
 textPass  left:self left+10.
 textName  left:self left+10.
-textUser  top:self top+20.
+textUser  top:self top+40.
 textPass  top:textUser  bottom+20.
 textName  top:textPass bottom+20.
 ]
 
 { #category : #adding }
 ModalTienda >> initialize:aModel [
-super initialize.
 model:=aModel.
 self extent:300@200.
-self color:Color gray.
+self color:(Color veryDarkGray alpha:0.85).
 self addText.
 self addBox.
 self addButtons.
+self style.
 
 
 ]
 
 { #category : #adding }
 ModalTienda >> registerShop [
-DataBase registerShop:'amazingShop/',((inputName text)asString),'/' aNameUser:(inputUser text)asString aPassword:(inputPassword text)asString.
-inputName setText:''.
-inputPassword setText:''.
-inputUser setText:''.
+|collection |
+collection :=OrderedCollection new.
+collection add:(inputUser text)asString. "Usuario"
+collection add:(inputPassword text)asString. "Password"
+collection add:(inputName text)asString. "nombre tienda"
+
+DataBase registerShop:(collection).
+self delete.
+]
+
+{ #category : #adding }
+ModalTienda >> style [ 
+Helper border:self aColor:(Color veryDarkGray alpha:0.85). 
 
 ]
