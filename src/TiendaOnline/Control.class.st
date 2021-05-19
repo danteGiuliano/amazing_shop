@@ -3,7 +3,8 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'view',
-		'model'
+		'model',
+		'id_user'
 	],
 	#classVars : [
 		'menu',

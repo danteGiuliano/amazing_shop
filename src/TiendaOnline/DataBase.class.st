@@ -4,29 +4,45 @@ Class {
 	#instVars : [
 		'collectionLogins'
 	],
+	#classVars : [
+		'credentials',
+		'database'
+	],
 	#category : #'TiendaOnline-service'
 }
 
 { #category : #'as yet unclassified' }
-DataBase class >> createShop:aDirectory [ 
-"Acciones para crear un shop. logica y demas"
-|reader collectionClients colecctionSuscription  aModel|
-reader :=Reader new.
-colecctionSuscription :=reader readJson:aDirectory,'suscriptions.json'.
-collectionClients :=reader readJson: aDirectory,'clients.json'.
-colecctionSuscription :=reader convertToObject: colecctionSuscription .
-collectionClients:= reader convertToObject:collectionClients.
-aModel:=Tienda createClients:collectionClients createSuscriptions:colecctionSuscription  aId:aDirectory.
-(Menu create:aModel)openInWorld.
+DataBase class >> autenticationName:aName aPassWord:aPassword [
+self runDataBase.
+^ (database query:'SELECT * FROM Usuario WHERE Usuario.usuario="',aName,'"',' && Usuario.password="' ,aPassword,'"').
 ]
 
-{ #category : #running }
-DataBase class >> login:aUserText password:aPasswordText [
-|temp route|
-temp := self new.
-temp initializeAutentication.
-route:=temp compareUser: aUserText aPassword:aPasswordText.
-^route.
+{ #category : #'as yet unclassified' }
+DataBase class >> getDataBase [
+^database.
+
+
+]
+
+{ #category : #'as yet unclassified' }
+DataBase class >> initializeCredentials [
+credentials :=MySQLDriverSpec new 
+				database:'bqjjyahm2odbtd2jyer3';
+				host:'bqjjyahm2odbtd2jyer3-mysql.services.clever-cloud.com';
+				user:'ucgufhmstam0yv5o';
+				password:'I990vhwVaWn9Pcv9vtIF';
+				port:3306.
+
+
+]
+
+{ #category : #'as yet unclassified' }
+DataBase class >> registerShop:aCollection [
+|values|.
+values :=StringReader new formateValue:aCollection.
+self runDataBase.
+^database query:'INSERT INTO Usuario (usuario,password,name_shop) VALUES',values.
+
 ]
 
 { #category : #running }
@@ -51,21 +67,11 @@ temp initializeAutentication.
 ]
 
 { #category : #'as yet unclassified' }
-DataBase class >> updateClients:aModel [
-|temp write|
-write:=Write new.
-temp :=aModel getIDTienda.
-(File named:temp,'clients.json' asFileReference fullName)delete.
-write writeCreateSton: (aModel getClients) asArray  named:temp,'clients.json'. 
-]
+DataBase class >> runDataBase [
+self initializeCredentials.
+database  :=MySQLDriver new.
+database  connect:credentials.
 
-{ #category : #'as yet unclassified' }
-DataBase class >> updateSuscriptions:aModel [
-|temp write|
-write:=Write new.
-temp :=aModel getIDTienda.
-(File named:temp,'suscriptions.json' asFileReference fullName)delete.
-write writeCreateSton: (aModel getSuscripciones) asArray  named:temp,'suscriptions.json'. 
 ]
 
 { #category : #initialization }
@@ -89,9 +95,25 @@ DataBase >> compareUser:aUser aPassword:aPassword [
 ]
 
 { #category : #initialization }
+DataBase >> connect [ 
+database  :=MySQLDriver new.
+database  connect:credentials.
+]
+
+{ #category : #initialization }
 DataBase >> createCredentials [
 (File named:'C:/amazingShop/login.txt' asFileReference fullName)writeStream.
 		
+]
+
+{ #category : #initialization }
+DataBase >> data [ 
+credentials:=MySQLDriverSpec new 
+				database:'bqjjyahm2odbtd2jyer3';
+				host:'bqjjyahm2odbtd2jyer3-mysql.services.clever-cloud.com';
+				user:'ucgufhmstam0yv5o';
+				password:'I990vhwVaWn9Pcv9vtIF';
+				port:3306.
 ]
 
 { #category : #initialization }

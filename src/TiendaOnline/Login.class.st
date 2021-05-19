@@ -25,21 +25,17 @@ a initializeShop.
 
 { #category : #initialization }
 Login >> autentication [
-directory:=(DataBase login:(inputUser text)asString password:(inputPassword text)asString).
-directory ifNil:[|temp|temp:=Button create:'ERROR DE LOGIN' size:100@30.temp color:Color red.temp mouseAction:[temp delete].
-	temp openInHand ]ifNotNil:[directory := directory getRoute.self createShop.].
-
-]
-
-{ #category : #'as yet unclassified' }
-Login >> createShop [
-DataBase  createShop: directory.
-
-
-
-
-
-
+|query|
+query :=DataBase autenticationName:(inputUser text)asString aPassWord:(inputPassword text)asString.
+query isError ifTrue:[
+		"un error de consulta"
+	]ifFalse:[
+	|rows|
+	rows :=query rows.
+	rows isEmpty ifFalse:[model:=(rows at:1)columns. Menu create:model.]ifTrue:[
+		"Error de usuario no encontrado"
+		]
+	]
 
 ]
 
@@ -65,7 +61,7 @@ Helper border:login aColor:(Color red alpha:0.40) rad:2.
 
 "Añado funciones a los bottones."
 close mouseAction: [close close:self].
-create mouseAction: [ModalTienda call:1].
+create mouseAction: [ModalTienda call].
 login mouseAction:[self autentication].
 
 
@@ -104,12 +100,12 @@ Helper border:inputUser aColor:(Color red alpha:0.30) rad:2.
 
 { #category : #initialization }
 Login >> style [ 
-|image|
-image:=(ZnEasy getPng:'https://raw.githubusercontent.com/danteGiuliano/amazing_shop/stable/src/resourses/login.png')asMorph.
-image scale:0.50.
+"|image|"
+"image:=(ZnEasy getPng:'https://raw.githubusercontent.com/danteGiuliano/amazing_shop/stable/src/resourses/login.png')asMorph."
+"image scale:0.50."
 self  extent:(360@640).
-image borderStyle: (RoundedBorder new cornerRadius:5; width:5; color:Color gray).
-self addMorphCentered:image.
+"image borderStyle: (RoundedBorder new cornerRadius:5; width:5; color:Color gray)."
+"self addMorphCentered:image."
 "Traer recursos Https de repostorio "
 "self addMorphCentered:("
 "self borderStyle:(RoundedBorder new cornerRadius:5; width:5; color:Color gray)."
