@@ -11,10 +11,9 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-ModalCliente class >> call:aModel [
+ModalCliente class >> call [
 |temp|
 temp:=self new.
-temp setModel: aModel.
 temp openCenteredInWorld .
 
 ]
@@ -105,19 +104,24 @@ self addBox:self addTexts.
 
 { #category : #initialization }
 ModalCliente >> registerClient [
-|client|
-client:=Cliente crearCLiente: (inputNombre text)asString  unDni:(inputDni text)asString  unEmail:(inputEMail text)asString. 
-model addClient:client.
-inputNombre setText:''.
+|client colection nombre dni email temp|
+nombre :=(inputNombre text)asString .
+dni :=(inputDni text)asString.
+email :=(inputEMail text)asString.
+
+client:=Cliente crearCLiente:nombre unDni:dni unEmail:email.
+	temp :=Control getModel.
+	temp addClient:client.
+	Control aModelInstance: temp.
+"Data base -------------"
+colection :=OrderedCollection new.
+colection add:dni;add:nombre;add:email;add:Control userKey.
+DataBase registerClient: colection.
+
 inputDni setText:''.
 inputEMail setText:''.
-DataBase updateClients: model.
+inputNombre setText:''.
 
-]
-
-{ #category : #initialization }
-ModalCliente >> setModel:aModel [.
-model:=aModel.
 ]
 
 { #category : #initialization }

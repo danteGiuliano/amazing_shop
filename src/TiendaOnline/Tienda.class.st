@@ -23,6 +23,17 @@ temp initializeCollection.
 ]
 
 { #category : #updating }
+Tienda class >> crearWithSQL [ 
+|temp clientes|
+temp := self new.
+temp initializeCollection.
+clientes :=DataBase getClients.
+clientes do:[:clientSQL|temp addClient:(Cliente createWithSQL:clientSQL)].
+^temp.
+
+]
+
+{ #category : #updating }
 Tienda class >> createClients:aCollection [
 |temp|
 temp :=self new.

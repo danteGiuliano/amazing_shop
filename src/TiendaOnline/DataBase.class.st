@@ -17,6 +17,18 @@ self runDataBase.
 ^ (database query:'SELECT * FROM Usuario WHERE Usuario.usuario="',aName,'"',' && Usuario.password="' ,aPassword,'"').
 ]
 
+{ #category : #'query_pull' }
+DataBase class >> getClients [
+self runDataBase.
+^(database query:'SELECT * FROM Cliente WHERE Cliente.usuario_name="',Control userKey,'"')rows
+]
+
+{ #category : #'query_pull' }
+DataBase class >> getClients:aIdUser [
+self runDataBase.
+^(database query:'SELECT * FROM Cliente WHERE Cliente.usuario_name=",',aIdUser,'"').
+]
+
 { #category : #'as yet unclassified' }
 DataBase class >> getDataBase [
 ^database.
@@ -36,7 +48,20 @@ credentials :=MySQLDriverSpec new
 
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'querys_up' }
+DataBase class >> registerClient:aCollection [
+|values dni|
+dni :=aCollection at:1.
+aCollection removeAt:1.
+values:=StringReader new formateValue:aCollection.
+"aColecction ( dni , nombre , email , usuario_name)"
+self runDataBase.
+database query:'INSERT INTO Cliente (dni,nombre,email,usuario_name)
+VALUES(',dni,',',(StringReader new sliceChar:values pos:1).
+
+]
+
+{ #category : #'querys_up' }
 DataBase class >> registerShop:aCollection [
 |values|.
 values :=StringReader new formateValue:aCollection.
@@ -57,76 +82,10 @@ aUserTienda :=UserTienda createUser: aUserAdmin  aPass:aPassword  aId:aNameShop.
 temp addNewTienda:aUserTienda.  
 ]
 
-{ #category : #running }
-DataBase class >> run [ 
-|temp|
-temp := self new.
-temp initializePaths.
-temp initializeAutentication.
-^temp.
-]
-
 { #category : #'as yet unclassified' }
 DataBase class >> runDataBase [
 self initializeCredentials.
 database  :=MySQLDriver new.
 database  connect:credentials.
 
-]
-
-{ #category : #initialization }
-DataBase >> aPathsRoutes [
-^#('amazingShop').
-
-]
-
-{ #category : #initialization }
-DataBase >> addNewTienda:aTienda [
-|write|
-collectionLogins add:aTienda.
-write :=Write new.
-write writeCreateSton:collectionLogins asArray named:'amazingShop/tiendas.json'
-]
-
-{ #category : #initialization }
-DataBase >> compareUser:aUser aPassword:aPassword [
-^(collectionLogins detect:[:aUserShop|aUserShop validate: aUser aPass:aPassword ]ifNone:[nil]). 
-
-]
-
-{ #category : #initialization }
-DataBase >> connect [ 
-database  :=MySQLDriver new.
-database  connect:credentials.
-]
-
-{ #category : #initialization }
-DataBase >> createCredentials [
-(File named:'C:/amazingShop/login.txt' asFileReference fullName)writeStream.
-		
-]
-
-{ #category : #initialization }
-DataBase >> data [ 
-credentials:=MySQLDriverSpec new 
-				database:'bqjjyahm2odbtd2jyer3';
-				host:'bqjjyahm2odbtd2jyer3-mysql.services.clever-cloud.com';
-				user:'ucgufhmstam0yv5o';
-				password:'I990vhwVaWn9Pcv9vtIF';
-				port:3306.
-]
-
-{ #category : #initialization }
-DataBase >> initializeAutentication [
-|reader tiendas|
-reader :=Reader new.
-tiendas :=reader readJson:'amazingShop/tiendas.json'.
-collectionLogins :=reader convertToObject:tiendas.
-
-]
-
-{ #category : #initialization }
-DataBase >> initializePaths [
-self aPathsRoutes do:[:directory| File createDirectory: directory].
-self createCredentials.
 ]

@@ -32,8 +32,8 @@ query isError ifTrue:[
 	]ifFalse:[
 	|rows|
 	rows :=query rows.
-	rows isEmpty ifFalse:[model:=(rows at:1)columns. Menu create:model.]ifTrue:[
-		"Error de usuario no encontrado"
+	rows isEmpty ifFalse:[Control userSession:(rows at:1)columns. Menu create.]ifTrue:[
+		"Error de usuario no encontrado "
 		]
 	]
 

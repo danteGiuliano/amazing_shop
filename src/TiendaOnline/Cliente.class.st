@@ -21,14 +21,15 @@ temp crearLista.
 ]
 
 { #category : #initialization }
-Cliente class >> createWithMap:arrayMap [
-|temp reader|
-reader :=Reader new.
-temp := self new.
-temp crearConNombre:( reader parserVar:(arrayMap at:2)) yDni:(reader parserVar:(arrayMap at:3))  Email:(reader parserVar:(arrayMap at:4)).
-(arrayMap size=5)ifTrue:[temp añadirLista:(reader parserVar:(arrayMap at:5)).].
-^temp.
+Cliente class >> createWithSQL:aMysQuery [
+|data temp nombre dni email|
+data :=aMysQuery columns. "(dni,nombre,email,keyID)"
+nombre:=data at:2.
+dni :=data at:1.
+email:=data at:3.
 
+temp :=self new.
+^temp crearConNombre:nombre yDni:dni Email:email. 
 ]
 
 { #category : #'as yet unclassified' }

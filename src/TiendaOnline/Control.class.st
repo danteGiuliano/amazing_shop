@@ -1,14 +1,9 @@
 Class {
 	#name : #Control,
 	#superclass : #Object,
-	#instVars : [
-		'view',
-		'model',
-		'id_user'
-	],
 	#classVars : [
-		'menu',
-		'tienda'
+		'aModel',
+		'userSesion'
 	],
 	#classInstVars : [
 		'model',
@@ -17,38 +12,38 @@ Class {
 	#category : #'TiendaOnline-Controller'
 }
 
-{ #category : #accessing }
-Control class >> getClients [
-^model getClients.
+{ #category : #'as yet unclassified' }
+Control class >> aModelInstance:aInstance [
+aModel:=aInstance.
 ]
 
-{ #category : #accessing }
-Control class >> initializeaModel:aModel andView:aView [
-|temp|
-temp := self new.
-temp initializeView: aView andModel:aModel.
-^temp.
+{ #category : #'as yet unclassified' }
+Control class >> getModel [ 
+^aModel.
 ]
 
-{ #category : #accessing }
-Control class >> model:aBlock [ 
-^Tienda changed:aBlock value.
+{ #category : #'as yet unclassified' }
+Control class >> modelFuntion:aBlock [ 
+aBlock value:aModel.
 ]
 
-{ #category : #accessing }
-Control class >> new [.
-super new.
-model:=Tienda.
-view :=Menu.
+{ #category : #'as yet unclassified' }
+Control class >> modelFuntionReturn:aBlock [ 
+^aBlock value:aModel.
 ]
 
-{ #category : #accessing }
-Control class >> view:aBlock [ 
-^Menu update:aBlock value.
+{ #category : #'as yet unclassified' }
+Control class >> userKey [
+^userSesion at:1.
 ]
 
-{ #category : #initialization }
-Control >> initializeView:aView andModel:aModel [
-view:=aView.
-model:=aModel.
+{ #category : #'as yet unclassified' }
+Control class >> userNameShop [
+^userSesion at:3.
+]
+
+{ #category : #'as yet unclassified' }
+Control class >> userSession:aId_user [
+userSesion :=aId_user.
+aModel :=Tienda crearWithSQL.
 ]
