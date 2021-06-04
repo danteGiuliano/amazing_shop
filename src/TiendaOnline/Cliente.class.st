@@ -21,14 +21,16 @@ temp crearLista.
 ]
 
 { #category : #initialization }
-Cliente class >> createWithMap:arrayMap [
-|temp reader|
-reader :=Reader new.
-temp := self new.
-temp crearConNombre:( reader parserVar:(arrayMap at:2)) yDni:(reader parserVar:(arrayMap at:3))  Email:(reader parserVar:(arrayMap at:4)).
-(arrayMap size=5)ifTrue:[temp añadirLista:(reader parserVar:(arrayMap at:5)).].
-^temp.
-
+Cliente class >> createWithSQL:aMysQuery [
+|data temp nombre dni email|
+data :=aMysQuery columns. "(dni,nombre,email,keyID)"
+dni :=data at:1.
+nombre:=data at:2.
+email:=data at:3.
+temp :=self new.
+temp crearLista.
+temp añadirListaMySQL:(DataBase getSuscripciones_Compradas:dni) rows.
+^temp crearConNombre:nombre yDni:dni Email:email. 
 ]
 
 { #category : #'as yet unclassified' }
@@ -42,11 +44,39 @@ listaDeSuscripcion :=unaLista.
 ]
 
 { #category : #'as yet unclassified' }
+Cliente >> añadirListaMySQL:aMySQLQuery [
+	|counter size|
+	counter :=1.
+	size :=aMySQLQuery size.
+	[counter <= size] whileTrue:[
+	|data list  nameSuscription descuento_aplicacion descuento_pelicula descuento_libro fechaInicio fechaFin |
+	data :=(aMySQLQuery at:counter) columns.
+	nameSuscription:=data at:1.
+	descuento_aplicacion :=data at:2.
+	descuento_pelicula :=data at:3.
+	descuento_libro :=data at:4.
+	fechaInicio:=data at:5.
+	fechaFin :=data at:6.
+	list :=Dictionary newFrom:{'Aplicacion' ->descuento_aplicacion . 'Pelicula' ->descuento_pelicula.
+	'Libro' ->descuento_libro.
+	}.
+	data :=SuscripcionComprada createWithSQL:list yFechaInicio:fechaInicio  yFechaFin:fechaFin  deNombre:nameSuscription.
+	self addSuscription:data.
+	counter :=counter+1.
+	].
+]
+
+{ #category : #'as yet unclassified' }
 Cliente >> cellColumn: column row:rowIndex [
 column id = '#' ifTrue: [ ^ FTCellMorph new addMorph: rowIndex asMorph ].
 column id = 'nombre' ifTrue: [ ^ self nameRow: rowIndex ].
 column id= 'dni' ifTrue: [ ^self dniRow:rowIndex ].
 column id= 'email' ifTrue: [ ^self emailRow:rowIndex ].
+]
+
+{ #category : #'as yet unclassified' }
+Cliente >> compraSuscripcion:unaSuscripcion [
+listaDeSuscripcion add:unaSuscripcion.
 ]
 
 { #category : #'as yet unclassified' }
@@ -77,12 +107,12 @@ Cliente >> emailRow: rowIndex [
 
 { #category : #'as yet unclassified' }
 Cliente >> equals:unDni [
-^dni=unDni.
+^((dni asString)=unDni ).
 ]
 
 { #category : #'as yet unclassified' }
 Cliente >> getData [
-^('NOMBRE: ',nombre ,'\DNI:  ',dni,'\EMAIL:  ',email) withCRs.
+^('NOMBRE: ',nombre ,'\DNI:  ',(dni asString),'\EMAIL:  ',email) withCRs.
 ]
 
 { #category : #'as yet unclassified' }
@@ -98,6 +128,11 @@ Cliente >> getEmail [
 { #category : #'as yet unclassified' }
 Cliente >> getNombre [
 ^nombre.
+]
+
+{ #category : #'as yet unclassified' }
+Cliente >> getSuscripciones_Compradas [
+^listaDeSuscripcion.
 ]
 
 { #category : #'as yet unclassified' }
@@ -117,5 +152,5 @@ Cliente >> newDataSourceMatching: aFTFilter [
 
 { #category : #'as yet unclassified' }
 Cliente >> toString:aCliente [
-^aCliente getDni.
+^(aCliente getDni) asString.
 ]

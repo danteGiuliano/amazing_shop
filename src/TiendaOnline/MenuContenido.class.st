@@ -2,7 +2,9 @@ Class {
 	#name : #MenuContenido,
 	#superclass : #SubMenuView,
 	#instVars : [
-		'panel'
+		'panel',
+		'subMenu',
+		'panelContenido'
 	],
 	#category : #'TiendaOnline-View'
 }
@@ -14,13 +16,38 @@ temp := self new.
 ^temp initialize.
 ]
 
+{ #category : #'as yet unclassified' }
+MenuContenido class >> createMenuContenidoIn:aContent [
+|temp|
+temp := self new.
+^temp initialize:aContent.
+]
+
 { #category : #initialization }
-MenuContenido >> initialize [
-|temp |
-temp := #(Peliculas Aplicaciones Juegos Libros Softwares )asOrderedCollection .
-super initialize. 
-panel := (Helper createPanel: temp aLogic:self routes).
-self addMorphCentered: panel.
+MenuContenido >> addContenido [
+|addContenido|
+addContenido :=ComponentContenidoMenu call.
+Helper addLeftBottomMorph:addContenido  in:subMenu. 
+addContenido bottom:subMenu bottom-30.
+
+]
+
+{ #category : #adding }
+MenuContenido >> addOptions [
+|temp| 
+temp := #(Peliculas Aplicaciones Libros)asOrderedCollection .
+Helper addLeftTopMorphic:(Helper createPanel: temp aLogic:self routes)  in:subMenu. 
+]
+
+{ #category : #initialization }
+MenuContenido >> initialize:aContent [
+super initialize.
+subMenu :=aContent.
+self addOptions.
+self addContenido.
+self viewContenido.
+
+
 ]
 
 { #category : #initialization }
@@ -34,4 +61,12 @@ MenuContenido >> routes [
 	id = 'Libros' ifTrue: [ logicReturn := [|a|.a:=Button create:'beautiful'.a openInHand] ].
 	logicReturn.
 	].
+]
+
+{ #category : #initialization }
+MenuContenido >> viewContenido [
+panelContenido :=PanelContenido call.
+Helper addRightCenterMorph:panelContenido  in:subMenu. 
+panelContenido right:subMenu right-60.
+panelContenido top:subMenu top+100.
 ]

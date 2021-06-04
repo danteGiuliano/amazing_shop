@@ -11,36 +11,37 @@ Class {
 }
 
 { #category : #'ffi-calls' }
-ModalBuscarCliente class >> call:aModel [
+ModalBuscarCliente class >> call [
 |temp|
 temp :=self new.
-temp extent:300@300.
-temp color:Color gray.
 temp openCenteredInWorld.
-temp initialize:aModel.
 
 
 ]
 
 { #category : #initialization }
 ModalBuscarCliente >> addButtom [
-|buttomExit|.
-buttomSearch :=Button create: 'Buscar suscripciones' size:120@30.
-buttomExit :=Button create:'EXIT' size:30@30.
+|buttomExit|
+buttomSearch :=Button create: 'Mostrar' size:120@22.
+buttomExit :=Button create:'X' size:30@30.
+"Style exit"
+buttomExit color:(Color transparent).
+buttomExit borderColor:(Color transparent).
 "addButtom "
 Helper addCenterMorph: buttomSearch  in:self.
 Helper addRightTopMorph: buttomExit  in:self. 
-buttomSearch mouseAction:[].
+
+buttomSearch mouseAction:[self logic].
 buttomExit mouseAction:[self delete.]
   
 ]
 
 { #category : #adding }
-ModalBuscarCliente >> addTable [
+ModalBuscarCliente >> addTable:aCollection [
 | aNamesColumnTable |
 
-aNamesColumnTable:= #('Tipo' ' Inicio' ' Vencimiento')asOrderedCollection.
-table := Table create: (Cliente elements:(nil)) aCollums: aNamesColumnTable  aSize:(280@220).
+aNamesColumnTable:= #('Tipo' 'Inicio' 'Vencimiento')asOrderedCollection.
+table := Table create: (SuscripcionComprada elements:(aCollection)) aCollums: aNamesColumnTable  aSize:(380@230).
 
 
 Helper addCenterMorph: table in:self. 
@@ -49,24 +50,51 @@ Helper addCenterMorph: table in:self.
 { #category : #adding }
 ModalBuscarCliente >> addTextBox [
 
-inputDNI :=TextBox create: 'Ingrese un DNI' size:120@60 .
+inputDNI :=TextBox create: 'Ingrese un DNI' size:120@80 .
 
 Helper addCenterTopMorph: inputDNI in:self. 
 ]
 
+{ #category : #adding }
+ModalBuscarCliente >> defineMorph [
+
+self extent:400@300.
+self color:(Color black alpha:0.80).
+Helper border:self aColor:self color  rad:3. 
+]
+
 { #category : #initialization }
-ModalBuscarCliente >> initialize:aModel [
-model:=aModel.
+ModalBuscarCliente >> initialize [
+super initialize.
+self defineMorph.
 self addButtom.
 self addTextBox.
-self addTable.
+self addTable:nil.
 self style.
+]
+
+{ #category : #adding }
+ModalBuscarCliente >> logic [
+|aClient|
+aClient :=Control modelFuntionReturn:[:h| h getSuscripciones_Compradas:(inputDNI text)asString].
+aClient isNotNil ifTrue:[
+	self addTable:aClient getSuscripciones_Compradas.
+	]
 ]
 
 { #category : #adding }
 ModalBuscarCliente >> style [
 
 inputDNI top:self top+10.
-buttomSearch top:inputDNI bottom+10.
-table top:buttomSearch bottom +5.
+inputDNI left:self left+5.
+buttomSearch top:inputDNI top.
+buttomSearch left:inputDNI right+5.
+table bottom:self bottom -10.
+
+"Style buttom"
+buttomSearch color:(Color veryDarkGray alpha:0.85).
+Helper border: buttomSearch  aColor:buttomSearch color  rad:3. 
+"Style textBox"
+Helper border: inputDNI  aColor: inputDNI color  rad:3.
+
 ]

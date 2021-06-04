@@ -26,7 +26,6 @@ Helper addRightTopMorph:((Helper createPanel: options aLogic:self routes)) in:su
 MenuCliente >> initialize:aContent [
 super initialize.
 subMenu :=aContent.
-model:=aContent getModel.
 self loadTable.
 self addOptions.
 ]
@@ -34,7 +33,7 @@ self addOptions.
 { #category : #initialization }
 MenuCliente >> loadTable [
 | aNamesColumnTable temp|
-temp :=model getClients.
+temp :=Control modelFuntionReturn:[:tienda| tienda getClients].
 aNamesColumnTable:= #('#' 'nombre' 'dni' 'email')asOrderedCollection.
 table := Table create: (Cliente elements:(temp)) aCollums: aNamesColumnTable  aSize:(900@600).
 Helper addLeftTopMorphic: table in:subMenu. 
@@ -50,10 +49,10 @@ MenuCliente >> routes [
 	"Inspirate in concept IONIC Framework"
 	^ [ :id | 
 	  | logicReturn |
-	id = 'Crear' ifTrue: [ logicReturn := [ModalCliente call:model]].
+	id = 'Crear' ifTrue: [ logicReturn := [ModalCliente call]].
 	id = 'actualizar' ifTrue: [ logicReturn := [table delete.self loadTable]].
-	id='Suscripciones' ifTrue:[logicReturn :=[ModalBuscarCliente call:model]].
-	id='Añadir suscripciones' ifTrue:[logicReturn :=[ModalAñadirSuscripcion  call:model]].
+	id='Suscripciones' ifTrue:[logicReturn :=[ModalBuscarCliente call]].
+	id='Añadir suscripciones' ifTrue:[logicReturn :=[ModalAñadirSuscripcion call]].
 	logicReturn.
-	].
+	]. 
 ]

@@ -7,20 +7,17 @@ Class {
 		'inputDescuentoAplicacion',
 		'inputDescuentoPelicula',
 		'botonCreate',
-		'botonExit',
-		'model',
-		'inputFechaInicio',
-		'inputFechaExpira'
+		'botonExit'
 	],
 	#category : #'TiendaOnline-components'
 }
 
 { #category : #'ffi-calls' }
-ModalSuscripcion class >> call:aModel [
+ModalSuscripcion class >> call [
 |temp|
 temp :=self new.
-temp initialize:aModel.
 temp extent:300@200.
+temp initialize.
 temp color:(Color lightGray alpha:0.50).
 temp openCenteredInWorld.
 ]
@@ -40,15 +37,17 @@ botonCreate mouseAction: [ self addSuscription].
 
 { #category : #initialization }
 ModalSuscripcion >> addSuscription [
-|aux auxDiccionary block|
-
-block :=[:val| (val text)asString].
-
-auxDiccionary :=Dictionary newFrom:{'Pelicula' ->(block value:inputDescuentoPelicula).'Aplicacion' ->(block value:inputDescuentoAplicacion). 'Libro' ->(block value:inputDescuentoLibro) }.
-
-aux :=Suscripcion conDescuentos:auxDiccionary fechaInicio:(block value:inputFechaInicio) fechaFinal: (block value:inputFechaExpira) deNombre:(block value:inputNombre).
-model addSuscription:aux.
-DataBase updateSuscriptions: model.
+|colection aDiccionary|
+colection :=OrderedCollection new.
+colection add:(inputNombre text)asString.
+colection add:(inputDescuentoAplicacion text).
+colection add:(inputDescuentoPelicula text).
+colection add:(inputDescuentoLibro text). 
+"Update modelo offline"
+aDiccionary:=Dictionary newFrom:{'Pelicula'->(inputDescuentoPelicula text).'Aplicacion'->(inputDescuentoAplicacion text).'Libro'->(inputDescuentoLibro text)}.
+Control modelFuntion:[:tienda| tienda addSuscription:(Descuento conDescuentos:aDiccionary deNombre:(inputNombre text)asString )].
+"update modelo database"
+DataBase registerSuscription: colection.
 self success.
 ]
 
@@ -58,22 +57,19 @@ inputDescuentoAplicacion :=TextBox create:'Descuento Aplicacion' size:200@30.
 inputDescuentoLibro :=TextBox create:'Descuento Libro' size:200@30.
 inputDescuentoPelicula :=TextBox create:'Descuento pelicula' size:200@30.
 inputNombre :=TextBox create:'Nombre de suscripcion' size:200@30.
-inputFechaInicio :=TextBox create:'Fecha de inicio.' size:100@30.
-inputFechaExpira :=TextBox create:'Fecha de Fin' size:100@30.
 
 Helper addCenterMorph:inputDescuentoAplicacion   in:self. 
 Helper addCenterMorph:inputNombre in:self.
 Helper addCenterMorph:inputDescuentoLibro in:self.
 Helper addCenterMorph:inputDescuentoPelicula in:self.
-Helper addCenterMorph: inputFechaInicio  in: self.
-Helper addCenterMorph: inputFechaExpira  in:self. 
 ]
 
 { #category : #initialization }
-ModalSuscripcion >> initialize:aModel [
-model :=aModel.
-self addTextBox.
+ModalSuscripcion >> initialize [
+super initialize.
+self extent:300@200.
 self addButtoms.
+self addTextBox.
 self style.
 ]
 
@@ -95,13 +91,8 @@ inputDescuentoLibro  top:inputDescuentoAplicacion bottom+10.
 inputDescuentoPelicula left:borderLeftPadding.
 inputDescuentoPelicula top:inputDescuentoLibro bottom+10.
 
-inputFechaInicio left: borderLeftPadding.
-inputFechaInicio top:inputDescuentoPelicula bottom+10.
-inputFechaExpira left:inputFechaInicio right+10.
-inputFechaExpira top:inputFechaInicio top.
-
-botonExit left:borderLeftPadding +10.
-botonExit top:inputFechaInicio  bottom+10.
+botonExit left:borderLeftPadding +20.
+botonExit bottom:self bottom-10.
 
 botonCreate right:inputDescuentoPelicula right.
 botonCreate top:botonExit top.
@@ -119,6 +110,5 @@ inputDescuentoAplicacion setText:''.
 inputDescuentoLibro setText:''.
 inputDescuentoPelicula setText:''.
 inputNombre setText:''.
-inputFechaInicio setText:''.
-inputFechaExpira setText:''.
+
 ]

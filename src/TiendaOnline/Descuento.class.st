@@ -1,9 +1,7 @@
 Class {
-	#name : #Suscripcion,
+	#name : #Descuento,
 	#superclass : #FTSimpleDataSource,
 	#instVars : [
-		'fechaInicio',
-		'fechaExpira',
 		'diccionarioDescuento',
 		'nombre'
 	],
@@ -11,15 +9,15 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-Suscripcion class >> conDescuentos:aDiccionary fechaInicio:fechaInicio fechaFinal:fechaFinal deNombre:unNombre [
+Descuento class >> conDescuentos:aDiccionary deNombre:unNombre [
 |temp|
 temp :=self new.
-temp iniciarConDescuentos:aDiccionary fechaInicio:fechaInicio fechaFinal:fechaFinal deNombre:unNombre.
+temp iniciarConDescuentos:aDiccionary deNombre:unNombre.
 ^temp.
 ]
 
 { #category : #initialization }
-Suscripcion class >> createWithMap:arrayMap [
+Descuento class >> createWithMap:arrayMap [
 |temp reader block|
 reader :=Reader new.
 temp := self new.
@@ -30,96 +28,94 @@ temp iniciarConDescuentos:(self parserDictionary:(reader parserVarDicionary: (ar
 ]
 
 { #category : #'as yet unclassified' }
-Suscripcion class >> parserDictionary:arrayDictiionary [
+Descuento class >> createWithSQL:aMySQL [
+|aDiccionary nombre temp query|
+temp :=self new.
+query :=aMySQL columns.
+nombre :=query at:1.
+aDiccionary := Dictionary newFrom:{'Aplicacion'-> (query at:2). 'Pelicula' -> (query at:3).'Libro'->(query at:4)}.
+temp iniciarConDescuentos: aDiccionary  deNombre:nombre. 
+^temp.
+]
+
+{ #category : #'as yet unclassified' }
+Descuento class >> parserDictionary:arrayDictiionary [
 |diccionary|
 diccionary :=Dictionary new.
 ^arrayDictiionary.
 ]
 
 { #category : #'as yet unclassified' }
-Suscripcion >> aplicacionRow: rowIndex [
+Descuento >> aplicacionRow: rowIndex [
 	^ FTCellMorph new  
 		addMorphBack: (self elementAt: rowIndex) getAplication asStringMorph;
 		yourself
 ]
 
 { #category : #'as yet unclassified' }
-Suscripcion >> cellColumn: column row:rowIndex [
+Descuento >> cellColumn: column row:rowIndex [
 column id = 'Nombre' ifTrue: [ ^self nombreRow: rowIndex].
 column id= 'Descuento Libro' ifTrue: [ ^self libroRow:rowIndex ].
 column id= 'Descuento Aplicacion' ifTrue: [ ^self aplicacionRow:rowIndex ].
 column id= 'Descuento Pelicula' ifTrue: [ ^self peliculaRow:rowIndex ].
-column id= 'Inicio' ifTrue: [ ^self fechaIncioRow:rowIndex ].
-column id= 'Expira' ifTrue: [ ^self fechaFinalRow:rowIndex ].
+
 
 ]
 
 { #category : #comparing }
-Suscripcion >> equals:aName [
+Descuento >> equals:aName [
 ^nombre ==aName.
 ]
 
 { #category : #'as yet unclassified' }
-Suscripcion >> fechaFinalRow:rowIndex [ 
+Descuento >> fechaFinalRow:rowIndex [ 
 	^ FTCellMorph new  
 		addMorphBack: (self elementAt: rowIndex) getFechaExpira asStringMorph;
 		yourself
 ]
 
 { #category : #'as yet unclassified' }
-Suscripcion >> fechaIncioRow:rowIndex [ 
+Descuento >> fechaIncioRow:rowIndex [ 
 	^ FTCellMorph new  
 		addMorphBack: (self elementAt: rowIndex) getFechaInicio asStringMorph;
 		yourself
 ]
 
 { #category : #'as yet unclassified' }
-Suscripcion >> getAplication [
-^(diccionarioDescuento at:'Aplicacion'),' %'.
+Descuento >> getAplication [
+^(diccionarioDescuento at:'Aplicacion')asString,' %'.
 ]
 
 { #category : #'as yet unclassified' }
-Suscripcion >> getFechaExpira [
-^fechaExpira 
+Descuento >> getLibro [
+^(diccionarioDescuento at:'Libro')asString,' %'
 ]
 
 { #category : #'as yet unclassified' }
-Suscripcion >> getFechaInicio [
-^fechaInicio.
-]
-
-{ #category : #'as yet unclassified' }
-Suscripcion >> getLibro [
-^(diccionarioDescuento at:'Libro'),' %'
-]
-
-{ #category : #'as yet unclassified' }
-Suscripcion >> getNombre [
+Descuento >> getNombre [
 ^nombre
 ]
 
 { #category : #'as yet unclassified' }
-Suscripcion >> getPelicula [
-^(diccionarioDescuento at:'Pelicula'),' %'
+Descuento >> getPelicula [
+^(diccionarioDescuento at:'Pelicula')asString,' %'
 ]
 
 { #category : #'as yet unclassified' }
-Suscripcion >> iniciarConDescuentos:aDiccionary fechaInicio:unaFechaInicio fechaFinal:fechaFinal deNombre:unNombre [
+Descuento >> iniciarConDescuentos:aDiccionary deNombre:unNombre [
 nombre:=unNombre.
-fechaInicio :=unaFechaInicio.
-fechaExpira :=fechaFinal.
 diccionarioDescuento :=aDiccionary.
 ]
 
 { #category : #'as yet unclassified' }
-Suscripcion >> libroRow:rowIndex [ 
+Descuento >> libroRow:rowIndex [ 
 	^ FTCellMorph new  
 		addMorphBack: (self elementAt: rowIndex) getLibro asStringMorph;
 		yourself
 ]
 
 { #category : #'as yet unclassified' }
-Suscripcion >> newDataSourceMatching: aFTFilter [
+Descuento >> newDataSourceMatching: aFTFilter [
 	| newElements |
 	newElements := Array withAll: (elements select: [ :each | 
 		aFTFilter matches: (self toString: each) ]).
@@ -127,20 +123,20 @@ Suscripcion >> newDataSourceMatching: aFTFilter [
 ]
 
 { #category : #'as yet unclassified' }
-Suscripcion >> nombreRow: rowIndex [
+Descuento >> nombreRow: rowIndex [
 	^ FTCellMorph new  
 		addMorphBack: (self elementAt: rowIndex) getNombre asStringMorph;
 		yourself
 ]
 
 { #category : #'as yet unclassified' }
-Suscripcion >> peliculaRow: rowIndex [
+Descuento >> peliculaRow: rowIndex [
 	^ FTCellMorph new  
 		addMorphBack: (self elementAt: rowIndex) getPelicula asStringMorph;
 		yourself
 ]
 
 { #category : #'as yet unclassified' }
-Suscripcion >> toString:aSuscription [
+Descuento >> toString:aSuscription [
 ^aSuscription getNombre.
 ]

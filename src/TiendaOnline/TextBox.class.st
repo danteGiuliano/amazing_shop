@@ -22,3 +22,8 @@ temp ghostText: aText.
 temp extent:aSize.
 ^temp.
 ]
+
+{ #category : #'as yet unclassified' }
+TextBox >> ghostColor:aColor [
+
+]

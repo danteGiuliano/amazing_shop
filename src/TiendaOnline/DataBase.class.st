@@ -6,15 +6,43 @@ Class {
 	],
 	#classVars : [
 		'credentials',
-		'database'
+		'database',
+		'id_user'
 	],
 	#category : #'TiendaOnline-service'
 }
 
 { #category : #'as yet unclassified' }
 DataBase class >> autenticationName:aName aPassWord:aPassword [
+|query|
 self runDataBase.
-^ (database query:'SELECT * FROM Usuario WHERE Usuario.usuario="',aName,'"',' && Usuario.password="' ,aPassword,'"').
+query:=(database query:'SELECT * FROM Usuario WHERE Usuario.usuario="',aName,'"',' && Usuario.password="' ,aPassword,'"').
+self desconectar.
+^query.
+]
+
+{ #category : #'as yet unclassified' }
+DataBase class >> desconectar [
+database disconnect.
+
+]
+
+{ #category : #'query_pull' }
+DataBase class >> getClients [
+|query|
+self runDataBase.
+query:=(database query:'SELECT * FROM Cliente WHERE Cliente.usuario_name=',id_user)rows.
+self desconectar.
+^query.
+]
+
+{ #category : #'query_pull' }
+DataBase class >> getContenidos [
+|query|
+self runDataBase.
+query:=(database query:'SELECT * FROM Contenido WHERE Contenido.id_usuario=',id_user)rows.
+self desconectar.
+^query.
 ]
 
 { #category : #'as yet unclassified' }
@@ -22,6 +50,27 @@ DataBase class >> getDataBase [
 ^database.
 
 
+]
+
+{ #category : #'as yet unclassified' }
+DataBase class >> getSuscripcion [
+|query|
+self runDataBase.
+query:=(database query:'SELECT * FROM Suscripcion WHERE id_user=',id_user )rows.
+self desconectar.
+^query.
+]
+
+{ #category : #'as yet unclassified' }
+DataBase class >> getSuscripciones_Compradas:aDni [
+|query|.
+self runDataBase.
+query:=database query:'SELECT
+Suscripcion.nombre_suscripcion,Suscripcion.descuento_aplicacion,Suscripcion.descuento_pelicula,Suscripcion.descuento_libro,
+Suscripcion_Comprada.fecha_inicio,Suscripcion_Comprada.fecha_fin,Suscripcion_Comprada.rango FROM Suscripcion_Comprada INNER JOIN Suscripcion ON Suscripcion.nombre_suscripcion=Suscripcion_Comprada.nombre_suscripcion
+WHERE Suscripcion.id_user=',id_user,' AND Suscripcion_Comprada.dni_cliente=',aDni asString .
+self desconectar.
+^query.
 ]
 
 { #category : #'as yet unclassified' }
@@ -36,34 +85,60 @@ credentials :=MySQLDriverSpec new
 
 ]
 
+{ #category : #'querys_up' }
+DataBase class >> registerClient:aCollection [
+|values dni|
+dni :=aCollection at:1.
+aCollection removeAt:1.
+values:=StringReader new formateValue:aCollection.
+"aColecction ( dni , nombre , email , usuario_name)"
+self runDataBase.
+database query:'INSERT INTO Cliente (dni,nombre,email,usuario_name)
+VALUES(',dni,',',(StringReader new sliceChar:values pos:1).
+self desconectar.
+
+]
+
 { #category : #'as yet unclassified' }
+DataBase class >> registerContenidoNombre:unNombre yPrecio:unPrecio conFecha:unaFecha deCategoria:unaCategoria [
+self runDataBase.
+database query:'INSERT INTO Contenido (nombre_contenido,precio_contenido,categoria,fecha_inicio,id_usuario) VALUES(
+"',unNombre,'",',unPrecio ,',"',unaCategoria,'","',unaFecha ,'",',id_user,')'.
+self desconectar.
+]
+
+{ #category : #'querys_up' }
 DataBase class >> registerShop:aCollection [
-|values|.
+|values query|.
 values :=StringReader new formateValue:aCollection.
 self runDataBase.
-^database query:'INSERT INTO Usuario (usuario,password,name_shop) VALUES',values.
-
+query:=database query:'INSERT INTO Usuario (usuario,password,name_shop) VALUES',values.
+self desconectar.
+^query.
 ]
 
 { #category : #running }
-DataBase class >> registerShop:aNameShop aNameUser:aUserAdmin aPassword:aPassword [
-|temp aUserTienda|
-temp := self new.
-File createDirectory:aNameShop.
-(File named:aNameShop,'clients.json') writeStream.
-(File named:aNameShop,'suscriptions.json') writeStream.
-temp initializeAutentication.
-aUserTienda :=UserTienda createUser: aUserAdmin  aPass:aPassword  aId:aNameShop.
-temp addNewTienda:aUserTienda.  
+DataBase class >> registerSuscripcion_Comprada:aCollection [
+|key dni|
+key:=aCollection at:1.
+dni:=aCollection at:2.
+self runDataBase.
+database query:'INSERT INTO Suscripcion_Comprada (nombre_suscripcion,dni_cliente,fecha_inicio,fecha_fin,rango,id_user) 
+VALUES(',key,',',dni,',"',Date today yyyymmdd ,'","',Date today onNextMonth yyyymmdd,'","Bronce",',id_user,')'.
+self desconectar.
 ]
 
 { #category : #running }
-DataBase class >> run [ 
-|temp|
-temp := self new.
-temp initializePaths.
-temp initializeAutentication.
-^temp.
+DataBase class >> registerSuscription:aCollection [
+|nombre_suscripcion descuentro_aplicacion descuento_libro descuento_pelicula|
+self runDataBase.
+nombre_suscripcion :=aCollection at:1.
+descuento_libro :=(aCollection at:2)asString.
+descuento_pelicula :=(aCollection at:3)asString.
+descuentro_aplicacion :=(aCollection at:4)asString.
+nombre_suscripcion :='"',nombre_suscripcion ,'"'.
+database query:'INSERT INTO Suscripcion (nombre_suscripcion,descuento_aplicacion,descuento_pelicula,descuento_libro,id_user) VALUES (',nombre_suscripcion ,',',descuentro_aplicacion ,',',descuento_pelicula ,',',descuento_libro,',',id_user,')'.
+self desconectar.
 ]
 
 { #category : #'as yet unclassified' }
@@ -74,59 +149,18 @@ database  connect:credentials.
 
 ]
 
-{ #category : #initialization }
-DataBase >> aPathsRoutes [
-^#('amazingShop').
+{ #category : #'as yet unclassified' }
+DataBase class >> userKey [
+^id_user.
+
 
 ]
 
-{ #category : #initialization }
-DataBase >> addNewTienda:aTienda [
-|write|
-collectionLogins add:aTienda.
-write :=Write new.
-write writeCreateSton:collectionLogins asArray named:'amazingShop/tiendas.json'
-]
+{ #category : #'as yet unclassified' }
+DataBase class >> userkey:aUser [
+aUser notNil ifTrue:[
+id_user :='"',aUser,'"'.
+	].
 
-{ #category : #initialization }
-DataBase >> compareUser:aUser aPassword:aPassword [
-^(collectionLogins detect:[:aUserShop|aUserShop validate: aUser aPass:aPassword ]ifNone:[nil]). 
 
-]
-
-{ #category : #initialization }
-DataBase >> connect [ 
-database  :=MySQLDriver new.
-database  connect:credentials.
-]
-
-{ #category : #initialization }
-DataBase >> createCredentials [
-(File named:'C:/amazingShop/login.txt' asFileReference fullName)writeStream.
-		
-]
-
-{ #category : #initialization }
-DataBase >> data [ 
-credentials:=MySQLDriverSpec new 
-				database:'bqjjyahm2odbtd2jyer3';
-				host:'bqjjyahm2odbtd2jyer3-mysql.services.clever-cloud.com';
-				user:'ucgufhmstam0yv5o';
-				password:'I990vhwVaWn9Pcv9vtIF';
-				port:3306.
-]
-
-{ #category : #initialization }
-DataBase >> initializeAutentication [
-|reader tiendas|
-reader :=Reader new.
-tiendas :=reader readJson:'amazingShop/tiendas.json'.
-collectionLogins :=reader convertToObject:tiendas.
-
-]
-
-{ #category : #initialization }
-DataBase >> initializePaths [
-self aPathsRoutes do:[:directory| File createDirectory: directory].
-self createCredentials.
 ]

@@ -11,19 +11,17 @@ Class {
 		'subMenu',
 		'calendar',
 		'exit',
-		'logout',
-		'model'
+		'logout'
 	],
 	#category : #'TiendaOnline-View'
 }
 
 { #category : #'as yet unclassified' }
-Menu class >> create:aModel [
+Menu class >> create [
 |temp|.
 "El menu principal solo se encarga de posicionar las ventanas."
 temp := self new.
 temp initialize.
-temp initializeModel:aModel.
 ^temp openInWorld.
 
 ]
@@ -65,7 +63,6 @@ Helper addLeftTopMorphic:(Helper createPanel:colNameOptions aLogic:self routes)i
 Menu >> addSubMenu [
 subMenu := SubMenuView  create:self.
 subMenu addDependent: self.
-subMenu setModel:model.
 self addMorphCentered:subMenu .
 subMenu right: self right-5.
 
@@ -88,24 +85,18 @@ self addMorphBack: image.
 ]
 
 { #category : #initialization }
-Menu >> initializeModel:aModel [
-model:=aModel.
-
-]
-
-{ #category : #initialization }
 Menu >> loadCliente [
 MenuCliente createMenuClienteIn: subMenu. 
 ]
 
 { #category : #initialization }
 Menu >> loadContenido [
-Helper addLeftTopMorphic:(MenuContenido createMenuContenido)in:subMenu. 
+MenuContenido createMenuContenidoIn:subMenu.
 ]
 
 { #category : #initialization }
 Menu >> loadPromocion [
-Helper addLeftTopMorphic:(MenuPromocion createMenuPromocion) in:subMenu.  
+MenuPromocion createMenuPromocionIn:subMenu.  
 ]
 
 { #category : #initialization }

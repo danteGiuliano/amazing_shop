@@ -23,6 +23,21 @@ temp initializeCollection.
 ]
 
 { #category : #updating }
+Tienda class >> crearWithSQL [ 
+|temp clientes suscripciones contenidos|
+temp := self new.
+temp initializeCollection.
+clientes :=DataBase getClients.
+suscripciones :=DataBase getSuscripcion.
+contenidos :=DataBase getContenidos.
+clientes do:[:clientSQL|temp addClient:(Cliente createWithSQL:clientSQL)].
+suscripciones do:[:clientSQL| temp addSuscription:(Descuento createWithSQL:clientSQL)].
+contenidos do:[:clientSQL| temp addContenido:(Contenido createWithSQL:clientSQL)].
+^temp.
+
+]
+
+{ #category : #updating }
 Tienda class >> createClients:aCollection [
 |temp|
 temp :=self new.
@@ -60,13 +75,40 @@ colectionClientes add:aClient.
 ]
 
 { #category : #'as yet unclassified' }
+Tienda >> addContenido:unContenido [
+colectionContenidos add:unContenido.
+]
+
+{ #category : #'as yet unclassified' }
 Tienda >> addSuscription:aSuscription [
 coleccionSuscripciones add:aSuscription.
 ]
 
 { #category : #'as yet unclassified' }
+Tienda >> añadirSuscripcionComprada:unaSuscripcion aCliente:unCliente [
+|flag i max|
+i :=1.
+flag :=true.
+max :=colectionClientes size.
+[i <= max & flag] whileTrue:[
+		(colectionClientes at:i)=unCliente
+		ifTrue:[
+			unCliente compraSuscripcion:unaSuscripcion.
+			colectionClientes at:i put:unCliente.
+			flag:=false.
+			].
+	i:=i+1.
+	]
+]
+
+{ #category : #'as yet unclassified' }
 Tienda >> getClients [
 ^colectionClientes.
+]
+
+{ #category : #'as yet unclassified' }
+Tienda >> getContenidos [
+^colectionContenidos.
 ]
 
 { #category : #'as yet unclassified' }
@@ -77,6 +119,12 @@ Tienda >> getIDTienda [
 { #category : #'as yet unclassified' }
 Tienda >> getSuscripciones [
 ^coleccionSuscripciones.
+]
+
+{ #category : #'as yet unclassified' }
+Tienda >> getSuscripciones_Compradas:aDni [
+^colectionClientes detect:[:cliente|cliente equals:aDni]ifNone:[nil]
+
 ]
 
 { #category : #'as yet unclassified' }

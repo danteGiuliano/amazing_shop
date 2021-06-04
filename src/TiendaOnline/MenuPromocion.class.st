@@ -1,22 +1,32 @@
 Class {
 	#name : #MenuPromocion,
 	#superclass : #SubMenuView,
+	#instVars : [
+		'subMenu'
+	],
 	#category : #'TiendaOnline-View'
 }
 
 { #category : #'as yet unclassified' }
-MenuPromocion class >> createMenuPromocion [
+MenuPromocion class >> createMenuPromocionIn:aContent [
 |temp|
 temp := self new.
-^temp initialize.
+^temp initialize:aContent.
 ]
 
 { #category : #initialization }
-MenuPromocion >> initialize [
-|temp |
+MenuPromocion >> addOptions [ 
+|temp|
 temp := #(Rangos Crear Aplicar Eliminar)asOrderedCollection .
-super initialize. 
-self addMorphCentered: (Helper createPanel: temp aLogic:self routes).
+Helper addLeftTopMorphic:(Helper createPanel: temp aLogic:self routes) in:subMenu.
+]
+
+{ #category : #initialization }
+MenuPromocion >> initialize:aContent [
+super initialize.
+subMenu:=aContent.
+self addOptions.
+
 ]
 
 { #category : #initialization }

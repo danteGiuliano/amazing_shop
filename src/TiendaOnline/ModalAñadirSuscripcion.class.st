@@ -13,6 +13,15 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
+ModalAñadirSuscripcion class >> call [
+	|temp|.
+temp :=self new.
+temp initialize.
+temp openCenteredInWorld.
+
+]
+
+{ #category : #'as yet unclassified' }
 ModalAñadirSuscripcion class >> call:aModel [
 	|temp|.
 temp :=self new.
@@ -67,12 +76,12 @@ textBox beReadOnly.
 { #category : #initialization }
 ModalAñadirSuscripcion >> defineMorph [
 self extent:300@300.
-self color:(Color black alpha:0.80).
+self color:(Color black alpha:0.60).
 ]
 
 { #category : #initialization }
-ModalAñadirSuscripcion >> initialize:aModel [
-model :=aModel.
+ModalAñadirSuscripcion >> initialize [
+super initialize.
 self defineMorph.
 self addInputText.
 self addTextBox.
@@ -84,7 +93,8 @@ self logic.
 
 { #category : #initialization }
 ModalAñadirSuscripcion >> logic [
-search mouseAction:[self updateTextBox:(model searchDNI:((inputDNI text )asString))].
+search mouseAction:[
+	self updateTextBox:(Control modelFuntionReturn:[:h| h searchDNI:(inputDNI text)asString])].
 addSuscription mouseAction:[self updateAddSuscripcion.]
 ]
 
@@ -99,19 +109,28 @@ inputDNI top:self top+30.
 textBox left: self top+10.
 "Boton add suscription"
 addSuscription top:textBox bottom+5.
+Helper border:self aColor:self color  rad:3. 
 ]
 
 { #category : #initialization }
 ModalAñadirSuscripcion >> updateAddSuscripcion [
 instanceClient ifNotNil:[
-	|selection suscriptions names suscription|
-	suscriptions :=model getSuscripciones.
+	|selection suscriptions names suscription aColection suscriptionBuy|
+	aColection :=OrderedCollection new.
+	suscriptions :=Control modelFuntionReturn:[:h| h getSuscripciones. ].
 	names :=suscriptions collect:[:aSuscription|aSuscription getNombre].
 	selection:=PopupChoiceDialogWindow chooseFrom:names lines:#(1 2) title:'Suscripciones'.
 	suscription:=suscriptions detect:[:aSuscription|aSuscription equals:selection].
-	suscription ifNil:[inputDNI setText:'Error, no existe la suscripcion']ifNotNil:[instanceClient addSuscription:suscription.
-		DataBase updateClients:model.].
-	]
+	
+	aColection add:'"',selection,'"'.
+	aColection add:(instanceClient getDni)asString.
+	
+	suscriptionBuy :=SuscripcionComprada crearSuscripcion:suscription.
+	
+	Control modelFuntion:[:h | h añadirSuscripcionComprada:suscriptionBuy aCliente:instanceClient].
+	DataBase registerSuscripcion_Comprada: aColection.
+	
+]
 ]
 
 { #category : #initialization }

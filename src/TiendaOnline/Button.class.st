@@ -35,8 +35,18 @@ self clearTarget.
 ]
 
 { #category : #initialization }
+Button >> font:aFont [
+label font:aFont
+]
+
+{ #category : #initialization }
 Button >> getID [
 ^id.
+]
+
+{ #category : #initialization }
+Button >> icon:aIcon [
+label icon:aIcon.
 ]
 
 { #category : #initialization }

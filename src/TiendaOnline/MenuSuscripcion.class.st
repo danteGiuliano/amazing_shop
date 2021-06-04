@@ -18,7 +18,7 @@ temp := self new.
 { #category : #initialization }
 MenuSuscripcion >> addOptions [ 
 |temp|
-temp :=#(Nueva Borrar Buscar)asOrderedCollection .
+temp :=#(Nueva Borrar Buscar actualizar)asOrderedCollection .
 Helper addLeftTopMorphic:(Helper createPanel: temp aLogic:self routes)  in:subMenu. 
  
 ]
@@ -35,11 +35,10 @@ self addOptions.
 
 { #category : #initialization }
 MenuSuscripcion >> loadTable [ 
-| aNamesColumnTable |
-
-aNamesColumnTable:= #( 'Nombre' 'Descuento Libro' 'Descuento Pelicula' 'Descuento Aplicacion' 'Inicio' 'Expira')asOrderedCollection.
-table := Table create: (Suscripcion elements:(model getSuscripciones)) aCollums: aNamesColumnTable  aSize:(700@600).
-
+| aNamesColumnTable temp|
+temp  :=Control modelFuntionReturn:[:tienda| tienda getSuscripciones].
+aNamesColumnTable:= #( 'Nombre' 'Descuento Libro' 'Descuento Pelicula' 'Descuento Aplicacion')asOrderedCollection.
+table := Table create: (Descuento elements:(temp)) aCollums: aNamesColumnTable  aSize:(700@600).
 "Style"
 table color:(table color alpha:0.85).
 Helper addCenterMorph: table in:subMenu. 
@@ -52,7 +51,8 @@ MenuSuscripcion >> routes [
 	  | logicReturn |
 	id = 'Peliculas' ifTrue: [ logicReturn := [|a|.a:=Button create:'Funco'.a openInHand] ].
 	id = 'Aplicaciones' ifTrue: [ logicReturn := [|a|.a:=Button create:'OMG'.a openInHand] ].
-	id = 'Nueva' ifTrue: [ logicReturn := [ModalSuscripcion call:model] ].
+	id = 'Nueva' ifTrue: [ logicReturn := [ModalSuscripcion call] ].
+	id ='actualizar' ifTrue:[logicReturn :=table delete.self loadTable.].
 	logicReturn.
 	].
 ]

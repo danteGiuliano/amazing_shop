@@ -32,8 +32,8 @@ query isError ifTrue:[
 	]ifFalse:[
 	|rows|
 	rows :=query rows.
-	rows isEmpty ifFalse:[model:=(rows at:1)columns. Menu create:model.]ifTrue:[
-		"Error de usuario no encontrado"
+	rows isEmpty ifFalse:[Control userSession:(rows at:1)columns. Menu create.]ifTrue:[
+		"Error de usuario no encontrado "
 		]
 	]
 
@@ -44,7 +44,8 @@ Login >> initializeButtons [
 |close login create |
 close := Button create:'close'. 
 login := Button create:'login ' size:(40@30). 
-create := Button create:'create shop' size:(130@40). 
+create := Button create:'create shop' size:(130@40).
+create font:StandardFonts codeFont. 
 
 self addMorphCentered: login.
 self addMorphCentered: create.
@@ -103,7 +104,7 @@ Login >> style [
 "|image|"
 "image:=(ZnEasy getPng:'https://raw.githubusercontent.com/danteGiuliano/amazing_shop/stable/src/resourses/login.png')asMorph."
 "image scale:0.50."
-self  extent:(360@640).
+self  extent:(360@400).
 "image borderStyle: (RoundedBorder new cornerRadius:5; width:5; color:Color gray)."
 "self addMorphCentered:image."
 "Traer recursos Https de repostorio "
