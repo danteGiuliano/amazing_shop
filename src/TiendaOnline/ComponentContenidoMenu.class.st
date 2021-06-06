@@ -65,21 +65,21 @@ self logic.
 ComponentContenidoMenu >> logic [ 
 buttomAplicacion mouseAction:[
 	tipo:='Aplicacion'.
-	buttomLibro  borderColor:buttomLibro color.
-	buttomPelicula borderColor:buttomPelicula color.
-	buttomAplicacion borderColor:Color red.
+	Helper border: buttomAplicacion  aColor:Color red  rad:3.
+	Helper border: buttomLibro  aColor:Theme buttom   rad:3.
+	Helper border: buttomPelicula  aColor:Theme buttom  rad:3.
 	].
 buttomLibro mouseAction:[
 	tipo:='Libro'.
-	buttomAplicacion  borderColor:buttomAplicacion  color.
-	buttomPelicula borderColor:buttomPelicula color.
-	buttomLibro borderColor:Color red.
+Helper border: buttomAplicacion  aColor:Theme buttom  rad:3.
+Helper border: buttomLibro  aColor:Color red  rad:3.
+Helper border: buttomPelicula  aColor:Theme buttom  rad:3.
 	].
 buttomPelicula mouseAction:[
 	tipo:='Pelicula'.
-	buttomLibro  borderColor:buttomLibro  color.
-	buttomAplicacion borderColor:buttomAplicacion color.
-	buttomPelicula borderColor:Color red.
+	Helper border: buttomAplicacion  aColor:Theme buttom  rad:3.
+Helper border: buttomLibro  aColor:Theme buttom   rad:3.
+Helper border: buttomPelicula  aColor:Color red  rad:3.
 	].
 crear mouseAction:[
 	tipo isNotNil ifTrue:[
@@ -91,9 +91,9 @@ crear mouseAction:[
 			Control modelFuntion: [:h| h addContenido:contenido ].
 			inputNombre setText:''.
 			inputPrecio setText:''.
-			buttomAplicacion borderColor:buttomAplicacion color.
-			buttomLibro borderColor:buttomLibro color.
-			buttomPelicula borderColor: buttomPelicula color.
+			Helper border: buttomAplicacion  aColor:Theme buttom  rad:3.
+			Helper border: buttomLibro  aColor:Theme buttom   rad:3.
+			Helper border: buttomPelicula  aColor:Theme buttom  rad:3.
 			].
 		].
 	
@@ -107,9 +107,6 @@ inputNombre left: self left+20.
 inputNombre top: self top +20.
 inputPrecio left: inputNombre left.
 inputPrecio top: inputNombre bottom+10.
-
-Helper border: inputNombre aColor:inputNombre color  rad:2.
-Helper border: inputPrecio  aColor:inputPrecio color  rad:2.
 
 "Styles buttoms."
 buttomAplicacion left:self left +10 .

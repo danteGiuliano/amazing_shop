@@ -35,7 +35,6 @@ exit mouseAction:[exit close:self].
 Helper positionLeftBotton:exit in:self.
 exit left:4.
 exit top:620.
-exit color:(exit color alpha:0.50).
 "Style"
 Helper border: exit aColor:(exit color). 
 
@@ -76,7 +75,7 @@ super initialize.
 self addPanelOptions.
 self addSubMenu.
 self addBotons.
-self addCalendar.
+"self addCalendar."
 image:=(Form fromFileNamed: 'amazingShop/background.jpg') asMorph.
 image basicExtent:self extent.
 self addMorphBack: image.

@@ -154,6 +154,12 @@ Tienda >> obtainSuscripcion:aSelection [
 ]
 
 { #category : #'as yet unclassified' }
+Tienda >> searchContenido:unNombre [
+^colectionContenidos  detect:[:contenido|contenido equals:unNombre]ifNone:[nil].
+
+]
+
+{ #category : #'as yet unclassified' }
 Tienda >> searchDNI:unDni [
 ^colectionClientes detect:[:cliente|cliente equals:unDni]ifNone:[nil].
 

@@ -21,15 +21,15 @@ PanelContenido >> addElements [
 |contenidos|
 contenidos :=Control modelFuntionReturn:[:h| h getContenidos].
 contenidos do:[:contenido|
-	self addMenuItem:(ComponentContenido createComponentAName:contenido name aPrecio:contenido precio  aFecha: contenido fecha).
+	self addMenuItem:(ComponentContenido createComponentModel: contenido).
 	].
 ]
 
 { #category : #initialization }
 PanelContenido >> defineMorph [
-conteiner :=BorderedMorph new extent:615@500.
-scroll :=ScrollPane new extent:615@500.
-self extent:615@500.
+conteiner :=BorderedMorph new extent:615@400.
+scroll :=ScrollPane new extent:615@400.
+self extent:615@400.
 scroll scroller addMorph:self.
 conteiner addMorph:scroll.
 conteiner color:(Color transparent).

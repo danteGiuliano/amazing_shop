@@ -21,6 +21,8 @@ Button class >> create:aName size:aSize [
 temp:=self new.
 temp initializeButton:aName.
 temp extent:aSize.
+temp color:Theme buttom.
+temp textColor:Theme buttomText.
 ^temp.
 ]
 

@@ -20,10 +20,15 @@ TextBox class >> create:aText size:aSize [
 temp :=self new.
 temp ghostText: aText.
 temp extent:aSize.
+temp borderStyle:(BottomBorder new width:2).
+temp color:Color transparent.
+temp ghostColor:(Theme ghostText).
+temp borderColor:(Color black).
 ^temp.
 ]
 
 { #category : #'as yet unclassified' }
 TextBox >> ghostColor:aColor [
-
+self withRulerNamed: #ghostText.
+self ghostTextRuler textColor:(aColor).
 ]

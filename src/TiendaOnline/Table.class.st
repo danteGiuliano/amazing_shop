@@ -9,10 +9,16 @@ Table class >> create:aCollect aCollums:stringColecction aSize:aSize [
 |temp|.
 temp := self new.
 temp extent:aSize.
-temp enableFilter.
-temp explicitFunction.
+temp color:(Theme morph).
+temp headerColor:(Theme morph).
 temp initializeCollums:stringColecction with:aCollect.
 ^temp. 
+]
+
+{ #category : #initialization }
+Table >> headerColor:aColor [
+headerColor :=aColor.
+
 ]
 
 { #category : #initialization }
@@ -22,4 +28,9 @@ self addColumn:(FTColumn id:aString).].
 self dataSource:aCollect.
 
 
+]
+
+{ #category : #initialization }
+Table >> searchColor:aColor [
+(function showWidget) color:aColor.
 ]

@@ -15,7 +15,7 @@ Contenido class >> createWithSQL:aMySQLquery [
 aCollection :=aMySQLquery columns.
 unNombre :=aCollection at:1.
 unPrecio :=aCollection at:2.
-unaFecha :=aCollection at:3.
+unaFecha :=aCollection at:4.
 temp :=(aCollection at:3)asClass new.
 temp crearConNombre:unNombre dePrecio:unPrecio yFecha:unaFecha.
 ^temp.
@@ -37,8 +37,13 @@ fecha :=unaFecha.
 ]
 
 { #category : #accessing }
+Contenido >> equals:unNombre [
+^((nombre asString )=(unNombre asString)).
+]
+
+{ #category : #accessing }
 Contenido >> fecha [
-^fecha.
+^fecha asString.
 ]
 
 { #category : #accessing }

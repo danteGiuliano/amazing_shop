@@ -4,7 +4,8 @@ Class {
 	#instVars : [
 		'panel',
 		'subMenu',
-		'panelContenido'
+		'panelContenido',
+		'options'
 	],
 	#category : #'TiendaOnline-View'
 }
@@ -28,7 +29,8 @@ MenuContenido >> addContenido [
 |addContenido|
 addContenido :=ComponentContenidoMenu call.
 Helper addLeftBottomMorph:addContenido  in:subMenu. 
-addContenido bottom:subMenu bottom-30.
+addContenido top:panelContenido  top.
+addContenido left:panelContenido right+10.
 
 ]
 
@@ -36,7 +38,8 @@ addContenido bottom:subMenu bottom-30.
 MenuContenido >> addOptions [
 |temp| 
 temp := #(Peliculas Aplicaciones Libros)asOrderedCollection .
-Helper addLeftTopMorphic:(Helper createPanel: temp aLogic:self routes)  in:subMenu. 
+options :=(Helper createPanel: temp aLogic:self routes).
+Helper addLeftTopMorphic:options in:subMenu. 
 ]
 
 { #category : #initialization }
@@ -44,8 +47,9 @@ MenuContenido >> initialize:aContent [
 super initialize.
 subMenu :=aContent.
 self addOptions.
-self addContenido.
 self viewContenido.
+self addContenido.
+self searchContenido.
 
 
 ]
@@ -64,9 +68,19 @@ MenuContenido >> routes [
 ]
 
 { #category : #initialization }
+MenuContenido >> searchContenido [
+|componetSearch|
+componetSearch :=ComponenetContenidoBusqueda call.
+Helper addCenterBottomMorph: componetSearch  in:subMenu.
+componetSearch left:panelContenido left.
+
+
+]
+
+{ #category : #initialization }
 MenuContenido >> viewContenido [
 panelContenido :=PanelContenido call.
 Helper addRightCenterMorph:panelContenido  in:subMenu. 
-panelContenido right:subMenu right-60.
-panelContenido top:subMenu top+100.
+panelContenido left:options right.
+panelContenido top:options top.
 ]
