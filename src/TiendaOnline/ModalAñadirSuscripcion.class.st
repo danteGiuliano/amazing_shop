@@ -14,10 +14,7 @@ Class {
 
 { #category : #'as yet unclassified' }
 ModalAñadirSuscripcion class >> call [
-	|temp|.
-temp :=self new.
-temp initialize.
-temp openCenteredInWorld.
+^self new.
 
 ]
 
@@ -31,31 +28,24 @@ temp openCenteredInWorld.
 ]
 
 { #category : #initialization }
-ModalAñadirSuscripcion >> addBottoms [
-|exit|
-exit :=Button create: 'X' size:30@30. 
+ModalAñadirSuscripcion >> addBottoms [ 
 addSuscription :=Button create: 'Anadir Suscripcion' size:120@30.
 search :=Button create:'search' size:70@20.
 
-addSuscription color:(Color veryDarkGray alpha:0.85). 
-search color:(Color veryDarkGray alpha:0.85).
-exit color:(Color transparent).
-exit borderColor: (Color transparent).
+addSuscription color:(Theme buttom);textColor:(Theme buttomText). 
+search color:(Theme buttom);textColor:(Theme buttomText).
 
 Helper border: search  aColor:search color  rad:2. 
 Helper border: addSuscription   aColor: addSuscription color rad:3.
 
 Helper addRightTopMorph: search  in:self.
 Helper addCenterMorph: addSuscription  in:self.  
-Helper addLeftTopMorphic: exit in:self. 
-
-exit mouseAction: [self delete.]
+ 
 ]
 
 { #category : #initialization }
 ModalAñadirSuscripcion >> addInputText [
-inputDNI :=TextBox create: 'Ingrese DNI' size:290@30.
-Helper border: inputDNI  aColor:(Color veryDarkGray )  rad:1. 
+inputDNI :=TextBox create: 'Ingrese DNI' size:200@30.
 Helper addCenterMorph: inputDNI  in:self.
   
 ]
@@ -63,7 +53,8 @@ Helper addCenterMorph: inputDNI  in:self.
 { #category : #initialization }
 ModalAñadirSuscripcion >> addTextBox [
 textBox :=RubScrolledTextMorph new.
-textBox extent:280@150.
+textBox extent:280@200.
+textBox color:(Theme morphContrast ).
 
 Helper border: textBox  aColor:textBox color. 
 Helper addCenterMorph: textBox  in:self.
@@ -76,7 +67,7 @@ textBox beReadOnly.
 { #category : #initialization }
 ModalAñadirSuscripcion >> defineMorph [
 self extent:300@300.
-self color:(Color black alpha:0.60).
+self color:(Theme morph).
 ]
 
 { #category : #initialization }
@@ -102,14 +93,15 @@ addSuscription mouseAction:[self updateAddSuscripcion.]
 ModalAñadirSuscripcion >> style [
 "Boton search"
 search right:self right -10.
-search top:self top+7.
+search top:self top+10.
 "input addDni"
-inputDNI top:self top+30.
+inputDNI bottom:search bottom.
+inputDNI right:search left-5.
 "Text box"
 textBox left: self top+10.
 "Boton add suscription"
 addSuscription top:textBox bottom+5.
-Helper border:self aColor:self color  rad:3. 
+Helper border:self aColor:self color.
 ]
 
 { #category : #initialization }

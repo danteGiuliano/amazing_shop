@@ -6,7 +6,8 @@ Class {
 		'buttomText',
 		'ghostText',
 		'morph',
-		'morphContrast'
+		'morphContrast',
+		'text'
 	],
 	#category : #'TiendaOnline-service'
 }
@@ -37,6 +38,7 @@ morph :=Color fromHexString: '2a9d8f'.
 buttomText :=Color fromString:'264653'.
 ghostText :=Color fromString:'caf0f8'.
 morphContrast :=Color fromString:'264653'.
+text :=Color white.
 ]
 
 { #category : #'as yet unclassified' }
@@ -52,4 +54,9 @@ Theme class >> morph [
 { #category : #'as yet unclassified' }
 Theme class >> morphContrast [
 ^morphContrast.
+]
+
+{ #category : #'as yet unclassified' }
+Theme class >> text [ 
+^text.
 ]

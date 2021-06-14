@@ -54,7 +54,7 @@ calendar top:450
 { #category : #initialization }
 Menu >> addPanelOptions [
 |colNameOptions|
-colNameOptions := #(Clientes Subscripciones Contenido Promociones).
+colNameOptions := #(Clientes Subscripciones Contenido Promociones Pagos).
 Helper addLeftTopMorphic:(Helper createPanel:colNameOptions aLogic:self routes)in:self.
 ]
 
@@ -94,6 +94,10 @@ MenuContenido createMenuContenidoIn:subMenu.
 ]
 
 { #category : #initialization }
+Menu >> loadPagos [
+]
+
+{ #category : #initialization }
 Menu >> loadPromocion [
 MenuPromocion createMenuPromocionIn:subMenu.  
 ]
@@ -108,11 +112,12 @@ Menu >> routes [
 	"Inspirate in concept IONIC Framework"
 	^ [ :id | 
 	  | logicReturn |
-	logicReturn :=3.
+	logicReturn :=nil.
 	id = 'Clientes' ifTrue: [ logicReturn:=[self update;loadCliente ] ].
 	id = 'Subscripciones' ifTrue: [ logicReturn := [self update;loadSuscripcion ] ].
 	id = 'Contenido' ifTrue: [ logicReturn :=[self update; loadContenido]].
 	id = 'Promociones' ifTrue: [ logicReturn := [self update;loadPromocion ]].
+	id = 'Pagos' ifTrue: [ logicReturn := [self update;loadPagos ]].
 	logicReturn
 	].
 ]

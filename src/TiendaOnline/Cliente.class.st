@@ -6,7 +6,8 @@ Class {
 		'dni',
 		'email',
 		'listaDeSuscripcion',
-		'listaContenidos'
+		'listaContenidos',
+		'colPago'
 	],
 	#category : #'TiendaOnline-Model'
 }
@@ -36,6 +37,11 @@ temp añadirListaMySQL:(DataBase getSuscripciones_Compradas:dni) rows.
 { #category : #'as yet unclassified' }
 Cliente >> addSuscription:aSuscription [.
 listaDeSuscripcion add:aSuscription.
+]
+
+{ #category : #'as yet unclassified' }
+Cliente >> añadirContenido:unContenido [
+listaContenidos add:unContenido.
 ]
 
 { #category : #'as yet unclassified' }
@@ -89,6 +95,7 @@ email:=unEmail
 { #category : #'as yet unclassified' }
 Cliente >> crearLista [
 listaDeSuscripcion :=OrderedCollection  new.
+listaContenidos :=OrderedCollection new.
 ]
 
 { #category : #'as yet unclassified' }
@@ -128,6 +135,19 @@ Cliente >> getEmail [
 { #category : #'as yet unclassified' }
 Cliente >> getNombre [
 ^nombre.
+]
+
+{ #category : #'as yet unclassified' }
+Cliente >> getSuscripcionActiva [
+|suscripcion sinDescuento temp|
+sinDescuento :=Dictionary  newFrom:{'Aplicacion'->0.'Pelicula'->0.'Libro'->0}.
+suscripcion :=SuscripcionComprada crearSuscripcion:sinDescuento .
+listaDeSuscripcion isEmpty ifTrue:[
+	temp :=suscripcion.
+	]ifFalse:[
+	temp :=listaDeSuscripcion at:1.
+	].
+^temp.
 ]
 
 { #category : #'as yet unclassified' }

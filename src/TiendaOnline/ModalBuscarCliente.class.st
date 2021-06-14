@@ -12,28 +12,17 @@ Class {
 
 { #category : #'ffi-calls' }
 ModalBuscarCliente class >> call [
-|temp|
-temp :=self new.
-temp openCenteredInWorld.
-
-
+	^self new.
 ]
 
 { #category : #initialization }
 ModalBuscarCliente >> addButtom [
-|buttomExit|
 buttomSearch :=Button create: 'Mostrar' size:120@22.
-buttomExit :=Button create:'X' size:30@30.
-"Style exit"
-buttomExit color:(Color transparent).
-buttomExit borderColor:(Color transparent).
 "addButtom "
 Helper addCenterMorph: buttomSearch  in:self.
-Helper addRightTopMorph: buttomExit  in:self. 
 
 buttomSearch mouseAction:[self logic].
-buttomExit mouseAction:[self delete.]
-  
+
 ]
 
 { #category : #adding }
@@ -50,16 +39,16 @@ Helper addCenterMorph: table in:self.
 { #category : #adding }
 ModalBuscarCliente >> addTextBox [
 
-inputDNI :=TextBox create: 'Ingrese un DNI' size:120@80 .
+inputDNI :=TextBox create: 'Ingrese un DNI' size:240@80 .
 
-Helper addCenterTopMorph: inputDNI in:self. 
+self addMorph:inputDNI . 
 ]
 
 { #category : #adding }
 ModalBuscarCliente >> defineMorph [
 
 self extent:400@300.
-self color:(Color black alpha:0.80).
+self color:(Theme morph).
 Helper border:self aColor:self color  rad:3. 
 ]
 
@@ -92,9 +81,12 @@ buttomSearch left:inputDNI right+5.
 table bottom:self bottom -10.
 
 "Style buttom"
-buttomSearch color:(Color veryDarkGray alpha:0.85).
-Helper border: buttomSearch  aColor:buttomSearch color  rad:3. 
+buttomSearch color:(Theme buttom).
+buttomSearch textColor:(Theme buttomText).
+Helper border: buttomSearch  aColor:buttomSearch color. 
 "Style textBox"
-Helper border: inputDNI  aColor: inputDNI color  rad:3.
+table color:Theme morphContrast.
+table headerColor:Theme morphContrast.
+Helper border:table aColor:table color.
 
 ]

@@ -70,6 +70,21 @@ temp initialize:aIdTienda.
 ]
 
 { #category : #'as yet unclassified' }
+Tienda >> actualizarCliente:unCliente [
+|i size flag|
+i:=1.
+size :=colectionClientes size.
+flag :=true.
+[(i < size)&flag]whileTrue:[
+	((colectionClientes at:i)getDni) = unCliente getDni  ifTrue:[
+		colectionClientes at:i put:unCliente.
+		flag:=false.
+		].
+	i:=i+1.	
+	]
+]
+
+{ #category : #'as yet unclassified' }
 Tienda >> addClient:aClient [ 
 colectionClientes add:aClient.
 ]

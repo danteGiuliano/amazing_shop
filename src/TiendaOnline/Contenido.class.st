@@ -47,6 +47,11 @@ Contenido >> fecha [
 ]
 
 { #category : #accessing }
+Contenido >> getData [
+^('NOMBRE: ',nombre ,'\PRECIO:  ',(precio asString),'\Fecha:  ',fecha asString ,'\TIPO: ',(self class)asString) withCRs.
+]
+
+{ #category : #accessing }
 Contenido >> name [ 
 ^nombre
 ]

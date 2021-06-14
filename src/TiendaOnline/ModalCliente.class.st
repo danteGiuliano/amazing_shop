@@ -12,10 +12,7 @@ Class {
 
 { #category : #'as yet unclassified' }
 ModalCliente class >> call [
-|temp|
-temp:=self new.
-temp openCenteredInWorld .
-
+^self new.
 ]
 
 { #category : #initialization }
@@ -28,6 +25,9 @@ inputEMail := TextBox new.
 inputNombre  extent:150@30.
 inputDni  extent:150@30.
 inputEMail  extent:150@30.
+inputDni styleWeb.
+inputEMail styleWeb.
+inputNombre styleWeb.
 
 Helper addLeftTopMorphic:inputNombre  in:self .
 Helper addRightCenterMorph: inputEMail  in:self.
@@ -47,22 +47,17 @@ inputDni left: position .
 
 { #category : #initialization }
 ModalCliente >> addButtoms [
-|b1 b2|
-b1 :=Button create:'Registrar' size:60@20.
-b2 :=Button create:'Salir' size:40@20.
-Helper addLeftBottomMorph: b2 in:self.
+|b1 |
+b1 :=Button create:'Registrar' size:120@30.
 Helper addRightbottomMorph: b1 in:self.
 
-b1 right: self right -10.
-b2 left: self left +10.
+b1 center: self center.
 b1 bottom: self bottom -10.
-b2 bottom: self bottom -10.  
 "style"
-Helper border: b1 aColor:(Color r:0.40 g:0.80 b:0.60). 
-Helper border: b2 aColor:(Color r:0.40 g:0.80 b:0.60).
+b1 color:Theme buttom.
+b1 textColor:Theme buttomText.
+Helper border: b1 aColor:b1 color. 
 "Logic"
-
-b2 mouseAction:[self delete].
 b1 mouseAction:[self registerClient.].
 
 
@@ -78,6 +73,9 @@ t3:=StringMorph contents:'ingrese el Email'.
 Helper addLeftTopMorphic: t1 in:self.
 Helper addLeftCenterMorph: t2 in:self.
 Helper addLeftCenterMorph: t3 in:self.
+t1 color:(Theme text).
+t2 color:(Theme text).
+t3 color:(Theme text).
 
 t1 left:self left +10.
 t1 top:self top +10.
@@ -126,8 +124,8 @@ inputNombre setText:''.
 
 { #category : #initialization }
 ModalCliente >> style [ 
-self extent:300@200.
-self color:(Color lightGray alpha:0.85).
-Helper border: self aColor:(Color gray alpha:0.85) 
+self extent:300@150.
+self color:Theme morph.
+Helper border: self aColor:self color.
 
 ]

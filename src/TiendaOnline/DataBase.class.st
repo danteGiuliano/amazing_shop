@@ -99,6 +99,23 @@ self desconectar.
 
 ]
 
+{ #category : #'querys_up' }
+DataBase class >> registerCompra_contenido: unContenido paraCliente: unCliente [
+	| fecha dni nombreContenido nombreSuscripcion |
+	dni := unCliente getDni asString.
+	nombreContenido := unContenido name.
+	fecha := Date today yyyymmdd.
+	nombreSuscripcion := unCliente getSuscripcionActiva getTipo.
+	self runDataBase.
+	database
+		query:
+			'INSERT INTO Contenido_Comprado (cliente_dni,suscripcion,fecha,nombre_contenido)VALUES('
+				, dni , ',"' , nombreSuscripcion , '","' , fecha , '","'
+				, nombreContenido , '")'.
+			
+		self desconectar
+]
+
 { #category : #'as yet unclassified' }
 DataBase class >> registerContenidoNombre:unNombre yPrecio:unPrecio conFecha:unaFecha deCategoria:unaCategoria [
 self runDataBase.

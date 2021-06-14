@@ -15,6 +15,7 @@ SuscripcionComprada class >> crearSuscripcion:unaListaDescuentos [
 |temp|
 temp :=self new.
 temp añadirLista:unaListaDescuentos.
+temp sinSuscripcionActiva .
 ^temp.
 ]
 
@@ -76,6 +77,11 @@ SuscripcionComprada >> newDataSourceMatching: aFTFilter [
 	newElements := Array withAll: (elements select: [ :each | 
 		aFTFilter matches: (self toString: each) ]).
 	^ self class new elements: newElements.
+]
+
+{ #category : #'as yet unclassified' }
+SuscripcionComprada >> sinSuscripcionActiva [
+nombreSuscripcion :='Nil'
 ]
 
 { #category : #'as yet unclassified' }
