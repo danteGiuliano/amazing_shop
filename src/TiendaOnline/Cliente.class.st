@@ -31,6 +31,7 @@ email:=data at:3.
 temp :=self new.
 temp crearLista.
 temp añadirListaMySQL:(DataBase getSuscripciones_Compradas:dni) rows.
+temp añadirContenidoMySQL:(DataBase getContenidosComprados:dni)rows.
 ^temp crearConNombre:nombre yDni:dni Email:email. 
 ]
 
@@ -42,6 +43,17 @@ listaDeSuscripcion add:aSuscription.
 { #category : #'as yet unclassified' }
 Cliente >> añadirContenido:unContenido [
 listaContenidos add:unContenido.
+]
+
+{ #category : #'as yet unclassified' }
+Cliente >> añadirContenidoMySQL: aMySQLQuery [
+	aMySQLQuery
+		do: [ :instanceKey | 
+			|  contenido |
+			contenido := Control
+				modelFuntionReturn: [ :h | h searchContenido: (instanceKey at: 4) ].
+				listaContenidos add:contenido.
+				]
 ]
 
 { #category : #'as yet unclassified' }

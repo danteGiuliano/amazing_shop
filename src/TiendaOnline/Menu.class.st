@@ -75,10 +75,11 @@ super initialize.
 self addPanelOptions.
 self addSubMenu.
 self addBotons.
+self color:(Color blue alpha:0.85).
 "self addCalendar."
-image:=(Form fromFileNamed: 'amazingShop/background.jpg') asMorph.
+"image:=(Form fromFileNamed: 'amazingShop/background.jpg') asMorph.
 image basicExtent:self extent.
-self addMorphBack: image.
+self addMorphBack: image."
 "Inicializar las opciones."
 
 ]

@@ -5,7 +5,8 @@ Class {
 		'fechaPago',
 		'id_pago',
 		'precio',
-		'item'
+		'item',
+		'suscripcion'
 	],
 	#category : #'TiendaOnline-Model'
 }

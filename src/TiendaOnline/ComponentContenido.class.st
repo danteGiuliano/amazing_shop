@@ -2,6 +2,7 @@ Class {
 	#name : #ComponentContenido,
 	#superclass : #BorderedMorph,
 	#instVars : [
+		'keyName',
 		'nombre',
 		'precio',
 		'fechaInicio',
@@ -70,6 +71,7 @@ ComponentContenido >> initializeName:aName aPrice:aPrice aFecha:aFecha tipo:unTi
 super initialize.
 self defineMorph.
 self style.
+keyName:=aName.
 self data:aName aPrice:aPrice aFecha:aFecha yTipo:unTipo.
 ]
 

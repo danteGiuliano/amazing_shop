@@ -45,6 +45,15 @@ self desconectar.
 ^query.
 ]
 
+{ #category : #'query_pull' }
+DataBase class >> getContenidosComprados:aDni [
+|query|
+self runDataBase.
+query:=database  query:'SELECT * FROM Contenido_Comprado WHERE Contenido_Comprado.cliente_dni=',aDni asString.
+self desconectar.
+^query.
+]
+
 { #category : #'as yet unclassified' }
 DataBase class >> getDataBase [
 ^database.

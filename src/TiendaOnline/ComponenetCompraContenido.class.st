@@ -15,7 +15,7 @@ Class {
 
 { #category : #'ffi-calls' }
 ComponenetCompraContenido class >> call [
-	^ (self new)openInWorld
+	^ (self call)openInWorld
 ]
 
 { #category : #initialization }
