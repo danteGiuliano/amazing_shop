@@ -9,9 +9,10 @@
 ```ESTADO: EN PROGRESO```
 
 ### Contenidos del programa.
-- protocolos http.
+- Base de datos.
 - manejo de imagenes.
-- manejos de morph.
+- manejos de GIF's.
+- manejos de morph's
 - manejo de sistema CRUD
 - Themes customs
 
