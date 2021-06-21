@@ -8,13 +8,16 @@
 - manejo de imagenes.
 - manejos de morph.
 - manejo de sistema CRUD
+- Themes customs
 
 ### Sistema de login ###
 
 ![1](https://github.com/danteGiuliano/amazing_shop/blob/stable/imagenes%20de%20trabajo/Screenshot_3.jpg)
 
-### Menu fullScreen con menu-bar y subMenu ###.
+### Menu fullScreen con menu-bar y subMenu .
 
-![2](https://github.com/danteGiuliano/amazing_shop/blob/stable/imagenes%20de%20trabajo/Screenshot_1.jpg)
+![2](https://github.com/danteGiuliano/amazing_shop/blob/produce/imagenes%20de%20trabajo/JulioVersionCliente.jpg?raw=true)
 
-![3](https://github.com/danteGiuliano/amazing_shop/blob/stable/imagenes%20de%20trabajo/Screenshot_2.jpg)
+![3](https://github.com/danteGiuliano/amazing_shop/blob/produce/imagenes%20de%20trabajo/JulioVersionContenido.jpg?raw=true)
+
+![4](https://github.com/danteGiuliano/amazing_shop/blob/produce/imagenes%20de%20trabajo/JulioVersionSuscripcion.jpg?raw=true)
