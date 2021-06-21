@@ -1,11 +1,10 @@
 Class {
 	#name : #ModalTheme,
-	#superclass : #CircleMorph,
+	#superclass : #BorderedMorph,
 	#instVars : [
 		'blueTheme',
 		'defaultTheme',
 		'roseTheme',
-		'exit',
 		'menu'
 	],
 	#category : #'TiendaOnline-service'
@@ -18,23 +17,23 @@ ModalTheme class >> call [
 
 { #category : #'ffi-calls' }
 ModalTheme class >> call:aMenu [
-^self new setMenu:aMenu;openCenteredInWorld.
+^self new setMenu:aMenu.
 ]
 
 { #category : #initialization }
 ModalTheme >> addBotoms [
-exit :=Button create:'EXIT' size:60@30.
 defaultTheme :=Button create:'Default Theme' size:100@30.
 blueTheme :=Button create:'Blue Theme' size:100@30.
 roseTheme :=Button create:'Rose Theme' size:100@30.
 
-self addMorph:defaultTheme ;addMorph:blueTheme; addMorph:exit;addMorph:roseTheme.   
+self addMorph:defaultTheme ;addMorph:blueTheme;addMorph:roseTheme.   
 ]
 
 { #category : #initialization }
 ModalTheme >> defineMorph [
-self extent:300@300.
+self extent:120@250.
 self color:Theme morph.
+Helper border:self aColor:self color  rad:8
 
 
 ]
@@ -51,7 +50,6 @@ self logic.
 { #category : #initialization }
 ModalTheme >> logic [ 
 
-exit mouseAction:[self delete.].
 defaultTheme mouseAction:[Theme defaultTheme.menu delete.Menu create.self delete].
 blueTheme mouseAction: [Theme blueTheme.menu delete.Menu create.self delete ].
 roseTheme mouseAction: [Theme roseTheme.menu delete.Menu create.self delete ].
@@ -65,10 +63,7 @@ menu:=aMenu
 { #category : #initialization }
 ModalTheme >> style [
 
-exit center:self center;bottom:self bottom-30.
-Helper border: exit aColor:exit color  rad:8. 
-
-defaultTheme center:self center;top:self top+30.
+defaultTheme center:self center;top:self top+10.
 Helper border: defaultTheme  aColor:defaultTheme color   rad:8. 
 
 blueTheme center:self center;top:defaultTheme bottom+10.

@@ -29,9 +29,7 @@ temp initialize.
 
 { #category : #initialization }
 Menu >> addBotons [
-changeTheme:=Button create:'Cambiar Tema' size:100@30.
 exit := Button create:'exit' size:60@30.
-self addMorph:changeTheme.
 self addMorphCentered: exit.
 exit mouseAction:[exit close:self].
 Helper positionLeftBotton:exit in:self.
@@ -54,6 +52,17 @@ calendar top:450
 ]
 
 { #category : #initialization }
+Menu >> addFondoAnimado [
+|gif|
+gif :=Theme fonde.
+gif fullBounds.
+self addMorphBack:gif.
+
+
+
+]
+
+{ #category : #initialization }
 Menu >> addPanelOptions [
 |colNameOptions|
 colNameOptions := #(Clientes Subscripciones Contenido ).
@@ -72,15 +81,23 @@ subMenu right: self right-5.
 ]
 
 { #category : #initialization }
+Menu >> addThemes [
+changeTheme :=ModalTheme call:self.
+self addMorph:changeTheme.
+
+]
+
+{ #category : #initialization }
 Menu >> initialize [
 |image|
 super initialize.
 self addPanelOptions.
 self addSubMenu.
 self addBotons.
+self addThemes.
 self style.
 self logic.
-self color:(Color blue alpha:0.85).
+self addFondoAnimado.
 "self addCalendar."
 "image:=(Form fromFileNamed: 'amazingShop/background.jpg') asMorph.
 image basicExtent:self extent.
@@ -115,7 +132,7 @@ MenuSuscripcion  createMenuSuscripcionIn:subMenu.
 
 { #category : #initialization }
 Menu >> logic [ 
-changeTheme mouseAction:[ModalTheme call:self]
+
 ]
 
 { #category : #initialization }
@@ -135,8 +152,8 @@ Menu >> routes [
 
 { #category : #initialization }
 Menu >> style [ 
+self color:Color transparent.
 changeTheme center: options center;top:options bottom+10.
-Helper border:changeTheme  aColor: changeTheme color.
 ]
 
 { #category : #initialization }

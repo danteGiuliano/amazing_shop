@@ -4,6 +4,7 @@ Class {
 	#classVars : [
 		'buttom',
 		'buttomText',
+		'fonde',
 		'ghostText',
 		'morph',
 		'morphContrast',
@@ -19,6 +20,10 @@ morph :=Color fromHexString: '0077b6'.
 buttomText :=Color fromString:'03045e'.
 ghostText :=Color fromString:'caf0f8'.
 morphContrast :=Color fromString:'264653'.
+text:=Color white.
+"Fonde"
+fonde :=MorphGIF gifFromString:'fonde3.gif'.
+
 ]
 
 { #category : #'as yet unclassified' }
@@ -39,6 +44,12 @@ buttomText :=Color fromString:'264653'.
 ghostText :=Color fromString:'caf0f8'.
 morphContrast :=Color fromString:'264653'.
 text :=Color white.
+fonde :=MorphGIF gifFromString:'fonde.gif'.
+]
+
+{ #category : #'as yet unclassified' }
+Theme class >> fonde [
+^fonde.
 ]
 
 { #category : #'as yet unclassified' }
@@ -64,6 +75,7 @@ buttomText :=Color fromString:'14213d'.
 ghostText :=Color fromString:'edf6f9'.
 morphContrast :=Color fromString:'f15bb5'.
 text :=Color fromString:'000000'.
+fonde :=MorphGIF gifFromString:'fondeRose.gif'.
 ]
 
 { #category : #'as yet unclassified' }
