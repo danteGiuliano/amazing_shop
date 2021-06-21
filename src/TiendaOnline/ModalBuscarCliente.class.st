@@ -29,7 +29,7 @@ buttomSearch mouseAction:[self logic].
 ModalBuscarCliente >> addTable:aCollection [
 | aNamesColumnTable |
 
-aNamesColumnTable:= #('Tipo' 'Inicio' 'Vencimiento')asOrderedCollection.
+aNamesColumnTable:= #('Tipo' 'Inicio' 'Vence')asOrderedCollection.
 table := Table create: (SuscripcionComprada elements:(aCollection)) aCollums: aNamesColumnTable  aSize:(380@230).
 
 
@@ -67,7 +67,7 @@ ModalBuscarCliente >> logic [
 |aClient|
 aClient :=Control modelFuntionReturn:[:h| h getSuscripciones_Compradas:(inputDNI text)asString].
 aClient isNotNil ifTrue:[
-	self addTable:aClient getSuscripciones_Compradas.
+	table updateData:(SuscripcionComprada elements:(aClient getSuscripciones_Compradas)).
 	]
 ]
 
@@ -87,6 +87,7 @@ Helper border: buttomSearch  aColor:buttomSearch color.
 "Style textBox"
 table color:Theme morphContrast.
 table headerColor:Theme morphContrast.
+table headerBorder.
 Helper border:table aColor:table color.
 
 ]

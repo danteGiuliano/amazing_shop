@@ -2,10 +2,14 @@ Class {
 	#name : #MenuContenido,
 	#superclass : #SubMenuView,
 	#instVars : [
+		'addContenido',
+		'componetSearch',
 		'panel',
 		'subMenu',
 		'panelContenido',
-		'options'
+		'table',
+		'columns',
+		'dataCompraCollect'
 	],
 	#category : #'TiendaOnline-View'
 }
@@ -26,30 +30,40 @@ temp := self new.
 
 { #category : #initialization }
 MenuContenido >> addContenido [
-|addContenido|
 addContenido :=ComponentContenidoMenu call.
 Helper addLeftBottomMorph:addContenido  in:subMenu. 
-addContenido top:panelContenido  top.
-addContenido left:panelContenido right+10.
+
 
 ]
 
-{ #category : #adding }
-MenuContenido >> addOptions [
-|temp| 
-temp := #(Peliculas Aplicaciones Libros)asOrderedCollection .
-options :=(Helper createPanel: temp aLogic:self routes).
-Helper addLeftTopMorphic:options in:subMenu. 
+{ #category : #initialization }
+MenuContenido >> addLogic [
+componetSearch table:table.
+
+
+]
+
+{ #category : #initialization }
+MenuContenido >> addTable [ 
+columns :=#('Nombre Cliente' 'Fecha' 'Suscripcion').
+dataCompraCollect :=DataCompra elements:nil.
+table :=Table create:dataCompraCollect  aCollums:columns  aSize:500@480.
+Helper border: table aColor:table color rad:8. 
+table headerBorder.
+subMenu addMorph:table.
+
 ]
 
 { #category : #initialization }
 MenuContenido >> initialize:aContent [
 super initialize.
 subMenu :=aContent.
-self addOptions.
-self viewContenido.
 self addContenido.
 self searchContenido.
+self addTable.
+self viewContenido.
+self style.
+self addLogic.
 
 
 ]
@@ -69,18 +83,38 @@ MenuContenido >> routes [
 
 { #category : #initialization }
 MenuContenido >> searchContenido [
-|componetSearch|
 componetSearch :=ComponenetContenidoBusqueda call.
 Helper addCenterBottomMorph: componetSearch  in:subMenu.
-componetSearch left:panelContenido left.
+
 
 
 ]
 
 { #category : #initialization }
+MenuContenido >> style [.
+
+panelContenido left:subMenu left.
+panelContenido top:subMenu top.
+
+componetSearch left:panelContenido left.
+
+table left:componetSearch right +10.
+table bottom: componetSearch bottom.
+
+addContenido left:table left.
+addContenido bottom:table top-10.
+]
+
+{ #category : #initialization }
+MenuContenido >> updateTable [
+table :=Table create:dataCompraCollect  aCollums:columns  aSize:500@480.
+subMenu addMorph:table.
+
+]
+
+{ #category : #initialization }
 MenuContenido >> viewContenido [
-panelContenido :=PanelContenido call.
+panelContenido :=PanelContenido call:table.
 Helper addRightCenterMorph:panelContenido  in:subMenu. 
-panelContenido left:options right.
-panelContenido top:options top.
+
 ]

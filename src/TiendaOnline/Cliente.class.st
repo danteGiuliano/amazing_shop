@@ -29,9 +29,23 @@ dni :=data at:1.
 nombre:=data at:2.
 email:=data at:3.
 temp :=self new.
-temp crearLista.
+temp crearColleciones.
 temp añadirListaMySQL:(DataBase getSuscripciones_Compradas:dni) rows.
+temp añadirContenidoMySQL:(DataBase getContenidosComprados:dni)rows.
 ^temp crearConNombre:nombre yDni:dni Email:email. 
+]
+
+{ #category : #'as yet unclassified' }
+Cliente >> SuscripcionActiva [
+|tipo|
+tipo :='Nil'.
+listaDeSuscripcion isNotEmpty ifTrue:[
+|suscripcion|
+suscripcion :=listaDeSuscripcion at:1.
+suscripcion fechaVigente ifTrue:[
+	tipo :=suscripcion].
+	].
+^tipo.
 ]
 
 { #category : #'as yet unclassified' }
@@ -42,6 +56,18 @@ listaDeSuscripcion add:aSuscription.
 { #category : #'as yet unclassified' }
 Cliente >> añadirContenido:unContenido [
 listaContenidos add:unContenido.
+colPago add:(Pago crearPago:unContenido precio deItem:unContenido  ySuscripcion:(self getSuscripcionActiva))
+]
+
+{ #category : #'as yet unclassified' }
+Cliente >> añadirContenidoMySQL: aMySQLQuery [
+	aMySQLQuery
+		do: [ :instanceKey | 
+			|  contenido |
+			contenido := Control
+				modelFuntionReturn: [ :h | h searchContenido: (instanceKey at: 4) ].
+				listaContenidos add:contenido.
+				]
 ]
 
 { #category : #'as yet unclassified' }
@@ -86,16 +112,17 @@ listaDeSuscripcion add:unaSuscripcion.
 ]
 
 { #category : #'as yet unclassified' }
+Cliente >> crearColleciones [
+listaDeSuscripcion :=OrderedCollection  new.
+listaContenidos :=OrderedCollection new.
+colPago :=OrderedCollection new.
+]
+
+{ #category : #'as yet unclassified' }
 Cliente >> crearConNombre:unNombre yDni:unDni Email:unEmail [
 nombre:=unNombre.
 dni:=unDni.
 email:=unEmail
-]
-
-{ #category : #'as yet unclassified' }
-Cliente >> crearLista [
-listaDeSuscripcion :=OrderedCollection  new.
-listaContenidos :=OrderedCollection new.
 ]
 
 { #category : #'as yet unclassified' }
@@ -168,6 +195,33 @@ Cliente >> newDataSourceMatching: aFTFilter [
 	newElements := Array withAll: (elements select: [ :each | 
 		aFTFilter matches: (self toString: each) ]).
 	^ self class new elements: newElements.
+]
+
+{ #category : #'as yet unclassified' }
+Cliente >> obtenerDataCompra:keyName [
+| pago data|
+data :=nil.
+pago :=(colPago select:[:unPago| unPago equals:keyName.]).
+pago isNotEmpty ifTrue:[
+	pago:=pago at:1.
+	data:=DataCompra crearData:nombre  enFecha:pago getFecha  yTipo:pago getSuscripcion.
+	].
+^data.
+]
+
+{ #category : #'as yet unclassified' }
+Cliente >> pagoContenido:contenido [
+^colPago select:[:unPago|unPago equals:contenido]
+]
+
+{ #category : #'as yet unclassified' }
+Cliente >> poseeContenido:contenido [
+|flag test|
+flag:=false.
+test:=colPago detect:[:unPago|unPago equals:contenido]ifNone:[nil].
+test isNotNil ifTrue:[
+	flag :=true.].
+^true.
 ]
 
 { #category : #'as yet unclassified' }

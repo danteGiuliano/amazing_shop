@@ -8,6 +8,11 @@ Class {
 }
 
 { #category : #'code-critics' }
+ManifestTiendaOnline class >> ruleRBClassNameInSelectorRuleV1FalsePositive [
+	^ #(#(#(#RGPackageDefinition #(#TiendaOnline)) #'2021-06-19T22:10:26.936918-03:00') )
+]
+
+{ #category : #'code-critics' }
 ManifestTiendaOnline class >> ruleRBUnclassifiedMethodsRuleV1FalsePositive [
 	^ #(#(#(#RGMethodDefinition #(#ComponentContenidoMenu #logic #false)) #'2021-05-30T22:49:42.612472-03:00') )
 ]

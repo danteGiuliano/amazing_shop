@@ -2,6 +2,8 @@ Class {
 	#name : #ComponentContenido,
 	#superclass : #BorderedMorph,
 	#instVars : [
+		'table',
+		'keyName',
 		'nombre',
 		'precio',
 		'fechaInicio',
@@ -70,7 +72,23 @@ ComponentContenido >> initializeName:aName aPrice:aPrice aFecha:aFecha tipo:unTi
 super initialize.
 self defineMorph.
 self style.
+keyName:=aName.
 self data:aName aPrice:aPrice aFecha:aFecha yTipo:unTipo.
+self logicSubMenu.
+]
+
+{ #category : #initialization }
+ComponentContenido >> logicSubMenu [
+|clientes  collectionDataCompra|
+verCompras mouseAction:[
+	collectionDataCompra :=OrderedCollection new.
+	clientes :=Control modelFuntionReturn:[:h| h getComprasContenido:keyName].
+	clientes do:[:unCliente||temp|
+		temp:=(unCliente obtenerDataCompra:keyName).
+		temp isNotNil ifTrue:[collectionDataCompra add:temp].
+		  ].
+	table updateData:(DataCompra elements: collectionDataCompra).
+	].
 ]
 
 { #category : #initialization }
@@ -102,4 +120,9 @@ nombre font:StandardFonts  codeFont.
 fechaInicio  font:StandardFonts  codeFont.
 precio font:StandardFonts  codeFont.
 tipo font:StandardFonts codeFont.
+]
+
+{ #category : #initialization }
+ComponentContenido >> table:aTable [
+table:=aTable.
 ]

@@ -45,10 +45,10 @@ MenuCliente >> loadTable [
 	table := Table
 		create: (Cliente elements: temp)
 		aCollums: aNamesColumnTable
-		aSize: 700 @ 300.
+		aSize: 750 @ 300.
 	Helper addLeftTopMorphic: table in: subMenu.
-	table color: (table color alpha: 0.85).
-	Helper border: table aColor: (table color alpha: 0.50)
+	Helper border: table aColor: table color.
+	table headerBorder:0.98.
 ]
 
 { #category : #initialization }

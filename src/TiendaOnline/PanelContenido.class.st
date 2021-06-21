@@ -3,7 +3,8 @@ Class {
 	#superclass : #MenuMorph,
 	#instVars : [
 		'conteiner',
-		'scroll'
+		'scroll',
+		'table'
 	],
 	#category : #'TiendaOnline-components'
 }
@@ -16,12 +17,22 @@ temp initialize.
 ^temp menuScroll.
 ]
 
+{ #category : #'ffi-calls' }
+PanelContenido class >> call:aTable [
+|temp|
+temp :=self new.
+temp initialize:aTable.
+^temp menuScroll.
+]
+
 { #category : #initialization }
 PanelContenido >> addElements [
 |contenidos|
 contenidos :=Control modelFuntionReturn:[:h| h getContenidos].
-contenidos do:[:contenido|
-	self addMenuItem:(ComponentContenido createComponentModel: contenido).
+contenidos do:[:contenido||component|
+	component:=ComponentContenido createComponentModel:contenido.
+	component table:table.
+	self addMenuItem:(component).
 	].
 ]
 
@@ -40,6 +51,14 @@ conteiner borderColor:(Color transparent )
 { #category : #initialization }
 PanelContenido >> initialize [ 
 super initialize.
+self defineMorph.
+self addElements.
+]
+
+{ #category : #initialization }
+PanelContenido >> initialize:aTable [
+super initialize.
+table :=aTable.
 self defineMorph.
 self addElements.
 ]

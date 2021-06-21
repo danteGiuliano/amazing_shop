@@ -45,7 +45,7 @@ Helper addCenterBottomMorph: inputPrecio  in:self.
 
 { #category : #initialization }
 ComponentContenidoMenu >> defineMorph [
-self extent:250@200.
+self extent:350@150.
 self color:Theme morph.
 Helper border: self aColor:Theme morph  rad:3.
 ]
@@ -110,7 +110,7 @@ inputPrecio top: inputNombre bottom+10.
 
 "Styles buttoms."
 buttomAplicacion left:self left +10 .
-buttomAplicacion bottom:self bottom-70.
+buttomAplicacion bottom:self bottom-20.
 
 buttomPelicula  right:self right -10.
 buttomPelicula bottom:buttomAplicacion bottom.
@@ -118,8 +118,8 @@ buttomPelicula bottom:buttomAplicacion bottom.
 buttomLibro center:(buttomAplicacion right+buttomPelicula left)/2.
 buttomLibro bottom:buttomAplicacion bottom.
 
+crear top: inputNombre bottom.
 crear right: self right -10.
-crear bottom: self bottom-10.
 
 buttomAplicacion color:Theme buttom.
 buttomLibro color:Theme buttom.

@@ -45,6 +45,7 @@ Control class >> userNameShop [
 { #category : #'as yet unclassified' }
 Control class >> userSession:aId_user [
 userSesion :=aId_user.
-aModel :=Tienda crearWithSQL.
 DataBase userkey:(aId_user at:1).
+aModel :=Tienda crearWithSQL.
+
 ]

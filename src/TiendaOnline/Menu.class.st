@@ -54,7 +54,7 @@ calendar top:450
 { #category : #initialization }
 Menu >> addPanelOptions [
 |colNameOptions|
-colNameOptions := #(Clientes Subscripciones Contenido Promociones Pagos).
+colNameOptions := #(Clientes Subscripciones Contenido ).
 Helper addLeftTopMorphic:(Helper createPanel:colNameOptions aLogic:self routes)in:self.
 ]
 
@@ -75,10 +75,11 @@ super initialize.
 self addPanelOptions.
 self addSubMenu.
 self addBotons.
+self color:(Color blue alpha:0.85).
 "self addCalendar."
-image:=(Form fromFileNamed: 'amazingShop/background.jpg') asMorph.
+"image:=(Form fromFileNamed: 'amazingShop/background.jpg') asMorph.
 image basicExtent:self extent.
-self addMorphBack: image.
+self addMorphBack: image."
 "Inicializar las opciones."
 
 ]

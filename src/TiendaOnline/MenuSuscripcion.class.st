@@ -3,7 +3,9 @@ Class {
 	#superclass : #SubMenuView,
 	#instVars : [
 		'table',
-		'subMenu'
+		'subMenu',
+		'addSuscription',
+		'options'
 	],
 	#category : #'TiendaOnline-View'
 }
@@ -18,19 +20,27 @@ temp := self new.
 { #category : #initialization }
 MenuSuscripcion >> addOptions [ 
 |temp|
-temp :=#(Nueva Borrar Buscar actualizar)asOrderedCollection .
-Helper addLeftTopMorphic:(Helper createPanel: temp aLogic:self routes)  in:subMenu. 
+temp :=#('Aplicar Promocion')asOrderedCollection .
+options:=(Helper createPanel: temp aLogic:self routes).
+subMenu addMorph:options
  
+]
+
+{ #category : #initialization }
+MenuSuscripcion >> addSuscription [
+addSuscription :=ModalSuscripcion call.
+subMenu addMorph:addSuscription.
 ]
 
 { #category : #initialization }
 MenuSuscripcion >> initialize:aContent [
 super initialize.
 subMenu :=aContent.
-model:=aContent getModel.
-aContent addDependent: self.
+self addSuscription.
 self loadTable.
 self addOptions.
+self style.
+
 ]
 
 { #category : #initialization }
@@ -38,10 +48,11 @@ MenuSuscripcion >> loadTable [
 | aNamesColumnTable temp|
 temp  :=Control modelFuntionReturn:[:tienda| tienda getSuscripciones].
 aNamesColumnTable:= #( 'Nombre' 'Descuento Libro' 'Descuento Pelicula' 'Descuento Aplicacion')asOrderedCollection.
-table := Table create: (Descuento elements:(temp)) aCollums: aNamesColumnTable  aSize:(700@600).
+table := Table create: (Descuento elements:(temp)) aCollums: aNamesColumnTable  aSize:(800@200).
 "Style"
-table color:(table color alpha:0.85).
-Helper addCenterMorph: table in:subMenu. 
+Helper addCenterMorph: table in:subMenu.
+Helper border: table aColor:table color.
+table headerBorder:0.95. 
 ]
 
 { #category : #initialization }
@@ -55,4 +66,14 @@ MenuSuscripcion >> routes [
 	id ='actualizar' ifTrue:[logicReturn :=table delete.self loadTable.].
 	logicReturn.
 	].
+]
+
+{ #category : #initialization }
+MenuSuscripcion >> style [ 
+addSuscription left:subMenu left+10.
+addSuscription top:subMenu top.
+table left:addSuscription right +10.
+table top:subMenu  top.
+options top:table bottom+10.
+options left:table left.
 ]

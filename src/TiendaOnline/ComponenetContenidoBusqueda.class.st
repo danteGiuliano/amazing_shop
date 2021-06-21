@@ -2,6 +2,7 @@ Class {
 	#name : #ComponenetContenidoBusqueda,
 	#superclass : #BorderedMorph,
 	#instVars : [
+		'table',
 		'inputNombre',
 		'search',
 		'resultado',
@@ -15,6 +16,15 @@ ComponenetContenidoBusqueda class >> call [
 |temp|
 temp := self new.
 temp initialize.
+^temp.
+]
+
+{ #category : #'ffi-calls' }
+ComponenetContenidoBusqueda class >> call:table [
+|temp|
+temp := self new.
+temp initialize.
+temp table:table.
 ^temp.
 ]
 
@@ -89,11 +99,26 @@ resultado font:(StandardFonts codeFont).
 ]
 
 { #category : #initialization }
+ComponenetContenidoBusqueda >> subMenu:aTable [
+table :=aTable.
+
+
+]
+
+{ #category : #initialization }
+ComponenetContenidoBusqueda >> table:aTable [
+table :=aTable.
+
+
+]
+
+{ #category : #initialization }
 ComponenetContenidoBusqueda >> updateView:contenidoModel [
 |pos|
 pos :=contenido center.
 contenido delete.
 contenido :=ComponentContenido createComponentModel:contenidoModel.
+contenido table:table.
 Helper addCenterMorph:contenido in:self. 
 Helper border:contenido aColor:Theme morphContrast rad:6. 
 contenido color:Theme morphContrast.

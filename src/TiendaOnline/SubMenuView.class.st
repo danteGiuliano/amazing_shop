@@ -26,9 +26,8 @@ temp := self new.
 ]
 
 { #category : #initialization }
-SubMenuView >> getModel [ 
+SubMenuView >> getModel [
 ^model.
-
 ]
 
 { #category : #initialization }
@@ -56,8 +55,7 @@ Helper addCenterMorph:image in:self .
 
 { #category : #initialization }
 SubMenuView >> setModel:aModel [
-model:=aModel.
-
+model :=aModel.
 ]
 
 { #category : #initialization }

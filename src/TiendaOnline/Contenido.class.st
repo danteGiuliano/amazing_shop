@@ -53,7 +53,7 @@ Contenido >> getData [
 
 { #category : #accessing }
 Contenido >> name [ 
-^nombre
+^nombre asString
 ]
 
 { #category : #'as yet unclassified' }

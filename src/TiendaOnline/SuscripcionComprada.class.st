@@ -46,7 +46,7 @@ nombreSuscripcion :=unNombre.
 SuscripcionComprada >> cellColumn: column row:rowIndex [
 column id = 'Tipo' ifTrue: [ ^ self tipoRow: rowIndex ].
 column id= 'Inicio' ifTrue: [ ^self inicioRow:rowIndex ].
-column id= 'Vencimiento' ifTrue: [ ^self vencimientoRow:rowIndex ].
+column id= 'Vence' ifTrue: [ ^self vencimientoRow:rowIndex ].
 ]
 
 { #category : #'as yet unclassified' }
@@ -101,4 +101,10 @@ SuscripcionComprada >> vencimientoRow:rowIndex [
 ^ FTCellMorph new  
 		addMorphBack: ((self elementAt: rowIndex) getVencimiento asStringMorph color:(Color red));
 		yourself
+]
+
+{ #category : #'as yet unclassified' }
+SuscripcionComprada >> vigente [
+"POR EL MOMENTO TODAS SON VIGENTES:::: PROGRAMAR EL RANGO_____"
+^true.
 ]

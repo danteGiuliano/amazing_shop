@@ -30,27 +30,11 @@ temp initializeCollection.
 clientes :=DataBase getClients.
 suscripciones :=DataBase getSuscripcion.
 contenidos :=DataBase getContenidos.
-clientes do:[:clientSQL|temp addClient:(Cliente createWithSQL:clientSQL)].
 suscripciones do:[:clientSQL| temp addSuscription:(Descuento createWithSQL:clientSQL)].
 contenidos do:[:clientSQL| temp addContenido:(Contenido createWithSQL:clientSQL)].
+clientes do:[:clientSQL|temp addClient:(Cliente createWithSQL:clientSQL)].
 ^temp.
 
-]
-
-{ #category : #updating }
-Tienda class >> createClients:aCollection [
-|temp|
-temp :=self new.
-temp initializeClients:aCollection.
-^temp.
-]
-
-{ #category : #updating }
-Tienda class >> createClients:aCollection aId:aIdirectoty [
-|temp|
-temp :=self new.
-temp initializeClients:aCollection aId:aIdirectoty.
-^temp.
 ]
 
 { #category : #updating }
@@ -119,6 +103,15 @@ max :=colectionClientes size.
 { #category : #'as yet unclassified' }
 Tienda >> getClients [
 ^colectionClientes.
+]
+
+{ #category : #'as yet unclassified' }
+Tienda >> getComprasContenido:keyNameContenido [
+|contenido clientes |
+contenido :=self searchContenido:keyNameContenido.
+clientes:=colectionClientes select:[:unCliente| unCliente poseeContenido:contenido].
+^clientes.
+
 ]
 
 { #category : #'as yet unclassified' }
