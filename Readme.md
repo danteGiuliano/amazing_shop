@@ -3,6 +3,11 @@
 
 **Author: Dante R. Giuliano**.
 
+>este pequeño programa fue realizado con fines didacticos. para llevar todas las etapas desde un maquetado a generar algo de produccion, es mi primer programa de caracter funcional 
+
+
+```ESTADO: EN PROGRESO```
+
 ### Contenidos del programa.
 - protocolos http.
 - manejo de imagenes.
