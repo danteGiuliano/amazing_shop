@@ -57,6 +57,16 @@ Theme class >> morphContrast [
 ]
 
 { #category : #'as yet unclassified' }
+Theme class >> roseTheme [
+buttom :=Color fromHexString:'ffcbf2'.
+morph :=Color fromHexString: 'ff4d6d'.
+buttomText :=Color fromString:'14213d'.
+ghostText :=Color fromString:'edf6f9'.
+morphContrast :=Color fromString:'f15bb5'.
+text :=Color fromString:'000000'.
+]
+
+{ #category : #'as yet unclassified' }
 Theme class >> text [ 
 ^text.
 ]

@@ -11,7 +11,8 @@ Class {
 		'subMenu',
 		'calendar',
 		'exit',
-		'logout'
+		'options',
+		'changeTheme'
 	],
 	#category : #'TiendaOnline-View'
 }
@@ -28,8 +29,9 @@ temp initialize.
 
 { #category : #initialization }
 Menu >> addBotons [
+changeTheme:=Button create:'Cambiar Tema' size:100@30.
 exit := Button create:'exit' size:60@30.
-
+self addMorph:changeTheme.
 self addMorphCentered: exit.
 exit mouseAction:[exit close:self].
 Helper positionLeftBotton:exit in:self.
@@ -55,7 +57,8 @@ calendar top:450
 Menu >> addPanelOptions [
 |colNameOptions|
 colNameOptions := #(Clientes Subscripciones Contenido ).
-Helper addLeftTopMorphic:(Helper createPanel:colNameOptions aLogic:self routes)in:self.
+options :=Helper createPanel:colNameOptions aLogic:self routes.
+Helper addLeftTopMorphic:options in:self.
 ]
 
 { #category : #initialization }
@@ -75,6 +78,8 @@ super initialize.
 self addPanelOptions.
 self addSubMenu.
 self addBotons.
+self style.
+self logic.
 self color:(Color blue alpha:0.85).
 "self addCalendar."
 "image:=(Form fromFileNamed: 'amazingShop/background.jpg') asMorph.
@@ -109,6 +114,11 @@ MenuSuscripcion  createMenuSuscripcionIn:subMenu.
 ]
 
 { #category : #initialization }
+Menu >> logic [ 
+changeTheme mouseAction:[ModalTheme call:self]
+]
+
+{ #category : #initialization }
 Menu >> routes [
 	"Inspirate in concept IONIC Framework"
 	^ [ :id | 
@@ -121,6 +131,12 @@ Menu >> routes [
 	id = 'Pagos' ifTrue: [ logicReturn := [self update;loadPagos ]].
 	logicReturn
 	].
+]
+
+{ #category : #initialization }
+Menu >> style [ 
+changeTheme center: options center;top:options bottom+10.
+Helper border:changeTheme  aColor: changeTheme color.
 ]
 
 { #category : #initialization }
