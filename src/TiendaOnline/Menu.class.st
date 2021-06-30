@@ -151,9 +151,11 @@ Menu >> routes [
 ]
 
 { #category : #initialization }
-Menu >> style [ 
-self color:Color transparent.
-changeTheme center: options center;top:options bottom+10.
+Menu >> style [
+	"self color: Color transparent."
+	changeTheme
+		center: options center;
+		top: options bottom + 10
 ]
 
 { #category : #initialization }

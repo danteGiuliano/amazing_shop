@@ -22,8 +22,8 @@ ghostText :=Color fromString:'caf0f8'.
 morphContrast :=Color fromString:'264653'.
 text:=Color white.
 "Fonde"
-fonde :=MorphGIF gifFromString:'fonde3.gif'.
-
+"fonde :=MorphGIF gifFromString:'fonde3.gif'."
+fonde :=Morph new color:Color red.
 ]
 
 { #category : #'as yet unclassified' }
@@ -44,6 +44,7 @@ buttomText :=Color fromString:'264653'.
 ghostText :=Color fromString:'caf0f8'.
 morphContrast :=Color fromString:'264653'.
 text :=Color white.
+fonde:=Morph new color:Color green.
 "fonde :=MorphGIF gifFromString:'fonde.gif'."
 ]
 

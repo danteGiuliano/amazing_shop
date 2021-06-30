@@ -47,5 +47,6 @@ Control class >> userSession:aId_user [
 userSesion :=aId_user.
 DataBase userkey:(aId_user at:1).
 aModel :=Tienda crearWithSQL.
+aModel crearWithSQL. "Updatea contenidos de clientes"
 
 ]

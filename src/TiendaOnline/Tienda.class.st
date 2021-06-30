@@ -24,15 +24,13 @@ temp initializeCollection.
 
 { #category : #updating }
 Tienda class >> crearWithSQL [ 
-|temp clientes suscripciones contenidos|
+|temp  suscripciones contenidos|
 temp := self new.
 temp initializeCollection.
-clientes :=DataBase getClients.
 suscripciones :=DataBase getSuscripcion.
 contenidos :=DataBase getContenidos.
-suscripciones do:[:clientSQL| temp addSuscription:(Descuento createWithSQL:clientSQL)].
 contenidos do:[:clientSQL| temp addContenido:(Contenido createWithSQL:clientSQL)].
-clientes do:[:clientSQL|temp addClient:(Cliente createWithSQL:clientSQL)].
+suscripciones do:[:clientSQL| temp addSuscription:(Descuento createWithSQL:clientSQL)].
 ^temp.
 
 ]
@@ -98,6 +96,13 @@ max :=colectionClientes size.
 			].
 	i:=i+1.
 	]
+]
+
+{ #category : #'as yet unclassified' }
+Tienda >> crearWithSQL [
+| clientes  |
+clientes :=DataBase getClients.
+clientes do:[:clientSQL|self addClient:(Cliente createWithSQL:clientSQL)].
 ]
 
 { #category : #'as yet unclassified' }

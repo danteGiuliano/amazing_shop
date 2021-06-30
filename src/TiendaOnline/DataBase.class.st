@@ -13,12 +13,15 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-DataBase class >> autenticationName:aName aPassWord:aPassword [
-|query|
-self runDataBase.
-query:=(database query:'SELECT * FROM Usuario WHERE Usuario.usuario="',aName,'"',' && Usuario.password="' ,aPassword,'"').
-self desconectar.
-^query.
+DataBase class >> autenticationName: aName aPassWord: aPassword [
+	| query |
+	self runDataBase.
+	query := database
+		query:
+			'SELECT * FROM Usuario WHERE  Usuario.usuario="' , aName , '"'
+				, ' && Usuario.password="' , aPassword , '"'.
+	self desconectar.
+	^ query
 ]
 
 { #category : #'as yet unclassified' }
@@ -169,9 +172,9 @@ self desconectar.
 
 { #category : #'as yet unclassified' }
 DataBase class >> runDataBase [
-self initializeCredentials.
-database  :=MySQLDriver new connect:credentials .
-
+	self initializeCredentials.
+	database := MySQLDriver new.
+	database  connect: credentials
 ]
 
 { #category : #'as yet unclassified' }
