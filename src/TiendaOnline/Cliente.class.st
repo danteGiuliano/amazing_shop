@@ -108,6 +108,7 @@ column id= 'email' ifTrue: [ ^self emailRow:rowIndex ].
 
 { #category : #'as yet unclassified' }
 Cliente >> compraSuscripcion:unaSuscripcion [
+"Verificar que no exista en tu lista (:"
 listaDeSuscripcion add:unaSuscripcion.
 ]
 

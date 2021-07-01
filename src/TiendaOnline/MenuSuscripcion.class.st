@@ -2,10 +2,11 @@ Class {
 	#name : #MenuSuscripcion,
 	#superclass : #SubMenuView,
 	#instVars : [
-		'table',
 		'subMenu',
 		'addSuscription',
-		'options'
+		'promocion',
+		'tablePromocion',
+		'tableSuscripcion'
 	],
 	#category : #'TiendaOnline-View'
 }
@@ -18,11 +19,9 @@ temp := self new.
 ]
 
 { #category : #initialization }
-MenuSuscripcion >> addOptions [ 
-|temp|
-temp :=#('Aplicar Promocion')asOrderedCollection .
-options:=(Helper createPanel: temp aLogic:self routes).
-subMenu addMorph:options
+MenuSuscripcion >> addPromocion [
+promocion:=ComponenetPromocion new.
+subMenu addMorph:promocion.
  
 ]
 
@@ -37,43 +36,40 @@ MenuSuscripcion >> initialize:aContent [
 super initialize.
 subMenu :=aContent.
 self addSuscription.
-self loadTable.
-self addOptions.
+self loadTableSuscripcions.
+self loadTablePromociones.
+self addPromocion.
 self style.
 
 ]
 
 { #category : #initialization }
-MenuSuscripcion >> loadTable [ 
-| aNamesColumnTable temp|
-temp  :=Control modelFuntionReturn:[:tienda| tienda getSuscripciones].
-aNamesColumnTable:= #( 'Nombre' 'Descuento Libro' 'Descuento Pelicula' 'Descuento Aplicacion')asOrderedCollection.
-table := Table create: (Descuento elements:(temp)) aCollums: aNamesColumnTable  aSize:(800@200).
+MenuSuscripcion >> loadTablePromociones [
+| aNamesColumnTable |
+aNamesColumnTable:= #( 'Suscripcion' 'Cantidad Articulos' 'Nueva suscripcion' 'Descuento Promocion' ' meses')asOrderedCollection.
+tablePromocion := Table create: (Descuento elements:(nil)) aCollums: aNamesColumnTable  aSize:(800@200).
 "Style"
-Helper addCenterMorph: table in:subMenu.
-Helper border: table aColor:table color.
-table headerBorder:0.95. 
+Helper addCenterMorph: tablePromocion in:subMenu.
+Helper border: tablePromocion aColor:tablePromocion color.
+tablePromocion headerBorder:0.95. 
 ]
 
 { #category : #initialization }
-MenuSuscripcion >> routes [
-	"Inspirate in concept IONIC Framework"
-	^ [ :id | 
-	  | logicReturn |
-	id = 'Peliculas' ifTrue: [ logicReturn := [|a|.a:=Button create:'Funco'.a openInHand] ].
-	id = 'Aplicaciones' ifTrue: [ logicReturn := [|a|.a:=Button create:'OMG'.a openInHand] ].
-	id = 'Nueva' ifTrue: [ logicReturn := [ModalSuscripcion call] ].
-	id ='actualizar' ifTrue:[logicReturn :=table delete.self loadTable.].
-	logicReturn.
-	].
+MenuSuscripcion >> loadTableSuscripcions [
+| aNamesColumnTable temp|
+temp  :=Control modelFuntionReturn:[:tienda| tienda getSuscripciones].
+aNamesColumnTable:= #( 'Nombre' 'Descuento Libro' 'Descuento Pelicula' 'Descuento Aplicacion')asOrderedCollection.
+tableSuscripcion := Table create: (Descuento elements:(temp)) aCollums: aNamesColumnTable  aSize:(800@200).
+"Style"
+Helper addCenterMorph: tableSuscripcion in:subMenu.
+Helper border: tableSuscripcion aColor: tableSuscripcion color.
+tableSuscripcion headerBorder:0.95. 
 ]
 
 { #category : #initialization }
 MenuSuscripcion >> style [ 
-addSuscription left:subMenu left+10.
-addSuscription top:subMenu top.
-table left:addSuscription right +10.
-table top:subMenu  top.
-options top:table bottom+10.
-options left:table left.
+addSuscription left:subMenu left+10;top:subMenu top.
+tableSuscripcion left:addSuscription right +10;top:subMenu  top.
+promocion top:addSuscription bottom+10;left:addSuscription left.
+tablePromocion top:promocion top;left:promocion right+10. 
 ]

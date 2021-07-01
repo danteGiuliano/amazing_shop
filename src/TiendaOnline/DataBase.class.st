@@ -79,7 +79,7 @@ DataBase class >> getSuscripciones_Compradas:aDni [
 self runDataBase.
 query:=database query:'SELECT
 Suscripcion.nombre_suscripcion,Suscripcion.descuento_aplicacion,Suscripcion.descuento_pelicula,Suscripcion.descuento_libro,
-Suscripcion_Comprada.fecha_inicio,Suscripcion_Comprada.fecha_fin,Suscripcion_Comprada.rango FROM Suscripcion_Comprada INNER JOIN Suscripcion ON Suscripcion.nombre_suscripcion=Suscripcion_Comprada.nombre_suscripcion
+Suscripcion_Comprada.fecha_inicio,Suscripcion_Comprada.fecha_fin,Suscripcion_Comprada.keyValue FROM Suscripcion_Comprada INNER JOIN Suscripcion ON Suscripcion.nombre_suscripcion=Suscripcion_Comprada.nombre_suscripcion
 WHERE Suscripcion.id_user=',id_user,' AND Suscripcion_Comprada.dni_cliente=',aDni asString .
 self desconectar.
 ^query.
@@ -95,6 +95,15 @@ credentials :=MySQLDriverSpec new
 				port:3306.
 
 
+]
+
+{ #category : #'as yet unclassified' }
+DataBase class >> query:AStringQuery [
+|query|
+self runDataBase.
+query:=AStringQuery.
+self desconectar.
+^query.
 ]
 
 { #category : #'querys_up' }
@@ -148,12 +157,13 @@ self desconectar.
 
 { #category : #running }
 DataBase class >> registerSuscripcion_Comprada:aCollection [
-|key dni|
+|key dni keySub|
 key:=aCollection at:1.
 dni:=aCollection at:2.
 self runDataBase.
-database query:'INSERT INTO Suscripcion_Comprada (nombre_suscripcion,dni_cliente,fecha_inicio,fecha_fin,rango,id_user) 
-VALUES(',key,',',dni,',"',Date today yyyymmdd ,'","',Date today onNextMonth yyyymmdd,'","Bronce",',id_user,')'.
+keySub :=key,dni,Date today  yyyymmdd,Date today onNextMonth yyyymmdd.
+database query:'INSERT INTO Suscripcion_Comprada (nombre_suscripcion,dni_cliente,fecha_inicio,fecha_fin,keyValue,id_user) 
+VALUES("',key,'",',dni,',"',Date today yyyymmdd ,'","',Date today onNextMonth yyyymmdd,'","',keySub ,'",',id_user,')'.
 self desconectar.
 ]
 

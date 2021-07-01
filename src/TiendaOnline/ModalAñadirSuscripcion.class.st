@@ -111,14 +111,14 @@ instanceClient ifNotNil:[
 	aColection :=OrderedCollection new.
 	suscriptions :=Control modelFuntionReturn:[:h| h getSuscripciones. ].
 	names :=suscriptions collect:[:aSuscription|aSuscription getNombre].
-	selection:=PopupChoiceDialogWindow chooseFrom:names lines:#(1 2) title:'Suscripciones'.
+	selection:=PopupChoiceDialogWindow chooseFrom:names lines:#() title:'Suscripciones'.
 	suscription:=suscriptions detect:[:aSuscription|aSuscription equals:selection].
 	
-	aColection add:'"',selection,'"'.
+	aColection add:selection.
 	aColection add:(instanceClient getDni)asString.
 	
 	suscriptionBuy :=SuscripcionComprada crearSuscripcion:suscription.
-	
+	"Realiza un control de que el cliente no la tiene antes de agregar dante"
 	Control modelFuntion:[:h | h añadirSuscripcionComprada:suscriptionBuy aCliente:instanceClient].
 	DataBase registerSuscripcion_Comprada: aColection.
 	

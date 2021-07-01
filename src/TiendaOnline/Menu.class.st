@@ -121,11 +121,6 @@ Menu >> loadPagos [
 ]
 
 { #category : #initialization }
-Menu >> loadPromocion [
-MenuPromocion createMenuPromocionIn:subMenu.  
-]
-
-{ #category : #initialization }
 Menu >> loadSuscripcion [
 MenuSuscripcion  createMenuSuscripcionIn:subMenu.
 ]
@@ -144,7 +139,6 @@ Menu >> routes [
 	id = 'Clientes' ifTrue: [ logicReturn:=[self update;loadCliente ] ].
 	id = 'Subscripciones' ifTrue: [ logicReturn := [self update;loadSuscripcion ] ].
 	id = 'Contenido' ifTrue: [ logicReturn :=[self update; loadContenido]].
-	id = 'Promociones' ifTrue: [ logicReturn := [self update;loadPromocion ]].
 	id = 'Pagos' ifTrue: [ logicReturn := [self update;loadPagos ]].
 	logicReturn
 	].

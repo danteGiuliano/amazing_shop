@@ -5,7 +5,8 @@ Class {
 		'listaDescuento',
 		'fechaInicio',
 		'fechaFin',
-		'nombreSuscripcion'
+		'nombreSuscripcion',
+		'promocion'
 	],
 	#category : #'TiendaOnline-Model'
 }
