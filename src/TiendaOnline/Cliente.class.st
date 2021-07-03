@@ -63,9 +63,10 @@ colPago add:(Pago crearPago:unContenido precio deItem:unContenido  ySuscripcion:
 Cliente >> añadirContenidoMySQL: aMySQLQuery [
 	aMySQLQuery
 		do: [ :instanceKey | 
-			|  contenido |
+			|  contenido|
 			contenido := Control
 				modelFuntionReturn: [ :h | h searchContenido: (instanceKey at: 4) ].
+				colPago add:(Pago createWithMySQL:instanceKey).
 				listaContenidos add:contenido.
 				]
 ]

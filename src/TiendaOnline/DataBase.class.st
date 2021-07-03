@@ -101,7 +101,7 @@ credentials :=MySQLDriverSpec new
 DataBase class >> query:AStringQuery [
 |query|
 self runDataBase.
-query:=AStringQuery.
+query:=database query:AStringQuery.
 self desconectar.
 ^query.
 ]
