@@ -34,6 +34,11 @@ self ghostTextRuler textColor:(aColor).
 ]
 
 { #category : #'as yet unclassified' }
+TextBox >> isEmpty [
+^(((self text)asString)='').
+]
+
+{ #category : #'as yet unclassified' }
 TextBox >> styleWeb [
 self borderStyle:(BottomBorder new width:2);
 color:Color transparent;

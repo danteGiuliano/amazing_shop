@@ -32,6 +32,10 @@ self addMorph:inputSuscripcion;addMorph:cantidad;addMorph:inputOtraSuscripcion;a
 ]
 
 { #category : #initialization }
+ComponenetPromocion >> addPromotion [
+]
+
+{ #category : #initialization }
 ComponenetPromocion >> defineMorph [
 self extent:300@350.
 self color:Theme morph.
@@ -45,6 +49,30 @@ self defineMorph.
 self addInputs.
 self addButtom.
 self style.
+self logic.
+]
+
+{ #category : #initialization }
+ComponenetPromocion >> logic [ 
+|blockCondition inputs validate|
+aplicar mouseAction:[
+"Verify inputs not nils"
+inputs:={inputOtraSuscripcion.inputSuscripcion.cantidad.cantidadMeses.descuento}.
+
+blockCondition :=[:input|input isEmpty].
+
+validate :=inputs select:[:input|blockCondition value:input].
+
+validate isEmpty ifTrue:[
+	"Test pased."
+	self addPromotion.
+	MessageDialogWindow new text:'Promocion aceptada';title:'';openCenteredInWorld.
+	]ifFalse:[
+	"Alert!"
+	AlertDialogWindow new text:'Campos vacios ';title:'';openCenteredInWorld.
+	]
+].
+
 ]
 
 { #category : #initialization }
