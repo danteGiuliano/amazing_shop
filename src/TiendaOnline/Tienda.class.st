@@ -8,7 +8,8 @@ Class {
 		'idTienda',
 		'colectionClientes',
 		'colectionContenidos',
-		'coleccionSuscripciones'
+		'coleccionSuscripciones',
+		'coleccionPromos'
 	],
 	#category : #'TiendaOnline-Model'
 }
@@ -74,6 +75,11 @@ colectionClientes add:aClient.
 { #category : #'as yet unclassified' }
 Tienda >> addContenido:unContenido [
 colectionContenidos add:unContenido.
+]
+
+{ #category : #'as yet unclassified' }
+Tienda >> addPromocion:unaPromocion [
+coleccionPromos add:unaPromocion.
 ]
 
 { #category : #'as yet unclassified' }
@@ -158,6 +164,7 @@ Tienda >> initializeCollection [
 colectionClientes :=OrderedCollection new.
 colectionContenidos :=OrderedCollection new.
 coleccionSuscripciones :=OrderedCollection new.
+coleccionPromos :=OrderedCollection new.
 ]
 
 { #category : #'as yet unclassified' }

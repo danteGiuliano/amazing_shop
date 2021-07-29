@@ -39,8 +39,9 @@ contenidos do:[:contenido||component|
 { #category : #initialization }
 PanelContenido >> defineMorph [
 conteiner :=BorderedMorph new extent:615@400.
-scroll :=ScrollPane new extent:615@400.
-self extent:615@400.
+scroll :=ScrollPane new extent:615@450.
+scroll borderColor:Color transparent.
+self extent:615@500.
 scroll scroller addMorph:self.
 conteiner addMorph:scroll.
 conteiner color:(Color transparent).
