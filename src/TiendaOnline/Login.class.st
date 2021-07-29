@@ -3,24 +3,19 @@ Class interface pre-aplation.
 "
 Class {
 	#name : #Login,
-	#superclass : #BorderedMorph,
+	#superclass : #FullscreenMorph,
 	#instVars : [
-		'name',
-		'resources',
-		'model',
+		'login',
+		'create',
 		'inputUser',
-		'inputPassword',
-		'directory'
+		'inputPassword'
 	],
 	#category : #'TiendaOnline-View'
 }
 
 { #category : #initialization }
-Login class >> create [
-| a |
-a := self new.
-a initializeShop.
-^a
+Login class >> create [ 
+^self new openCenteredInWorld.
 ]
 
 { #category : #initialization }
@@ -40,25 +35,68 @@ query isError ifTrue:[
 ]
 
 { #category : #'as yet unclassified' }
+Login >> defineMorph [
+self color:Color black. 
+]
+
+{ #category : #'as yet unclassified' }
+Login >> fonde [
+|m|
+m :=Morph new extent:30@30.
+m height:self height.
+m width: (self width)/1.2.
+self addMorph:m.
+m center: self center.
+m right:self right.
+m color:Color white.
+"Gif"
+Helper addCenterMorph:(MorphGIF gifFromString:'inicio2.gif') in:m.
+
+
+]
+
+{ #category : #'as yet unclassified' }
+Login >> initialize [
+super initialize.
+self defineMorph.
+self style.
+self initializeButtons.
+self initializeTextBoxs.
+self fonde.
+self openInHand.
+
+]
+
+{ #category : #'as yet unclassified' }
 Login >> initializeButtons [ 
-|close login create |
-close := Button create:'close'. 
-login := Button create:'login ' size:(40@30). 
-create := Button create:'create shop' size:(130@40).
-create font:StandardFonts codeFont. 
+|close|
+close := Button create:'CERRAR' size:60@30. 
+login := Button create:'LOGIN' size:(40@30). 
+create := Button create:'CREAR SHOP' size:(130@40).
+
+login color:Color transparent;borderColor:Color transparent.
+create color:Color transparent;borderColor:Color transparent.
+
+
+create font:StandardFonts codeFont.
+login font:StandardFonts codeFont.
+
+login textColor:Color white.
+create textColor:Color white.
+
 
 self addMorphCentered: login.
 self addMorphCentered: create.
-Helper addRightTopMorph: close in:self. 
 
-"Posiciono los botones en la ventana."
-"I position the buttons of the entrance"
+Helper addLeftBottomMorph: close in:self. 
+close left:self left+10.
+close bottom:self bottom-10.
+close color:Color transparent;borderColor:Color transparent.
+close textColor:Color white.
 
+create left:self left+50.
+login center: create center.
 login top:create bottom+30.
-
-Helper border: close aColor:(Color green alpha:0.40) rad:2. 
-Helper border: create  aColor:Color gray rad:3.
-Helper border:login aColor:(Color red alpha:0.40) rad:2. 
 
 "Añado funciones a los bottones."
 close mouseAction: [close close:self].
@@ -92,23 +130,19 @@ inputPassword := TextBox create: 'Ingrese su password' size:200@60 .
 self addMorphCentered: inputUser.
 self addMorphCentered: inputPassword.
 
-inputUser top:self top+220.
-inputPassword top:inputUser bottom+20.
+inputPassword center:create center.
+inputUser center:create center.
 
-Helper border: inputPassword  aColor:(Color red alpha:0.30) rad:2.
-Helper border:inputUser aColor:(Color red alpha:0.30) rad:2. 
+inputPassword bottom:create top-10.
+inputUser bottom:inputPassword top-10.
+
+inputPassword styleWeb;borderColor:Color white.
+inputUser styleWeb;borderColor:Color white.
+
 ]
 
 { #category : #initialization }
 Login >> style [ 
-"|image|"
-"image:=(ZnEasy getPng:'https://raw.githubusercontent.com/danteGiuliano/amazing_shop/stable/src/resourses/login.png')asMorph."
-"image scale:0.50."
-self  extent:(360@400).
-"image borderStyle: (RoundedBorder new cornerRadius:5; width:5; color:Color gray)."
-"self addMorphCentered:image."
-"Traer recursos Https de repostorio "
-"self addMorphCentered:("
-"self borderStyle:(RoundedBorder new cornerRadius:5; width:5; color:Color gray)."
+
 
 ]

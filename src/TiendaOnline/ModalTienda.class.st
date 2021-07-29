@@ -118,6 +118,6 @@ collection add:(inputName text)asString. "nombre tienda"
 
 { #category : #adding }
 ModalTienda >> style [ 
-Helper border:self aColor:(Color veryDarkGray alpha:0.85). 
+self borderStyle: (ComplexBorder width: 3 color: self color)
 
 ]
