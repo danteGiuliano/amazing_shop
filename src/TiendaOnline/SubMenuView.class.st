@@ -26,6 +26,12 @@ temp := self new.
 ]
 
 { #category : #initialization }
+SubMenuView >> fonde [
+
+
+]
+
+{ #category : #initialization }
 SubMenuView >> getModel [
 ^model.
 ]
@@ -38,6 +44,7 @@ self width: aContent right-215.
 self height: aContent height-10. 
 self color:Color transparent.
 self borderColor:Color transparent.
+self fonde.
 ]
 
 { #category : #initialization }

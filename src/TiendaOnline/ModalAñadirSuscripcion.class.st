@@ -30,7 +30,7 @@ temp openCenteredInWorld.
 { #category : #initialization }
 ModalAñadirSuscripcion >> addBottoms [ 
 addSuscription :=Button create: 'Anadir Suscripcion' size:120@30.
-search :=Button create:'search' size:70@20.
+search :=Button create:'BUSCAR' size:70@20.
 
 addSuscription color:(Theme buttom);textColor:(Theme buttomText). 
 search color:(Theme buttom);textColor:(Theme buttomText).

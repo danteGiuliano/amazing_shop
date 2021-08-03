@@ -6,6 +6,7 @@ Class {
 		'fechaInicio',
 		'fechaFin',
 		'nombreSuscripcion',
+		'contenidosComprados',
 		'promocion'
 	],
 	#category : #'TiendaOnline-Model'
@@ -43,36 +44,36 @@ fechaFin :=unaFechaFin.
 nombreSuscripcion :=unNombre.
 ]
 
-{ #category : #accessing }
+{ #category : #dataTable }
 SuscripcionComprada >> cellColumn: column row:rowIndex [
 column id = 'Tipo' ifTrue: [ ^ self tipoRow: rowIndex ].
 column id= 'Inicio' ifTrue: [ ^self inicioRow:rowIndex ].
 column id= 'Vence' ifTrue: [ ^self vencimientoRow:rowIndex ].
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #dataTable }
 SuscripcionComprada >> getInicio [
 ^fechaInicio asString.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #dataTable }
 SuscripcionComprada >> getTipo [
 ^nombreSuscripcion asString.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #dataTable }
 SuscripcionComprada >> getVencimiento [
 ^fechaFin asString.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #dataTable }
 SuscripcionComprada >> inicioRow:rowIndex [
 ^ FTCellMorph new  
 		addMorphBack:((self elementAt: rowIndex) getInicio asStringMorph color:(Color green));
 		yourself
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #dataTable }
 SuscripcionComprada >> newDataSourceMatching: aFTFilter [
 	| newElements |
 	newElements := Array withAll: (elements select: [ :each | 
@@ -85,7 +86,7 @@ SuscripcionComprada >> sinSuscripcionActiva [
 nombreSuscripcion :='Nil'
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #dataTable }
 SuscripcionComprada >> tipoRow: rowIndex [
 ^ FTCellMorph new  
 		addMorphBack: (self elementAt: rowIndex) getTipo asStringMorph;
@@ -97,7 +98,7 @@ SuscripcionComprada >> toString:aSuscription [
 ^aSuscription getTipo.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #dataTable }
 SuscripcionComprada >> vencimientoRow:rowIndex [ 
 ^ FTCellMorph new  
 		addMorphBack: ((self elementAt: rowIndex) getVencimiento asStringMorph color:(Color red));

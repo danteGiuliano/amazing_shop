@@ -18,7 +18,7 @@ ModalTienda class >> call [
 |temp|
 temp:=self new.
 temp initialize.
-temp openCenteredInWorld .
+^temp 
 ]
 
 { #category : #adding }
@@ -47,22 +47,23 @@ inputName  top: textName top.
 { #category : #adding }
 ModalTienda >> addButtons [
 |exit|
-createShop:=Button create:'Create SHOP' size:80@30.
-exit :=Button create:'X' size:30@30.
+createShop:=Button create:'CREAR SHOP' size:200@40.
+exit :=Button create:'<<<' size:30@30.
+exit textColor:Color white.
 
 Helper addCenterMorph: createShop  in:self. 
 Helper addCenterMorph: exit in:self.
 
 exit top:self top+5.
 exit left:self left+5.
-createShop  bottom:self bottom-15.
 
 exit borderColor:(Color transparent).
 exit color:(Color transparent).
 
 createShop color:(Color transparent).
-createShop borderColor:(Color transparent).
+createShop textSize:20.
 createShop textColor:(Color green).
+Helper border:createShop  aColor:createShop textColor  rad:3. 
 
 "Logic"
 exit mouseAction:[self delete.].
@@ -82,7 +83,7 @@ Helper addRightTopMorph: textName  in:self.
 textUser  left:self left+10.
 textPass  left:self left+10.
 textName  left:self left+10.
-textUser  top:self top+40.
+textUser  top:self top+250.
 textPass  top:textUser  bottom+20.
 textName  top:textPass bottom+20.
 ]
@@ -95,7 +96,7 @@ self addButtons.
 self color:(Color veryDarkGray alpha:0.85).
 self addText.
 self addBox.
-self style.
+self style
 
 
 ]
@@ -118,6 +119,7 @@ collection add:(inputName text)asString. "nombre tienda"
 
 { #category : #adding }
 ModalTienda >> style [ 
-Helper border:self aColor:(Color veryDarkGray alpha:0.85). 
+self borderStyle: (ComplexBorder width: 3 color: self color).
+createShop top:textName  bottom+100
 
 ]

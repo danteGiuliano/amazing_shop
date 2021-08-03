@@ -17,7 +17,7 @@ Cliente class >> crearCLiente:unNombre unDni:unDni unEmail:unEmail [
 |temp|.
 temp :=self new.
 temp crearConNombre: unNombre yDni:unDni  Email:unEmail.
-temp crearLista.
+temp crearColleciones.
 ^temp. 
 ]
 

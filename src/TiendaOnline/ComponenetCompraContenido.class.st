@@ -24,7 +24,7 @@ self extent:300@350.
 text:=RubScrolledTextMorph new extent:290@220.
 inputContenido :=TextBox create:'nombre contenido' size:200@30.
 inputDNi :=TextBox create:'DNI usuario' size:200@30.
-search :=Button create:'search' size:70@30.
+search :=Button create:'BUSCAR' size:70@30.
 comprar :=Button create: 'COMPRAR' size:70@40.
 
 self addMorph:text;addMorph:comprar;addMorph:inputContenido ;addMorph:search;addMorph:inputDNi.

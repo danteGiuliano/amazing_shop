@@ -42,7 +42,7 @@ ComponenetContenidoBusqueda >> defineMorph [
 self extent: 620@200.
 
 inputNombre :=TextBox create:'Nombre contenido' size:500@30.
-search :=Button create:'search' size:60@20.
+search :=Button create:'BUSCAR' size:60@20.
 resultado :=StringMorph contents:'Busqueda no realizada.'.
 contenido :=BorderedMorph new extent:600@100.
  
