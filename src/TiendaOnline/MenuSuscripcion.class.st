@@ -47,7 +47,7 @@ self style.
 MenuSuscripcion >> loadTablePromociones [
 | aNamesColumnTable |
 aNamesColumnTable:= #( 'Suscripcion' 'Cantidad Articulos' 'Nueva suscripcion' 'Descuento Promocion' ' meses')asOrderedCollection.
-tablePromocion := Table create: (Descuento elements:(nil)) aCollums: aNamesColumnTable  aSize:(800@200).
+tablePromocion := Table create: (Descuento elements:(nil)) aCollums: aNamesColumnTable  aSize:(800@350).
 "Style"
 Helper addCenterMorph: tablePromocion in:subMenu.
 Helper border: tablePromocion aColor:tablePromocion color.

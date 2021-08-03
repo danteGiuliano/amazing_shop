@@ -19,7 +19,7 @@ ModalSuscripcion class >> call [
 
 { #category : #initialization }
 ModalSuscripcion >> addButtoms [
-botonCreate :=Button create: 'Create' size:50@30.
+botonCreate :=Button create: 'CREAR' size:50@30.
 
 Helper addRightCenterMorph: botonCreate  in:self.
 
@@ -90,13 +90,14 @@ inputDescuentoLibro  top:inputDescuentoAplicacion bottom+10.
 inputDescuentoPelicula left:borderLeftPadding.
 inputDescuentoPelicula top:inputDescuentoLibro bottom+10.
 
-botonCreate right:inputDescuentoPelicula right.
+botonCreate right:self right-10.
 botonCreate bottom:self bottom-10.
-botonCreate color:Theme buttom.
+botonCreate color:Color transparent.
 botonCreate textColor:Theme buttomText.
 
 "Style border."
 Helper border:botonCreate  aColor:botonCreate color.
+botonCreate textSize:12.
 
 ]
 

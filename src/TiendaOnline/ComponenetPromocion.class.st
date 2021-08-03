@@ -88,4 +88,5 @@ inputOtraSuscripcion top:cantidad bottom+40;left: cantidad left.
 descuento top:inputOtraSuscripcion bottom+20;left:inputOtraSuscripcion left.
 cantidadMeses top:descuento bottom+20;left:descuento left.
 aplicar right:self right -10;bottom:self bottom-10.
+aplicar textSize:12;textColor:Theme buttomText.
 ]

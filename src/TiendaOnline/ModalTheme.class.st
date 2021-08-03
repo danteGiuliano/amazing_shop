@@ -31,7 +31,7 @@ self addMorph:defaultTheme ;addMorph:blueTheme;addMorph:roseTheme.
 
 { #category : #initialization }
 ModalTheme >> defineMorph [
-self extent:120@250.
+self extent:120@150.
 self color:Theme morph.
 Helper border:self aColor:self color  rad:8
 

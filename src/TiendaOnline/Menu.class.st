@@ -9,10 +9,14 @@ Class {
 	#superclass : #FullscreenMorph,
 	#instVars : [
 		'subMenu',
-		'calendar',
+		'menuSuscripcion',
+		'menuCliente',
+		'menuContenido',
 		'exit',
 		'options',
-		'changeTheme'
+		'changeTheme',
+		'suspension',
+		'fonde'
 	],
 	#category : #'TiendaOnline-View'
 }
@@ -29,45 +33,54 @@ temp initialize.
 
 { #category : #initialization }
 Menu >> addBotons [
-exit := Button create:'exit' size:60@30.
+exit := Button create:'CERRAR' size:100@30.
+suspension :=Button create:'SUSPENSION' size:100@30.
 self addMorphCentered: exit.
+self addMorphCentered:suspension.
+suspension mouseAction:[subMenu update.self addFondoAnimado.].
 exit mouseAction:[exit close:self].
-Helper positionLeftBotton:exit in:self.
-exit left:4.
-exit top:620.
-"Style"
-Helper border: exit aColor:(exit color). 
 
-
-]
-
-{ #category : #initialization }
-Menu >> addCalendar [
-calendar := CalendarMorph openOn: (Date today).
-self addMorphFront: calendar.
-Helper positionAboveContent: calendar in:exit. 
-calendar left:5.
-calendar top:450
+exit center:menuCliente center;bottom:self bottom-10.
+suspension left:exit left;bottom:exit top-5.
+suspension color:Color transparent;textColor:Color white.
+Helper border:suspension  aColor:Color white rad:3.
+exit color:Color transparent;textColor:Color white.
+Helper border:exit  aColor:Color white rad:3.
 
 ]
 
 { #category : #initialization }
 Menu >> addFondoAnimado [
-|gif|
-gif :=Theme fonde.
-gif fullBounds.
-self addMorphBack:gif.
-
+fonde :=MorphGIF gifFromString:'recursos/fondo.gif'.
+fonde fullBounds.
+self addMorph:fonde.
+fonde center:self center.
 
 
 ]
 
 { #category : #initialization }
 Menu >> addPanelOptions [
-|colNameOptions|
-colNameOptions := #(Clientes Subscripciones Contenido ).
-options :=Helper createPanel:colNameOptions aLogic:self routes.
-Helper addLeftTopMorphic:options in:self.
+menuSuscripcion :=CircleButton new extent:128@128.
+menuCliente :=CircleButton new extent:128@128.
+menuContenido :=CircleButton new extent:128@128.
+
+menuSuscripcion icon:(Icon stringRoute:'recursos/suscripcion.png').
+menuCliente icon:(Icon stringRoute:'recursos/cliente.png').
+menuContenido icon:(Icon stringRoute:'recursos/contenido-pagado.png').
+menuSuscripcion color:Theme morph.
+menuCliente  color:Theme morph.
+menuContenido color:Theme morph.
+
+Helper border:menuCliente  aColor:(Color white)  rad:7. 
+Helper border:menuContenido   aColor:(Color white)  rad:7. 
+Helper border:menuSuscripcion   aColor:(Color white)  rad:7. 
+ 
+menuSuscripcion mouseAction:[self loadSuscripcion.].
+menuCliente mouseAction:[self loadCliente.].
+menuContenido mouseAction:[self loadContenido.].
+self addMorph:menuSuscripcion;addMorph:menuCliente;addMorph:menuContenido.
+
 ]
 
 { #category : #initialization }
@@ -93,11 +106,10 @@ Menu >> initialize [
 super initialize.
 self addPanelOptions.
 self addSubMenu.
-self addBotons.
 self addThemes.
+self addBotons.
 self style.
 self logic.
-self addFondoAnimado.
 "self addCalendar."
 "image:=(Form fromFileNamed: 'amazingShop/background.jpg') asMorph.
 image basicExtent:self extent.
@@ -108,20 +120,19 @@ self addMorphBack: image."
 
 { #category : #initialization }
 Menu >> loadCliente [
+self update.
 MenuCliente createMenuClienteIn: subMenu. 
 ]
 
 { #category : #initialization }
 Menu >> loadContenido [
+self update.
 MenuContenido createMenuContenidoIn:subMenu.
 ]
 
 { #category : #initialization }
-Menu >> loadPagos [
-]
-
-{ #category : #initialization }
 Menu >> loadSuscripcion [
+self update.
 MenuSuscripcion  createMenuSuscripcionIn:subMenu.
 ]
 
@@ -146,14 +157,16 @@ Menu >> routes [
 
 { #category : #initialization }
 Menu >> style [
-	"self color: Color transparent."
-	changeTheme
-		center: options center;
-		top: options bottom + 10
+	self color: Color black.
+	menuCliente left:self left+10;top:self top+10.
+	menuContenido center:menuCliente center;top:menuCliente bottom+10.
+	menuSuscripcion center:menuCliente center;top:menuContenido bottom+10.
+	changeTheme center:menuCliente  center;top:menuSuscripcion  bottom+20.
 ]
 
 { #category : #initialization }
 Menu >> update [
+fonde isNotNil ifTrue:[fonde delete].
 subMenu update.
 self addSubMenu.
 ]
