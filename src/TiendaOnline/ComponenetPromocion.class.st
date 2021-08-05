@@ -17,6 +17,7 @@ ComponenetPromocion >> addButtom [
 aplicar :=Button create:'APLICAR' size:60@30. 
 self addMorph:aplicar.
 aplicar color:Color transparent;borderColor:Color transparent.
+aplicar addDependent:self.
 ]
 
 { #category : #adding }
@@ -35,9 +36,15 @@ self addMorph:inputSuscripcion;addMorph:cantidad;addMorph:inputOtraSuscripcion;a
 ComponenetPromocion >> addPromotion [
 |promotion fechaFin|
 fechaFin :=Date today.
-fechaFin  addMonths:(cantidadMeses input)asNumber.
-promotion :=Promocion crearPromoDescuento:(descuento input) fechaInicio:(Date today yyyymmdd)  fechaFin:fechaFin yyyymmdd deCantidad:(cantidad input)  yNuevaSuscripcion: (inputOtraSuscripcion input).
-Control modelFuntion:[:h|h addPromocion:promotion ]
+fechaFin:=fechaFin  addMonths:(cantidadMeses input)asNumber.
+promotion :=Promocion crearPromoDescuento:(descuento input) fechaInicio:(Date today yyyymmdd)  fechaFin:fechaFin yyyymmdd deCantidad:(cantidad input)  yNuevaSuscripcion: (inputOtraSuscripcion input) deSuscripcionBase:(inputSuscripcion input).
+Control modelFuntion:[:h|h addPromocion:promotion ].
+
+]
+
+{ #category : #initialization }
+ComponenetPromocion >> changed [ 
+self changed:self.
 ]
 
 { #category : #initialization }
@@ -72,6 +79,7 @@ validate isEmpty ifTrue:[
 	"Test pased."
 	self addPromotion.
 	MessageDialogWindow new text:'Promocion aceptada';title:'';openCenteredInWorld.
+	inputs do:[:input| input clear].
 	]ifFalse:[
 	"Alert!"
 	AlertDialogWindow new text:'Campos vacios ';title:'';openCenteredInWorld.
@@ -89,4 +97,9 @@ descuento top:inputOtraSuscripcion bottom+20;left:inputOtraSuscripcion left.
 cantidadMeses top:descuento bottom+20;left:descuento left.
 aplicar right:self right -10;bottom:self bottom-10.
 aplicar textSize:12;textColor:Theme buttomText.
+]
+
+{ #category : #initialization }
+ComponenetPromocion >> update:aBoton [.
+self changed.
 ]
