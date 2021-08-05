@@ -136,6 +136,11 @@ Tienda >> getIDTienda [
 ]
 
 { #category : #'as yet unclassified' }
+Tienda >> getPromociones [
+^coleccionPromos.
+]
+
+{ #category : #'as yet unclassified' }
 Tienda >> getSuscripciones [
 ^coleccionSuscripciones.
 ]

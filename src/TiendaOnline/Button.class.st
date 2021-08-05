@@ -32,6 +32,11 @@ label center:self center.
 ]
 
 { #category : #initialization }
+Button >> changed [ 
+self changed:self.
+]
+
+{ #category : #initialization }
 Button >> close:aContent [
 aContent delete.
 ]
