@@ -93,7 +93,7 @@ Descuento >> getLibro [
 
 { #category : #'as yet unclassified' }
 Descuento >> getNombre [
-^nombre
+^nombre asString
 ]
 
 { #category : #'as yet unclassified' }

@@ -54,7 +54,7 @@ DataCompra >> nameRow: rowIndex [
 
 { #category : #'as yet unclassified' }
 DataCompra >> suscripcion [
-^tipoSuscripcion .
+^tipoSuscripcion getTipo .
 ]
 
 { #category : #'as yet unclassified' }

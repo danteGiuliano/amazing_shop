@@ -3,6 +3,7 @@ Class {
 	#superclass : #Object,
 	#classVars : [
 		'aModel',
+		'process',
 		'userSesion'
 	],
 	#classInstVars : [
@@ -33,6 +34,14 @@ Control class >> modelFuntionReturn:aBlock [
 ]
 
 { #category : #'as yet unclassified' }
+Control class >> process:numberValue [
+process value:numberValue.
+(process value=100) ifTrue:[process delete]
+
+
+]
+
+{ #category : #'as yet unclassified' }
 Control class >> userKey [
 ^userSesion at:1.
 ]
@@ -44,9 +53,23 @@ Control class >> userNameShop [
 
 { #category : #'as yet unclassified' }
 Control class >> userSession:aId_user [
+process :=ProgressBarMorph from: 0 to: 100.
 userSesion :=aId_user.
 DataBase userkey:(aId_user at:1).
 aModel :=Tienda crearWithSQL.
 aModel crearWithSQL. "Updatea contenidos de clientes"
+
+
+]
+
+{ #category : #'as yet unclassified' }
+Control class >> userSession:aId_user process:aProcces [
+process :=aProcces.process visible:true;value:10.
+userSesion :=aId_user.
+DataBase userkey:(aId_user at:1).
+aModel :=Tienda crearWithSQL.
+aModel crearWithSQL. "Updatea contenidos de clientes"
+self process:100.
+
 
 ]

@@ -17,7 +17,14 @@ SuscripcionComprada class >> crearSuscripcion:unaListaDescuentos [
 |temp|
 temp :=self new.
 temp añadirLista:unaListaDescuentos.
-temp sinSuscripcionActiva .
+^temp.
+]
+
+{ #category : #'as yet unclassified' }
+SuscripcionComprada class >> crearSuscripcionNoActiva [ 
+|temp|
+temp :=self new.
+temp sinSuscripcionActiva.
 ^temp.
 ]
 
@@ -34,6 +41,7 @@ SuscripcionComprada >> añadirLista:unaLista [
 listaDescuento :=unaLista.
 fechaInicio :=Date today yyyymmdd.
 fechaFin :=Date today onNextMonth  yyyymmdd.
+
 ]
 
 { #category : #'as yet unclassified' }
@@ -49,6 +57,11 @@ SuscripcionComprada >> cellColumn: column row:rowIndex [
 column id = 'Tipo' ifTrue: [ ^ self tipoRow: rowIndex ].
 column id= 'Inicio' ifTrue: [ ^self inicioRow:rowIndex ].
 column id= 'Vence' ifTrue: [ ^self vencimientoRow:rowIndex ].
+]
+
+{ #category : #'as yet unclassified' }
+SuscripcionComprada >> getFechaInicio [
+^fechaFin
 ]
 
 { #category : #dataTable }
@@ -73,6 +86,11 @@ SuscripcionComprada >> inicioRow:rowIndex [
 		yourself
 ]
 
+{ #category : #'as yet unclassified' }
+SuscripcionComprada >> mayor:aFecha [
+^fechaInicio >aFecha getFechaInicio.
+]
+
 { #category : #dataTable }
 SuscripcionComprada >> newDataSourceMatching: aFTFilter [
 	| newElements |
@@ -83,7 +101,11 @@ SuscripcionComprada >> newDataSourceMatching: aFTFilter [
 
 { #category : #'as yet unclassified' }
 SuscripcionComprada >> sinSuscripcionActiva [
-nombreSuscripcion :='Nil'
+nombreSuscripcion :='Sin Suscripcion'.
+fechaInicio:=Date today.
+fechaFin:='Usuario sin suscripcion'.
+contenidosComprados :=OrderedCollection new.
+listaDescuento :={'Aplicacion'->0.'Libro'->0.'Pelicula'->0.}.
 ]
 
 { #category : #dataTable }

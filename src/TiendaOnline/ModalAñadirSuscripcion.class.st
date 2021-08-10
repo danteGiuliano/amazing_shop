@@ -85,7 +85,7 @@ self logic.
 { #category : #initialization }
 ModalAñadirSuscripcion >> logic [
 search mouseAction:[
-	self updateTextBox:(Control modelFuntionReturn:[:h| h searchDNI:(inputDNI text)asString])].
+self updateTextBox:(Control modelFuntionReturn:[:h| h searchDNI:(inputDNI text)asString])].
 addSuscription mouseAction:[self updateAddSuscripcion.]
 ]
 

@@ -29,9 +29,13 @@ Tienda class >> crearWithSQL [
 temp := self new.
 temp initializeCollection.
 suscripciones :=DataBase getSuscripcion.
+Control process:20.
 contenidos :=DataBase getContenidos.
+Control process:30.
 contenidos do:[:clientSQL| temp addContenido:(Contenido createWithSQL:clientSQL)].
+Control process:40.
 suscripciones do:[:clientSQL| temp addSuscription:(Descuento createWithSQL:clientSQL)].
+Control process:50.
 ^temp.
 
 ]
@@ -106,9 +110,11 @@ max :=colectionClientes size.
 
 { #category : #'as yet unclassified' }
 Tienda >> crearWithSQL [
-| clientes  |
+| clientes  |"Este metodo se encarga de updatear clientes, puesto que debe existir la instancia previamente"
 clientes :=DataBase getClients.
+Control process:60.
 clientes do:[:clientSQL|self addClient:(Cliente createWithSQL:clientSQL)].
+Control process:70.
 ]
 
 { #category : #'as yet unclassified' }
@@ -133,6 +139,11 @@ Tienda >> getContenidos [
 { #category : #'as yet unclassified' }
 Tienda >> getIDTienda [
 ^idTienda.
+]
+
+{ #category : #'as yet unclassified' }
+Tienda >> getPromociones [
+^coleccionPromos.
 ]
 
 { #category : #'as yet unclassified' }

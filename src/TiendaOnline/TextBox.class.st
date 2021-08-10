@@ -28,6 +28,11 @@ temp borderColor:(Color black).
 ]
 
 { #category : #'as yet unclassified' }
+TextBox >> clear [
+self setText:''.
+]
+
+{ #category : #'as yet unclassified' }
 TextBox >> ghostColor:aColor [
 self withRulerNamed: #ghostText.
 self ghostTextRuler textColor:(aColor).

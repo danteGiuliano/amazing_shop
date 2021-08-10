@@ -23,24 +23,20 @@ botonCreate :=Button create: 'CREAR' size:50@30.
 
 Helper addRightCenterMorph: botonCreate  in:self.
 
-botonCreate mouseAction: [ self addSuscription].
-    
+botonCreate mouseAction: [ self addSuscription. {inputDescuentoAplicacion.inputDescuentoLibro.inputDescuentoPelicula.inputNombre}do:[:input|input clear]].
+botonCreate addDependent:self.
+ 
 ]
 
 { #category : #initialization }
 ModalSuscripcion >> addSuscription [
 |colection aDiccionary|
-colection :=OrderedCollection new.
-colection add:(inputNombre text)asString.
-colection add:(inputDescuentoAplicacion text).
-colection add:(inputDescuentoPelicula text).
-colection add:(inputDescuentoLibro text). 
+colection :={inputNombre input.inputDescuentoAplicacion input.inputDescuentoLibro input.inputDescuentoPelicula input}.
 "Update modelo offline"
-aDiccionary:=Dictionary newFrom:{'Pelicula'->(inputDescuentoPelicula text).'Aplicacion'->(inputDescuentoAplicacion text).'Libro'->(inputDescuentoLibro text)}.
-Control modelFuntion:[:tienda| tienda addSuscription:(Descuento conDescuentos:aDiccionary deNombre:(inputNombre text)asString )].
+aDiccionary:=Dictionary newFrom:{'Pelicula'->(inputDescuentoPelicula input).'Aplicacion'->(inputDescuentoAplicacion input).'Libro'->(inputDescuentoLibro input)}.
+Control modelFuntion:[:tienda| tienda addSuscription:(Descuento conDescuentos:aDiccionary deNombre:(inputNombre input))].
 "update modelo database"
 DataBase registerSuscription: colection.
-self success.
 ]
 
 { #category : #initialization }
@@ -54,6 +50,11 @@ Helper addCenterMorph:inputDescuentoAplicacion   in:self.
 Helper addCenterMorph:inputNombre in:self.
 Helper addCenterMorph:inputDescuentoLibro in:self.
 Helper addCenterMorph:inputDescuentoPelicula in:self.
+]
+
+{ #category : #initialization }
+ModalSuscripcion >> changed [ 
+self changed:self.
 ]
 
 { #category : #initialization }
@@ -102,10 +103,6 @@ botonCreate textSize:12.
 ]
 
 { #category : #initialization }
-ModalSuscripcion >> success [ 
-inputDescuentoAplicacion setText:''.
-inputDescuentoLibro setText:''.
-inputDescuentoPelicula setText:''.
-inputNombre setText:''.
-
+ModalSuscripcion >> update:aObject [
+self changed.
 ]

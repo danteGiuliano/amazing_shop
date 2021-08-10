@@ -115,9 +115,10 @@ listaDeSuscripcion add:unaSuscripcion.
 
 { #category : #'as yet unclassified' }
 Cliente >> crearColleciones [
-listaDeSuscripcion :=OrderedCollection  new.
+listaDeSuscripcion :=SortedCollection sortBlock:[:f1 :f2 |f1 mayor:f2].
 listaContenidos :=OrderedCollection new.
 colPago :=OrderedCollection new.
+listaDeSuscripcion add: SuscripcionComprada crearSuscripcionNoActiva.
 ]
 
 { #category : #'as yet unclassified' }

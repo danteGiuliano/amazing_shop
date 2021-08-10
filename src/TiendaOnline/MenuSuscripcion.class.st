@@ -22,6 +22,7 @@ temp := self new.
 MenuSuscripcion >> addPromocion [
 promocion:=ComponenetPromocion new.
 subMenu addMorph:promocion.
+promocion addDependent:self.
  
 ]
 
@@ -29,6 +30,8 @@ subMenu addMorph:promocion.
 MenuSuscripcion >> addSuscription [
 addSuscription :=ModalSuscripcion call.
 subMenu addMorph:addSuscription.
+addSuscription addDependent:self.
+
 ]
 
 { #category : #initialization }
@@ -45,9 +48,10 @@ self style.
 
 { #category : #initialization }
 MenuSuscripcion >> loadTablePromociones [
-| aNamesColumnTable |
-aNamesColumnTable:= #( 'Suscripcion' 'Cantidad Articulos' 'Nueva suscripcion' 'Descuento Promocion' ' meses')asOrderedCollection.
-tablePromocion := Table create: (Descuento elements:(nil)) aCollums: aNamesColumnTable  aSize:(800@350).
+| aNamesColumnTable promociones|
+aNamesColumnTable:= #( 'Suscripcion' 'Cantidad Articulos' 'Nueva suscripcion' 'Descuento Promocion' 'meses')asOrderedCollection.
+promociones :=Control modelFuntionReturn:[:h| h getPromociones].
+tablePromocion := Table create: (Promocion elements:(promociones)) aCollums: aNamesColumnTable  aSize:(800@350).
 "Style"
 Helper addCenterMorph: tablePromocion in:subMenu.
 Helper border: tablePromocion aColor:tablePromocion color.
@@ -72,4 +76,9 @@ addSuscription left:subMenu left+10;top:subMenu top.
 tableSuscripcion left:addSuscription right +10;top:subMenu  top.
 promocion top:addSuscription bottom+10;left:addSuscription left.
 tablePromocion top:promocion top;left:promocion right+10. 
+]
+
+{ #category : #initialization }
+MenuSuscripcion >> update:aObject [
+tablePromocion delete.tableSuscripcion delete.self loadTableSuscripcions. self loadTablePromociones.self style.
 ]

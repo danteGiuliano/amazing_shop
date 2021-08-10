@@ -21,14 +21,22 @@ Login class >> create [
 
 { #category : #initialization }
 Login >> autentication [
-|query|
+|query process|
+
+process :=ProgressBarMorph from: 0 to: 100.
+process  extent: 200@20.
+self addMorph:process.
+process center:login center.process top:login bottom+10.
+process visible:false.
+
+
 query :=DataBase autenticationName:(inputUser text)asString aPassWord:(inputPassword text)asString.
 query isError ifTrue:[
 		"un error de consulta"
 	]ifFalse:[
 	|rows|
 	rows :=query rows.
-	rows isEmpty ifFalse:[Control userSession:(rows at:1)columns. Menu create.]ifTrue:[
+	rows isEmpty ifFalse:[Control userSession:(rows at:1)columns process:process. Menu create.]ifTrue:[
 		"Error de usuario no encontrado "
 		]
 	]
@@ -50,6 +58,7 @@ fonde center: self center.
 fonde right:self right.
 fonde color:Color white.
 "Gif"
+
 Helper addCenterMorph:(MorphGIF gifFromString:'inicio2.gif') in:fonde.
 
 
@@ -58,8 +67,8 @@ Helper addCenterMorph:(MorphGIF gifFromString:'inicio2.gif') in:fonde.
 { #category : #'as yet unclassified' }
 Login >> initialize [
 super initialize.
+[self fonde]fork.
 self defineMorph.
-self fonde.
 self initializeButtons.
 self initializeTextBoxs.
 self openInHand.
@@ -100,7 +109,7 @@ login top:create bottom+30.
 "Añado funciones a los bottones."
 close mouseAction: [close close:self].
 create mouseAction: [|mod|mod:=(ModalTienda call).mod height:self height.mod left:fonde left.self addMorph:mod].
-login mouseAction:[self autentication].
+login mouseAction:[[self autentication]fork].
 
 
 
